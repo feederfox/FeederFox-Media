@@ -1,0 +1,275 @@
+
+
+<!-- feederfoxnew/home/templates/publishersignup.html-->
+{% extends 'base.html' %} <!-- Add this for inheritance -->
+{%  load static %}
+{% load crispy_forms_tags %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}Registration {% endblock %}</title>
+</head>
+<body>
+{% block pagecontent %}
+ <!--header starts here -->
+<div class="bg-header">
+  <div class="container">
+   <div class="row">
+       <div class="col-md-6">
+        <div id="weather-frame" class="container">
+          <div id="upper-detail">
+            <div id="city-name"></div>
+          </div>
+          <div id="lower-detail">
+            <div class="row">
+              <div id="temp" class="col-xs-6">
+              </div>
+            </div>
+          </div>
+        </div>
+        <img src="{% static 'dist/images/logos/logo.png' %}" class="img-responsive header_img">
+      </div>
+      <div class="col-md-2" >
+        <div class="dropdown drop1">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-user"></i> Publisher
+            <span class="caret"></span></a>
+            <ul class="dropdown-menu d1">
+              <li><a target="_blank" href="{% url 'account_signup' %}">Sign Up</a></li>
+              <li><a href=" {% url 'account_login' %} ">Login</a></li>
+            </ul>
+          </div>
+        </div>
+        <div class="col-md-2">
+         <div class="dropdown drop1">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-user"></i> Customer
+            <span class="caret"></span></a>
+            <ul class="dropdown-menu d1">
+              <li><a href="#">Sign Up</a></li>
+              <li><a href="#">Login</a></li>
+            </ul>
+          </div>
+        </div>
+        <div class="col-md-2">
+         <div class="dropdown drop1">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-user"></i> Advertiser
+            <span class="caret"></span></a>
+            <ul class="dropdown-menu d1">
+              <li><a href="#">Sign Up</a></li>
+              <li><a href="#">Login</a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+</div>
+</div>
+ <!-- header ends here -->
+
+<!-- bse scrolling bar starts here -->
+<div class="runtext-container">
+<div class="main-runtext">
+<marquee direction="" onmouseover="this.stop();" onmouseout="this.start();">
+
+<div class="holder">
+
+     <div class="text-container">
+   &nbsp; &nbsp; <img src=""> &nbsp; <a data-fancybox-group="gallery" class="fancybox" title="Feederfox">BSE updates coming soon!!! Please come back again for live updates!! </a>
+    </div>
+
+     <div class="text-container">
+   &nbsp; &nbsp; <img src=""> &nbsp; <a data-fancybox-group="gallery" class="fancybox"  title="Feederfox">BSE updates coming soon!!! Please come back again for live updates!! </a>
+    </div>
+
+     <div class="text-container">
+   &nbsp; &nbsp; <img src=""> &nbsp; <a data-fancybox-group="gallery" class="fancybox"  title="Feederfox">BSE updates coming soon!!! Please come back again for live updates!! </a>
+    </div>
+
+     <div class="text-container">
+   &nbsp; &nbsp; <img src=""> &nbsp; <a data-fancybox-group="gallery" class="fancybox" title="Feederfox">BSE updates coming soon!!! Please come back again for live updates!! </a>
+    </div>
+
+     <div class="text-container">
+   &nbsp; &nbsp; <img src=""> &nbsp; <a data-fancybox-group="gallery" class="fancybox"  title="Feederfox">BSE updates coming soon!!! Please come back again for live updates!! </a>
+    </div>
+
+     <div class="text-container">
+   &nbsp; &nbsp; <img src=""> &nbsp; <a data-fancybox-group="gallery" class="fancybox"  title="Feederfox">BSE updates coming soon!!! Please come back again for live updates!! </a>
+    </div>
+
+     <div class="text-container">
+   &nbsp; &nbsp; <img src=""> &nbsp; <a data-fancybox-group="gallery" class="fancybox"  title="Feederfox">BSE updates coming soon!!! Please come back again for live updates!! </a>
+    </div>
+
+     <div class="text-container">
+   &nbsp; &nbsp; <img src=""> &nbsp; <a data-fancybox-group="gallery" class="fancybox" title="Feederfox">BSE updates coming soon!!! Please come back again for live updates!! </a>
+    </div>
+
+</div>
+
+</marquee>
+</div>
+</div>
+ <!-- bse scrolling bar ends here -->
+
+ <!-- navigation bar -->
+ <nav class="navbar navbar-default w3_megamenu" role="navigation">
+  <div class="navbar-header">
+    <button type="button" data-toggle="collapse" data-target="#defaultmenu" class="navbar-toggle"><span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span></button><a href="#" class="navbar-brand"><i class="fa fa-home"></i></a>
+  </div><!-- end navbar-header -->
+
+  <div id="defaultmenu" class="navbar-collapse collapse">
+    <ul class="nav navbar-nav">
+     <li class="dropdown"><a href="#" data-toggle="dropdown" class="dropdown-toggle">Home <b class="caret"></b></a>
+        <ul class="dropdown-menu" role="menu">
+
+          <li><a href="">NewsChannels</a></li>
+          <li><a href="">Newspapers</a></li>
+          <li><a href="">Magazines</a></li>
+          <li><a href="">Social Channels</a></li>
+        </ul>
+      </li>
+      <!-- Mega Menu -->
+        <li class="dropdown w3_megamenu-fw"><a href="#" data-toggle="dropdown" class="dropdown-toggle">Political Forum<b class="caret"></b></a>
+          <ul class="dropdown-menu fullwidth">
+            <li class="w3_megamenu-content withdesc">
+              <div class="row">
+                <div class="col-sm-6">
+                  <ul>
+                    <li><a data-description="" href="">
+                      <div class="card elevation-2dp box">
+                          <div class="row">
+                          <div class="col-md-5"></div>
+                          <div class="col-md-3">
+                          <img src="{% static 'dist/images/modi.jpg' %}" alt="" style="margin-left:-8px;height:130px;">
+                        </div>
+                        </div>
+
+
+                        <div class="supporting-text">
+                          <p> Narendra Damodardas Modi (Gujarati: [ˈnəɾeːnd̪rə d̪aːmoːd̪əɾˈd̪aːs ˈmoːd̪iː] (About this sound listen); born 17 September 1950) is an Indian politician serving as the 14th and current Prime Minister of India since 2014. He was the Chief Minister of Gujarat from 2001 to 2014, and is the Member of Parliament for Varanasi. Modi, a member of the Bharatiya Janata Party (BJP), is a Hindu nationalist and member of the right-wing Rashtriya Swayamsevak Sangh (RSS).</p>
+                        </div>
+                      </div>
+                    </a></li>
+                  </ul>
+                </div>
+                <div class="col-sm-6">
+                  <ul>
+                   <li><a data-description="" href="">
+                       <div class="card elevation-2dp box">
+                        <div class="row">
+                          <div class="col-md-5"></div>
+                          <div class="col-md-3">
+                          <img src="{% static 'dist/images/rahul_gandhi.jpg' %}" alt="" style="margin-left:-8px;height:130px;">
+                        </div>
+                        </div>
+                        <div class="supporting-text">
+                          <p> Rahul Gandhi About this sound pronunciation (help·info) [ˈraːɦʊl ˈɡaːnd̪ʱiː] (born 19 June 1970) is an Indian politician. The son of Sonia and Rajiv Gandhi, he is the President of the Indian National Congress and serves such additional offices as the Chairperson of the Indian Youth Congress and the National Students Union of India.</p>
+                        </div>
+                      </div>
+                    </a></li>
+                  </ul>
+                </div>
+              </div>
+            </li>
+            <li class="w3_megamenu-content withdesc">
+              <div class="row">
+                <div class="col-sm-6" style="margin-top:-50px;">
+                  <ul>
+                    <li><a data-description="" href="">
+                      <div class="card elevation-2dp box">
+                        <div class="row">
+                          <div class="col-md-5"></div>
+                          <div class="col-md-3">
+                          <img src="{% static 'dist/images/kumarswamy.jpg' %}" alt="" style="margin-left:-8px;height:130px;">
+                        </div>
+                        </div>
+                        <div class="supporting-text">
+                          <p> Haradanahalli Devegowda Kumaraswamy (born 16 December 1959)[4] is an Indian politician and current Chief Minister of Karnataka. He is the President of Karnataka State Janata Dal (Secular) and son of former Prime Minister of India H. D. Deve Gowda.[5] During his 2006 cheif ministerial period Karnataka state recorded all time high GDP growth and he was called people's CM</p>
+                        </div>
+                      </div>
+                    </a></li>
+                  </ul>
+                </div>
+
+                <div class="col-sm-6" style="margin-top:-50px;">
+                  <ul>
+                   <li><a data-description="" href="">
+                       <div class="card elevation-2dp box">
+                        <div class="row">
+                          <div class="col-md-5"></div>
+                          <div class="col-md-3">
+                          <img src="{% static 'dist/images/Nitish_Kumar2.jpg' %}" alt="" style="margin-left:-8px;height:130px;">
+                        </div>
+                        </div>
+                        <div class="supporting-text">
+                          <p> The Chief Minister of Bihar is the chief executive of the Indian state of Bihar. As per the Constitution of India, the Governor of Bihar is the state's de jure head, but de facto executive authority rests with the chief minister. </p>
+                        </div>
+                      </div>
+                    </a></li>
+                  </ul>
+                </div>
+              </div>
+            </li>
+          </ul>
+        </li>
+        <li class="dropdown"><a href="#" data-toggle="dropdown" class="dropdown-toggle">NewsFeeds <b class="caret"></b></a>
+        <ul class="dropdown-menu" role="menu">
+
+          <li><a href="">Headlines/Breaking News</a></li>
+          <li><a href="">Educational</a></li>
+          <li><a href="">Entertainment</a></li>
+          <li><a href="">Business</a></li>
+          <li><a href="">Sports</a></li>
+          <li><a href="">Lifestyle</a></li>
+          <li><a href="">Social</a></li>
+          <li><a href="">World/International</a></li>
+          <li><a href="">Global</a></li>
+        </ul>
+      </li>
+        <li class="dropdown"><a href="#" data-toggle="dropdown" class="dropdown-toggle">Article/Blog <b class="caret"></b></a>
+        <ul class="dropdown-menu" role="menu">
+
+          <li><a href="">Business/Economic</a></li>
+          <li><a href="">Write Article</a></li>
+          <li><a href="">E-books</a></li>
+        </ul>
+      </li>
+
+      <li class="dropdown"><a href="#" data-toggle="dropdown" class="dropdown-toggle">Business <b class="caret"></b></a>
+        <ul class="dropdown-menu" role="menu">
+
+          <li><a href="">Consulting</a></li>
+        </ul><!-- end dropdown-menu -->
+      </li><!-- end standard drop down -->
+      <!-- end dropdown w3_megamenu-fw -->
+    </ul><!-- end nav navbar-nav -->
+  </div><!-- end #navbar-collapse-1 -->
+
+</nav><!-- end navbar navbar-default w3_megamenu -->
+
+<div class="container">
+<div class="row">
+    <div class="col-md-12">
+      <img src="{% static 'dist/images/ads/fgh.jpg' %}" style="width:100%;">
+    </div>
+</div>
+</div>
+
+<div class="container">
+	<br>
+
+<h3>Are you sure you want to sign out?</h3>
+
+
+
+<form method="post" action="{% url 'account_logout' %}">
+  {% csrf_token %}
+  {% if redirect_field_value %}
+  <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}"/>
+  {% endif %}
+  <button type="submit">Sign Out</button>
+</form>
+</div>
+{% include 'footer.html' %}
+
+{% endblock %}
