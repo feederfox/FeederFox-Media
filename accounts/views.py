@@ -4,6 +4,7 @@ from .forms import SignUpForm,PostForm
 from .models import Profile,Post
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth.models import User
 
 def signup(request):
     if request.method == 'POST':
@@ -25,11 +26,6 @@ def signup(request):
     return render(request, 'account/signup.html', {'form': form})
 
 
-def profile(request):
-	profile = Profile.objects.all()    
-	print(profile.user)
-	return HttpResponse('Success')
-	return render(request,'profile.html',{'profile':profile})
 
 def publisher_list(request):
 	publishers = Profile.objects.filter(Account_type=1)
