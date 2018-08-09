@@ -51,7 +51,7 @@ def contact(request):
                 "New contact form submission",
                 content,
                 "feederfox.com" +'',
-                ['vinay.feederfox@gmail.com'],
+                ['sameer.feederfox@gmail.com'],
                 headers = {'Reply-To': Email }
             )
             email.send()
