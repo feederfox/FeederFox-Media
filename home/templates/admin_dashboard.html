@@ -1,4 +1,6 @@
 {% load static %}
+{% load crispy_forms_tags %}
+{% load widget_tweaks %}
 <!DOCTYPE html>
 <html>
 <head>
@@ -13,6 +15,8 @@
 <!-- Custom Css -->
 <link rel="stylesheet" href="{% static 'dist/css/main.css' %}">
 <link rel="stylesheet" href="{% static 'dist/css/all-themes.css' %}" />
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
 
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/material-design-iconic-font/2.2.0/css/material-design-iconic-font.min.css">
 
@@ -54,7 +58,7 @@
         <ul class="nav navbar-nav navbar-right">
         
             <li><a href=" {% url 'accounts:logout' %} " class="mega-menu" data-close="true"><i class="zmdi zmdi-power"></i></a></li>
-            <li><a href="javascript:void(0);" class="js-right-sidebar" data-close="true"><i class="zmdi zmdi-settings zmdi-hc-spin"></i></a></li>
+            <li><a href=" {% url 'account_change_password' %} "  >Password Reset</a></li>
         </ul>
     </div>
 </nav>
@@ -64,154 +68,40 @@
 
 <div class="user-info">
         <div class="container">
-            <div class="image"> <img src="/static/images/logos/logo.png" style="align-self: center;" width="150" height="150" alt="User" /> </div>
+            <div class="image"> <img src="/static/dist/images/logos/logo.png" style="align-self: center;" width="150" height="150" alt="User" /> </div>
         </div>
     </div>
     <!-- #User Info --> 
     <!-- Menu -->
     <div class="menu">
         <ul class="list">
-            
             <li> <a href=" {% url 'dashboard' %} " class="menu-toggle"><span>Dashboard</span></a></li>
             <li> <a href="#" class="menu-toggle"><span> Publisher Management </span> </a>
                 <ul class="ml-menu">
                     <li><a href=" {% url 'accounts:publisher_list' %} ">Publisher List</a></li>
-                    <li><a href="#">Add Publisher</a></li>     
+                    <li><a href="{% url 'accounts:add_publishers' %}">Add Publisher</a></li>     
                 </ul>
                  </li>
             <li> <a href="#" class="menu-toggle"><span> Customer Management </span> </a>
                 <ul class="ml-menu">
                     <li><a href="{% url 'accounts:customer_list' %}">Customer List</a></li>
-                    <li><a href="#">Add Customer</a></li>     
+                    <li><a href="{% url 'accounts:add_customers' %}">Add Customer</a></li>     
                 </ul>
                  </li>
 
             <li> <a href="#" class="menu-toggle"> <span> Advertiser Management </span> </a>
                 <ul class="ml-menu">
                     <li><a href="{% url 'accounts:advertiser_list' %}">Advertiser List</a></li>
-                    <li><a href="#">Add Advertiser</a></li>     
+                    <li><a href="{% url 'accounts:add_advertisers' %}">Add Advertiser</a></li>     
                 </ul>
-                 </li>         
+                 </li> 
             
     </div>
     <!-- #Menu --> 
 </aside>
 
 <!-- Right Sidebar -->
-<aside id="rightsidebar" class="right-sidebar">
-    <ul class="nav nav-tabs">
-        <li class="nav-item"><a class="nav-link active" data-toggle="tab" href="#skins">Skins</a></li>
-        <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#chat">Chat</a></li>
-        <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#settings">Setting</a></li>
-    </ul>
-    <div class="tab-content">
-        <div role="tabpanel" class="tab-pane active" id="skins">
-            <div class="right_menu">
-                <ul class="choose-skin">
-                    <h6>Flat Color</h6>
-                    <li data-theme="red"  class="active">
-                        <div class="red"></div>
-                        <span>Red</span> </li>
-                    <li data-theme="purple">
-                        <div class="purple"></div>
-                        <span>Purple</span> </li>
-                    <li data-theme="deep-purple">
-                        <div class="deep-purple"></div>
-                        <span>Deep Purple</span> </li>
-                    <li data-theme="blue">
-                        <div class="blue"></div>
-                        <span>Blue</span> </li>
-                    <li data-theme="cyan">
-                        <div class="cyan"></div>
-                        <span>Cyan</span> </li>
-                    <li data-theme="blue-grey">
-                        <div class="blue-grey"></div>
-                        <span>Blue Grey</span> </li>
-                    <li data-theme="black">
-                        <div class="black"></div>
-                        <span>Black</span> </li>
-                    <h6>Gradient Theme</h6>
-                    <li data-theme="green">
-                        <div class="green"></div>
-                        <span>Green</span> </li>
-                    <li data-theme="orange">
-                        <div class="orange"></div>
-                        <span>Orange</span> </li>
-                    <li data-theme="blush">
-                        <div class="blush"></div>
-                        <span>Blush</span> </li>
-                </ul>
-            </div>
-        </div>
-        <div role="tabpanel" class="tab-pane" id="chat">
-            <div class="right_menu">
-                <div class="search">
-                    <div class="input-group">
-                        <div class="form-line">
-                            <input type="text" class="form-control" placeholder="Search..." required>
-                        </div>
-                    </div>
-                </div>
-                
-            </div>
-        </div>
-        <div role="tabpanel" class="tab-pane" id="settings">
-            <div class="right_menu">
-                <p class="text-left">GENERAL SETTINGS</p>
-                <ul class="setting-list">
-                    <li> <span>Report Panel Usage</span>
-                        <div class="switch">
-                            <label>
-                                <input type="checkbox" checked>
-                                <span class="lever"></span></label>
-                        </div>
-                    </li>
-                    <li> <span>Email Redirect</span>
-                        <div class="switch">
-                            <label>
-                                <input type="checkbox">
-                                <span class="lever"></span></label>
-                        </div>
-                    </li>
-                </ul>
-                <p class="text-left">SYSTEM SETTINGS</p>
-                <ul class="setting-list">
-                    <li> <span>Notifications</span>
-                        <div class="switch">
-                            <label>
-                                <input type="checkbox" checked>
-                                <span class="lever"></span></label>
-                        </div>
-                    </li>
-                    <li> <span>Auto Updates</span>
-                        <div class="switch">
-                            <label>
-                                <input type="checkbox" checked>
-                                <span class="lever"></span></label>
-                        </div>
-                    </li>
-                </ul>
-                <p class="text-left">ACCOUNT SETTINGS</p>
-                <ul class="setting-list">
-                    <li> <span>Offline</span>
-                        <div class="switch">
-                            <label>
-                                <input type="checkbox">
-                                <span class="lever"></span></label>
-                        </div>
-                    </li>
-                    <li> <span>Location Permission</span>
-                        <div class="switch">
-                            <label>
-                                <input type="checkbox" checked>
-                                <span class="lever"></span></label>
-                        </div>
-                    </li>
-                </ul>
-            </div>
-        </div>
-    </div>
-</aside>
+
 
 <!-- Main Content -->
 <section class="content home">
@@ -219,6 +109,9 @@
         <div class="block-header">
             <div class="row">
                 <div class="col-lg-12 col-md-6 col-sm-7">
+
+                    <h3> Hi {{ request.user }} </h3>
+
                     <h2>Dashboard</h2>                    
                     <ul class="breadcrumb">                        
                         <li class="breadcrumb-item"><a href="index.html">Dashboard</a></li>

@@ -10,13 +10,19 @@ ACCCOUNT_TYPES_CHOICES = [
 ]
 
 class Profile(models.Model):
-	user = models.OneToOneField(User, on_delete = models.CASCADE)
-	username = models.CharField(max_length=100)
-	email = models.EmailField()
-	Account_type = models.CharField(max_length=100,choices=ACCCOUNT_TYPES_CHOICES)
+    user = models.OneToOneField(User, on_delete = models.CASCADE)
+    username = models.CharField(max_length=100)
+    email = models.EmailField()
+    Account_type = models.CharField(max_length=100,choices=ACCCOUNT_TYPES_CHOICES)
+    Company_Name = models.CharField(max_length=100,blank=True,null=True)
+    Firstname = models.CharField(max_length=100,blank=True,null=True)
+    Lastname = models.CharField(max_length=100,blank=True,null=True)
+    Address = models.CharField(max_length=1000,blank=True,null=True)
+    Mobile = models.CharField(max_length=100,blank=True,null=True)
 
-	def __str__(self):
-		return str(self.user)
+
+    def __str__(self):
+        return str(self.user)
 
 @receiver(post_save, sender=User)
 def update_user_profile(sender, instance, created, **kwargs):

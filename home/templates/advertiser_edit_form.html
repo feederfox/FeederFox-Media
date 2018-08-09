@@ -16,9 +16,6 @@
 <link rel="stylesheet" href="{% static 'dist/css/main.css' %}">
 <link rel="stylesheet" href="{% static 'dist/css/all-themes.css' %}" />
 
-      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-
-
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/material-design-iconic-font/2.2.0/css/material-design-iconic-font.min.css">
 
 </head>
@@ -101,68 +98,61 @@
     <!-- #Menu --> 
 </aside>
 
+
 <!-- Right Sidebar -->
-<aside id="rightsidebar" class="right-sidebar">
-    
-</aside>
+
 
 <!-- Main Content -->
 <section class="content home">
     <div class="container-fluid">
         <div class="block-header">
             <div class="row">
-                <div class="col-lg-12 col-md-6 col-sm-7">
-                    <h2>advertiser's List</h2>                    
-                    
-                </div>            
             </div>
-        </div>
+<div class="container">
+	
 
-                        <div class="container">
-                    {% if messages %}
-                                    <ul class="messages">
-                                        {% for message in messages %}
-                                        <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
-                                        {% endfor %}
-                                    </ul>
+            <div class="container">
+                <div class="col-sm-12">
+                <h4>Edit Advertisers ...</h4>
+
+					<form action="." method="POST" class="form">
+						            {% csrf_token %}
+                      <!-- {% for field in form.visible_fields %}
+                                <div class="form-group form-float">
+                                    <div class="form-line">
+                                  {{ field.label_tag }}
+
+                                  {% if form.is_bound %}
+                                    {% if field.errors %}
+                                      {% render_field field class="form-control is-invalid" %}
+                                      {% for error in field.errors %}
+                                        <div class="invalid-feedback">
+                                          {{ error }}
+                                        </div>
+                                      {% endfor %}
+                                    {% else %}
+                                      {% render_field field class="form-control is-valid" %}
                                     {% endif %}
+                                  {% else %}
+                                    {% render_field field class="form-control" %}
+                                  {% endif %}
 
-                    
-                    <table class="table table-bordered">
-                        <tr>
-                            <th>Sl no </th>
-                            <th> Name </th>
-                            <th>Email  </th>
-                            <th>Firstname</th>
-                            <th>Lastname</th>
-                           <th>Mobile</th>
-                           <th>Address</th>
-                           <th>Actions</th>
-                            
-                            
-                        </tr>
-                        {% for advertiser in advertisers %}
-                        <tr>
+                                  {% if field.help_text %}
+                                    <small class="form-text text-muted">{{ field.help_text }}</small>
+                                  {% endif %}
+                                </div>
+                                </div>
+                              {% endfor %} -->
+                              {{ form|crispy}}
+					            <br>
+					            <button type="submit" class="btn btn-raised waves-effect bg-red"> Update </button>
+					            
+					        
+					        </form>
 
-                            <td>{{ forloop.counter }}</td>
-                            <td>{{ advertiser.username }} </td>
-                            <td>{{ advertiser.email }}</td>
-                            <td>{{ advertiser.Firstname }} </td>
-                            <td>{{ advertiser.Lastname }} </td>
-                            <td>{{ advertiser.Mobile }} </td>
-                            <td>{{ advertiser.Address }} </td>
-                            <td><a href=" {% url 'accounts:edit_advertisers' advertiser.id %}" title="view/edit" data-rel="tooltip"> <span class="fa fa-pencil"></span></a>
-                                <a href=" {% url 'accounts:delete_advertiser' advertiser.id %}" title="delete" data-rel="tooltip"><span class="fa fa-trash-o"></span></a>
-                            </td>
-                            
-                            
-                        </tr>
-                        {% endfor %}
-                    </table>
-
-      </div>
-
-    </div>
+					        </div>
+    	</div>
+	</div>
 </section>
 
 <!-- Jquery Core Js --> 

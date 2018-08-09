@@ -1,0 +1,22 @@
+{% load crispy_forms_tags %}
+
+<div class="container">
+
+
+									{% if messages %}
+                                    <ul class="messages">
+                                        {% for message in messages %}
+                                        <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+                                        {% endfor %}
+                                    </ul>
+                                    {% endif %}
+
+<form class="login" method="POST" action="">
+  {% csrf_token %}
+  {{ form|crispy }}
+  
+  <a class="button secondaryAction" href=" {% url 'account_reset_password' %} "> Forgot Password</a>
+  <a href="{% url 'admin' %} "></a><button class="primaryAction" type="submit">Sign In</button>
+</form>
+
+</div>  

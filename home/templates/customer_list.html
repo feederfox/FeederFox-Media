@@ -1,4 +1,6 @@
 {% load static %}
+{% load crispy_forms_tags %}
+{% load widget_tweaks %}
 <!DOCTYPE html>
 <html>
 <head>
@@ -13,6 +15,8 @@
 <!-- Custom Css -->
 <link rel="stylesheet" href="{% static 'dist/css/main.css' %}">
 <link rel="stylesheet" href="{% static 'dist/css/all-themes.css' %}" />
+
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/material-design-iconic-font/2.2.0/css/material-design-iconic-font.min.css">
 
@@ -52,112 +56,9 @@
             <a class="navbar-brand" href="index.html">FeederFox Media</a>
         </div>
         <ul class="nav navbar-nav navbar-right">
-            <li><a href="javascript:void(0);" class="js-search" data-close="true"><i class="zmdi zmdi-search"></i></a></li>            
-            <li class="dropdown"> <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" ><i class="zmdi zmdi-notifications"></i>
-                <div class="notify"><span class="heartbit"></span><span class="point"></span></div>
-                </a>
-                <ul class="dropdown-menu">
-                    <li class="header">NOTIFICATIONS</li>
-                    <li class="body">
-                        <ul class="menu list-unstyled">
-                            <li> <a href="javascript:void(0);">
-                                <div class="icon-circle bg-orange"> <i class="material-icons">person_add</i> </div>
-                                <div class="menu-info">
-                                    <h4>12 new members joined</h4>
-                                    <p> <i class="material-icons">access_time</i> 14 mins ago </p>
-                                </div>
-                                </a> </li>
-                            <li> <a href="javascript:void(0);">
-                                <div class="icon-circle bg-cyan"> <i class="material-icons">add_shopping_cart</i> </div>
-                                <div class="menu-info">
-                                    <h4>4 sales made</h4>
-                                    <p> <i class="material-icons">access_time</i> 22 mins ago </p>
-                                </div>
-                                </a> </li>
-                            <li> <a href="javascript:void(0);">
-                                <div class="icon-circle bg-blue"> <i class="material-icons">delete_forever</i> </div>
-                                <div class="menu-info">
-                                    <h4><b>Nancy Doe</b> deleted account</h4>
-                                    <p> <i class="material-icons">access_time</i> 3 hours ago </p>
-                                </div>
-                                </a> </li>
-                            <li> <a href="javascript:void(0);">
-                                <div class="icon-circle bg-green"> <i class="material-icons">mode_edit</i> </div>
-                                <div class="menu-info">
-                                    <h4><b>Nancy</b> changed name</h4>
-                                    <p> <i class="material-icons">access_time</i> 2 hours ago </p>
-                                </div>
-                                </a> </li>
-                            <li> <a href="javascript:void(0);">
-                                <div class="icon-circle bg-pink"> <i class="material-icons">comment</i> </div>
-                                <div class="menu-info">
-                                    <h4><b>John</b> commented your post</h4>
-                                    <p> <i class="material-icons">access_time</i> 4 hours ago </p>
-                                </div>
-                                </a> </li>
-                            <li> <a href="javascript:void(0);">
-                                <div class="icon-circle bg-lime"> <i class="material-icons">cached</i> </div>
-                                <div class="menu-info">
-                                    <h4><b>John</b> updated status</h4>
-                                    <p> <i class="material-icons">access_time</i> 3 hours ago </p>
-                                </div>
-                                </a> </li>
-                            <li> <a href="javascript:void(0);">
-                                <div class="icon-circle bg-purple"> <i class="material-icons">settings</i> </div>
-                                <div class="menu-info">
-                                    <h4>Settings updated</h4>
-                                    <p> <i class="material-icons">access_time</i> Yesterday </p>
-                                </div>
-                                </a> </li>
-                        </ul>
-                    </li>
-                    <li class="footer"> <a href="javascript:void(0);">View All Notifications</a> </li>
-                </ul>
-            </li>
-            <li class="dropdown hidden-sm-down"> <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" ><i class="zmdi zmdi-flag"></i>
-                <div class="notify"><span class="heartbit"></span><span class="point"></span></div>
-                </a>
-                <ul class="dropdown-menu slideDown">
-                    <li class="header">TASKS</li>
-                    <li class="body">
-                        <ul class="menu tasks list-unstyled">
-                            <li> <a href="javascript:void(0);">
-                                <h4> Footer display issue <small>72%</small> </h4>
-                                <div class="progress">
-                                    <div class="progress-bar progress-bar-danger" role="progressbar" aria-valuenow="72" aria-valuemin="0" aria-valuemax="100" style="width: 68%;"></div>
-                                </div>
-                                </a> </li>
-                            <li> <a href="javascript:void(0);">
-                                <h4> Make new buttons <small>56%</small> </h4>
-                                <div class="progress">
-                                    <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="56" aria-valuemin="0" aria-valuemax="100" style="width: 68%;"></div>
-                                </div>
-                                </a> </li>
-                            <li> <a href="javascript:void(0);">
-                                <h4> Create new dashboard <small>68%</small> </h4>
-                                <div class="progress">
-                                    <div class="progress-bar progress-bar-striped" role="progressbar" aria-valuenow="68" aria-valuemin="0" aria-valuemax="100" style="width: 68%;"></div>
-                                </div>
-                                </a> </li>
-                            <li> <a href="javascript:void(0);">
-                                <h4> Solve transition issue <small>77%</small> </h4>
-                                <div class="progress">
-                                    <div class="progress-bar progress-bar-warning" role="progressbar" aria-valuenow="77" aria-valuemin="0" aria-valuemax="100" style="width: 68%;"></div>
-                                </div>
-                                </a> </li>
-                            <li> <a href="javascript:void(0);">
-                                <h4> Answer GitHub questions <small>87%</small> </h4>
-                                <div class="progress">
-                                    <div class="progress-bar progress-bar-info" role="progressbar" aria-valuenow="87" aria-valuemin="0" aria-valuemax="100" style="width: 68%;"></div>
-                                </div>
-                                </a> </li>
-                        </ul>
-                    </li>
-                    <li class="footer"> <a href="javascript:void(0);">View All Tasks</a> </li>
-                </ul>
-            </li>
-            <li><a href="sign-in.html" class="mega-menu" data-close="true"><i class="zmdi zmdi-power"></i></a></li>
-            <li><a href="javascript:void(0);" class="js-right-sidebar" data-close="true"><i class="zmdi zmdi-settings zmdi-hc-spin"></i></a></li>
+        
+            <li><a href=" {% url 'accounts:logout' %} " class="mega-menu" data-close="true"><i class="zmdi zmdi-power"></i></a></li>
+            <li><a href=" {% url 'account_change_password' %} "  >Password Reset</a></li>
         </ul>
     </div>
 </nav>
@@ -167,33 +68,33 @@
 
 <div class="user-info">
         <div class="container">
-            <div class="image"> <img src="/static/images/logos/logo.png" style="align-self: center;" width="150" height="150" alt="User" /> </div>
+            <div class="image"> <img src="/static/dist/images/logos/logo.png" style="align-self: center;" width="150" height="150" alt="User" /> </div>
         </div>
     </div>
     <!-- #User Info --> 
     <!-- Menu -->
     <div class="menu">
         <ul class="list">
-        <li> <a href=" {% url 'dashboard' %} " class="menu-toggle"><span>Dashboard</span></a></li>
+            <li> <a href=" {% url 'dashboard' %} " class="menu-toggle"><span>Dashboard</span></a></li>
             <li> <a href="#" class="menu-toggle"><span> Publisher Management </span> </a>
                 <ul class="ml-menu">
                     <li><a href=" {% url 'accounts:publisher_list' %} ">Publisher List</a></li>
-                    <li><a href="#">Add Publisher</a></li>     
+                    <li><a href="{% url 'accounts:add_publishers' %}">Add Publisher</a></li>     
                 </ul>
                  </li>
             <li> <a href="#" class="menu-toggle"><span> Customer Management </span> </a>
                 <ul class="ml-menu">
                     <li><a href="{% url 'accounts:customer_list' %}">Customer List</a></li>
-                    <li><a href="#">Add Customer</a></li>     
+                    <li><a href="{% url 'accounts:add_customers' %}">Add Customer</a></li>     
                 </ul>
                  </li>
 
             <li> <a href="#" class="menu-toggle"> <span> Advertiser Management </span> </a>
                 <ul class="ml-menu">
                     <li><a href="{% url 'accounts:advertiser_list' %}">Advertiser List</a></li>
-                    <li><a href="#">Add Advertiser</a></li>     
+                    <li><a href="{% url 'accounts:add_advertisers' %}">Add Advertiser</a></li>     
                 </ul>
-                 </li>           
+                 </li> 
             
     </div>
     <!-- #Menu --> 
@@ -201,163 +102,7 @@
 
 <!-- Right Sidebar -->
 <aside id="rightsidebar" class="right-sidebar">
-    <ul class="nav nav-tabs">
-        <li class="nav-item"><a class="nav-link active" data-toggle="tab" href="#skins">Skins</a></li>
-        <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#chat">Chat</a></li>
-        <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#settings">Setting</a></li>
-    </ul>
-    <div class="tab-content">
-        <div role="tabpanel" class="tab-pane active" id="skins">
-            <div class="right_menu">
-                <ul class="choose-skin">
-                    <h6>Flat Color</h6>
-                    <li data-theme="red"  class="active">
-                        <div class="red"></div>
-                        <span>Red</span> </li>
-                    <li data-theme="purple">
-                        <div class="purple"></div>
-                        <span>Purple</span> </li>
-                    <li data-theme="deep-purple">
-                        <div class="deep-purple"></div>
-                        <span>Deep Purple</span> </li>
-                    <li data-theme="blue">
-                        <div class="blue"></div>
-                        <span>Blue</span> </li>
-                    <li data-theme="cyan">
-                        <div class="cyan"></div>
-                        <span>Cyan</span> </li>
-                    <li data-theme="blue-grey">
-                        <div class="blue-grey"></div>
-                        <span>Blue Grey</span> </li>
-                    <li data-theme="black">
-                        <div class="black"></div>
-                        <span>Black</span> </li>
-                    <h6>Gradient Theme</h6>
-                    <li data-theme="green">
-                        <div class="green"></div>
-                        <span>Green</span> </li>
-                    <li data-theme="orange">
-                        <div class="orange"></div>
-                        <span>Orange</span> </li>
-                    <li data-theme="blush">
-                        <div class="blush"></div>
-                        <span>Blush</span> </li>
-                </ul>
-            </div>
-        </div>
-        <div role="tabpanel" class="tab-pane" id="chat">
-            <div class="right_menu">
-                <div class="search">
-                    <div class="input-group">
-                        <div class="form-line">
-                            <input type="text" class="form-control" placeholder="Search..." required>
-                        </div>
-                    </div>
-                </div>
-                <h6>Recent</h6>
-                <ul class="list-unstyled">
-                    <li class="online">
-                        <div class="media"> <a class="float-left"> <img class="media-object " src="assets/images/random-avatar4.jpg" alt=""> </a>
-                            <div class="media-body"> <span class="name">Claire Sassu</span> <span class="message">Can you share the...</span> <span class="badge badge-outline status"></span> </div>
-                        </div>
-                    </li>
-                    <li class="online">
-                        <div class="media"> <a class="float-left"> <img class="media-object " src="assets/images/random-avatar5.jpg" alt=""> </a>
-                            <div class="media-body">
-                                <div class="media-body"> <span class="name">Maggie jackson</span> <span class="message">Can you share the...</span> <span class="badge badge-outline status"></span> </div>
-                            </div>
-                        </div>
-                    </li>
-                    <li class="online">
-                        <div class="media"> <a class="float-left"> <img class="media-object " src="assets/images/random-avatar3.jpg" alt=""> </a>
-                            <div class="media-body">
-                                <div class="media-body"> <span class="name">Joel King</span> <span class="message">Ready for the meeti...</span> <span class="badge badge-outline status"></span> </div>
-                            </div>
-                        </div>
-                    </li>
-                </ul>
-                <h6>Contacts</h6>
-                <ul class="list-unstyled">
-                    <li class="offline">
-                        <div class="media"> <a class="float-left" > <img class="media-object " src="assets/images/random-avatar4.jpg" alt=""> </a>
-                            <div class="media-body">
-                                <div class="media-body"> <span class="name">Joel King</span> <span class="badge badge-outline status"></span> </div>
-                            </div>
-                        </div>
-                    </li>
-                    <li class="online">
-                        <div class="media"> <a class="float-left" > <img class="media-object " src="assets/images/random-avatar5.jpg" alt=""> </a>
-                            <div class="media-body">
-                                <div class="media-body"> <span class="name">Joel King</span> <span class="badge badge-outline status"></span> </div>
-                            </div>
-                        </div>
-                    </li>
-                    <li class="offline">
-                        <div class="media"> <a class="float-left " > <img class="media-object " src="assets/images/random-avatar6.jpg" alt=""> </a>
-                            <div class="media-body">
-                                <div class="media-body"> <span class="name">Joel King</span> <span class="badge badge-outline status"></span> </div>
-                            </div>
-                        </div>
-                    </li>
-                </ul>
-            </div>
-        </div>
-        <div role="tabpanel" class="tab-pane" id="settings">
-            <div class="right_menu">
-                <p class="text-left">GENERAL SETTINGS</p>
-                <ul class="setting-list">
-                    <li> <span>Report Panel Usage</span>
-                        <div class="switch">
-                            <label>
-                                <input type="checkbox" checked>
-                                <span class="lever"></span></label>
-                        </div>
-                    </li>
-                    <li> <span>Email Redirect</span>
-                        <div class="switch">
-                            <label>
-                                <input type="checkbox">
-                                <span class="lever"></span></label>
-                        </div>
-                    </li>
-                </ul>
-                <p class="text-left">SYSTEM SETTINGS</p>
-                <ul class="setting-list">
-                    <li> <span>Notifications</span>
-                        <div class="switch">
-                            <label>
-                                <input type="checkbox" checked>
-                                <span class="lever"></span></label>
-                        </div>
-                    </li>
-                    <li> <span>Auto Updates</span>
-                        <div class="switch">
-                            <label>
-                                <input type="checkbox" checked>
-                                <span class="lever"></span></label>
-                        </div>
-                    </li>
-                </ul>
-                <p class="text-left">ACCOUNT SETTINGS</p>
-                <ul class="setting-list">
-                    <li> <span>Offline</span>
-                        <div class="switch">
-                            <label>
-                                <input type="checkbox">
-                                <span class="lever"></span></label>
-                        </div>
-                    </li>
-                    <li> <span>Location Permission</span>
-                        <div class="switch">
-                            <label>
-                                <input type="checkbox" checked>
-                                <span class="lever"></span></label>
-                        </div>
-                    </li>
-                </ul>
-            </div>
-        </div>
-    </div>
+    
 </aside>
 
 <!-- Main Content -->
@@ -366,7 +111,7 @@
         <div class="block-header">
             <div class="row">
                 <div class="col-lg-12 col-md-6 col-sm-7">
-                    <h2>Customer's List</h2>                    
+                    <h2>customer's List</h2>                    
                     
                 </div>            
             </div>
@@ -385,8 +130,13 @@
                     <table class="table table-bordered">
                         <tr>
                             <th>Sl no </th>
-                            <th>Customer Name </th>
-                            <th>Customer Email  </th>
+                            <th> Name </th>
+                            <th>Email  </th>
+                            <th>Firstname</th>
+                            <th>Lastname</th>
+                           <th>Mobile</th>
+                           <th>Address</th>
+                           <th>Actions</th>
                             
                             
                         </tr>
@@ -394,8 +144,15 @@
                         <tr>
 
                             <td>{{ forloop.counter }}</td>
-                            <td> <i> {{ customer.username }} </i></td>
+                            <td> {{ customer.username }} </td>
                             <td>{{ customer.email }}</td>
+                            <td>{{ customer.Firstname }} </td>
+                            <td>{{ customer.Lastname }} </td>
+                            <td>{{ customer.Mobile }} </td>
+                            <td>{{ customer.Address }} </td>
+                            <td><a href=" {% url 'accounts:edit_customers' customer.id %}" title="view/edit" data-rel="tooltip"> <span class="fa fa-pencil"></span></a>
+                                <a href=" {% url 'accounts:delete_customer' customer.id %}" title="delete" data-rel="tooltip"><span class="fa fa-trash-o"></span></a>
+                            </td>
                             
                             
                         </tr>

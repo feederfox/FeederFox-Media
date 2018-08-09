@@ -10,6 +10,7 @@ urlpatterns = [
     url(r'^faq/$', views.FaqPageView.as_view(), name='faq'),
     url(r'^privacy/$', views.PrivacyPageView.as_view(), name='privacy'),
     url(r'^dashboard/$',views.dashboard,name='dashboard'),
+    url(r'^admin/',views.admin,name='admin'),
     #url(r'^post/',views.post,name='post')
 ]
 
