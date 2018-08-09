@@ -1,9 +1,42 @@
-{% load crispy_forms_tags %}
-
-<div class="container">
 
 
-									{% if messages %}
+
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<title>Feederfox Media Admin Login</title>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+<!--===============================================================================================-->	
+	<link rel="icon" type="image/png" href="images/icons/favicon.ico"/>
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="{% static 'dist/css/bootstrap.min_admin1.css' %}">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="{% static 'dist/css/font-awesome.min_admin.css' %}">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="{% static 'dist/css/material-design-iconic-font.min_admin.css' %}">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="{% static 'dist/css/animate_admin.css' %}">
+<!--===============================================================================================-->	
+	<link rel="stylesheet" type="text/css" href="{% static 'dist/css/hamburgers.min_admin.css' %}">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="{% static 'dist/css/animsition.min_admin.css' %}">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="{% static 'dist/css/select2.min_admin.css' %}">
+<!--===============================================================================================-->	
+	<link rel="stylesheet" type="text/css" href="{% static 'dist/css/daterangepicker_admin.css' %}">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="{% static 'dist/css/util_admin.css' %}">
+	<link rel="stylesheet" type="text/css" href="{% static 'dist/css/main_admin.css' %}">
+<!--===============================================================================================-->
+</head>
+<body>
+	
+	<div class="limiter">
+		<div class="container-login100" style="background-image: url('images/bg-01.jpg');">
+			<div class="wrap-login100">
+{% if messages %}
                                     <ul class="messages">
                                         {% for message in messages %}
                                         <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
@@ -11,12 +44,61 @@
                                     </ul>
                                     {% endif %}
 
-<form class="login" method="POST" action="">
-  {% csrf_token %}
-  {{ form|crispy }}
-  
-  <a class="button secondaryAction" href=" {% url 'account_reset_password' %} "> Forgot Password</a>
-  <a href="{% url 'admin' %} "></a><button class="primaryAction" type="submit">Sign In</button>
-</form>
+                                    <br>
 
-</div>  
+				<form class="login" method="POST" action="">
+					{% csrf_token %}
+
+					<span class="login100-form-title p-b-34 p-t-27">
+						Feederfox Media Admin 
+					</span>
+
+					<div class="wrap-input100 validate-input" id="div_id_username" data-validate = "Enter username">
+
+						<input class="input100" type="text" name="username" id="id_username" placeholder="Username">
+						<span class="focus-input100" data-placeholder="&#xf207;"></span>
+					</div>
+
+					<div class="wrap-input100 validate-input" id="div_id_password" data-validate="Enter password">
+						<input class="input100" type="password"  id="id_password" name="password" placeholder="Password">
+						<span class="focus-input100" data-placeholder="&#xf191;"></span>
+					</div>
+
+					<div class="contact100-form-checkbox" id="div_id_rememberme">
+						<input class="input-checkbox100" id="id_rememberme" type="checkbox" name="rememberme">
+						<label class="label-checkbox100" for="id_rememberme">
+							Remember me
+						</label>
+					</div>
+
+					<div class="container-login100-form-btn">
+						<a href="{% url 'admin' %} "></a><button class="login100-form-btn" type="submit">Login</button>
+					</div>
+
+				</form>
+			</div>
+		</div>
+	</div>
+	
+
+	<div id="dropDownSelect1"></div>
+	
+<!--===============================================================================================-->
+	<script src="{% static 'dist/js/jquery-3.2.1.min_admin.js' %}"></script>
+<!--===============================================================================================-->
+	<script src="{% static 'dist/js/animsition.min_admin.js' %}"></script>
+<!--===============================================================================================-->
+	<script src="{% static 'dist/js/popper_admin.js' %}"></script>
+	<script src="{% static 'dist/js/bootstrap.min_admin.js' %}"></script>
+<!--===============================================================================================-->
+	<script src="{% static 'dist/js/select2.min_admin.js' %}"></script>
+<!--===============================================================================================-->
+	<script src="{% static 'dist/js/moment.min_admin.js' %}"></script>
+	<script src="{% static 'dist/js/daterangepicker_admin.js' %}"></script>
+<!--===============================================================================================-->
+	<script src="{% static 'dist/js/countdowntime_admin.js' %}"></script>
+<!--===============================================================================================-->
+	<script src="{% static 'dist/js/main_admin.js' %}"></script>
+
+</body>
+</html>
