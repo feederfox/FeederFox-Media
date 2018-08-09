@@ -8,9 +8,9 @@ urlpatterns = [
     url(r'^publishersignup/$', views.PublisherSignupPageView.as_view(), name='publisher_signup'),
     url(r'^about/$', views.AboutPageView.as_view(), name='about'),
     url(r'^faq/$', views.FaqPageView.as_view(), name='faq'),
+    url(r'^contact/',views.contact,name='contact'),
     url(r'^privacy/$', views.PrivacyPageView.as_view(), name='privacy'),
     url(r'^dashboard/$',views.dashboard,name='dashboard'),
     url(r'^admin/',views.admin,name='admin'),
     #url(r'^post/',views.post,name='post')
 ]
-

@@ -1,7 +1,7 @@
-# from django import forms
-# from home.models import Posts
+from django import forms
 
-# class PostForm(forms.ModelForm):
-#     class Meta:
-#         model = Posts
-#         fields = '__all__'
+class ContactForm(forms.Form):
+	Name = forms.CharField(max_length=100)
+	Email = forms.EmailField()
+	Mobile = forms.IntegerField()
+	Feedback = forms.CharField(widget=forms.Textarea)

@@ -1,14 +1,16 @@
-# djangotemplates/example/views.py
 from django.contrib.auth import login, authenticate
 
 from django.shortcuts import render, redirect
 from django.views.generic import TemplateView  # Import TemplateView
-#from home.forms import PostForm
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from accounts.models import Profile
 from django.contrib.auth.models import User
 from django.http import HttpResponse
+from .forms import ContactForm
+from django.core.mail import EmailMessage
+from django.template.loader import get_template
+
 
 
 # Add the two views we have been talking about  all this time :)
@@ -28,6 +30,35 @@ def dashboard(request):
     
     return redirect('accounts:post')
 
+def contact(request):
+    form = ContactForm()
+    if request.method=='POST':
+        form = ContactForm(request.POST)
+        if form.is_valid():
+            Name = request.POST.get('Name')
+            Email = request.POST.get('Email')
+            Mobile = request.POST.get('Mobile')
+            Feedback = request.POST.get('Feedback')
+            template = get_template('contact_template.txt')
+            context = {
+                'contact_name': Name,
+                'contact_email': Email,
+                'contact_mobile': Mobile,
+                'contact_feedback':Feedback
+            }
+            content = template.render(context)
+            email = EmailMessage(
+                "New contact form submission",
+                content,
+                "feederfox.com" +'',
+                ['vinay.feederfox@gmail.com'],
+                headers = {'Reply-To': Email }
+            )
+            email.send()
+            return redirect('contact')
+
+    return render(request,'contact.html',{'form':form})
+
 class HomePageView(TemplateView):
     template_name = "index.html"
 
@@ -39,6 +70,7 @@ class FaqPageView(TemplateView):
 
 class PrivacyPageView(TemplateView):
     template_name = "privacy.html"
+
 
 
 class PublisherSignupPageView(TemplateView):
@@ -69,16 +101,3 @@ class PublisherSignupPageView(TemplateView):
         args = {'form': form, 'text': text, 'sample_chapter': sample_chapter}
         return render(request, 'publisher_signup.html', args)
 
-    # def get(self,request):
-    #     if request.method == 'POST':
-    #         form = UserCreationForm(request.POST)
-    #         if form.is_valid():
-    #             form.save()
-    #             username = form.cleaned_data.get('username')
-    #             raw_password = form.cleaned_data.get('password1')
-    #             user = authenticate(username=username, password=raw_password)
-    #             login(request, user)
-    #             return redirect('home')
-    #     else:
-    #         form = UserCreationForm()
-    #     return render(request, 'about.html', {'form': form})

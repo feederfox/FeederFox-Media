@@ -1,0 +1,744 @@
+
+{% extends 'base.html' %}
+{% load static %}
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Feederfox Media</title>
+  <link rel="icon" href="dist/images/logo-web.png">
+  <meta name="tvchannels" content="100,000"/>
+  <meta name="tvchannels" content="100,000"/>
+  <link href="dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="dist/css/animate.css" rel="stylesheet">
+  <link href="dist/css/new_style.css" rel="stylesheet">
+  <link href="dist/css/video.css" rel="stylesheet">
+  <link href="dist/css/animate.css" rel="stylesheet">
+  <link rel="stylesheet" href="dist/css/owl.carousel.min.css">
+  <link rel="stylesheet" href="dist/css/owl.theme.default.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link href="https://fonts.googleapis.com/css?family=Ubuntu" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
+  <script src="dist/js/jquery-1.12.4.min.js"></script>
+  <script src="dist/js/jquery.easing.1.3.js"></script>
+  <script src="dist/js/bootstrap.min.js"></script>
+  <script src="dist/js/custom.js"></script>
+  <script src="dist/js/animate.js"></script>
+   <script src="dist/js/owl.carousel.min.js"></script>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <style type="text/css">
+    body{
+      background-color: #fff;
+    }
+  </style>
+</head>
+<body>
+  {% block pagecontent %}
+
+ <!--header starts here -->
+<div class="bg-header">
+  <div class="container">
+   <div class="row">
+       <div class="col-md-6">
+        <div id="weather-frame" class="container">
+          <div id="upper-detail">
+            <div id="city-name"></div>
+          </div>
+          <div id="lower-detail">
+            <div class="row">
+              <div id="temp" class="col-xs-6">
+              </div>
+            </div>
+          </div>
+        </div>
+        <img src="/static/dist/images/logos/logo.png" class="img-responsive header_img">
+      </div>
+      <div class="col-md-2" >
+        <div class="dropdown drop1">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-user"></i> Publisher
+            <span class="caret"></span></a>
+            <ul class="dropdown-menu d1">
+              <li><a target="_blank" href="publisher_signup.html">Sign Up</a></li>
+              <li><a href="#">Login</a></li>
+            </ul>
+          </div>
+        </div>
+        <div class="col-md-2">
+         <div class="dropdown drop1">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-user"></i> Customer
+            <span class="caret"></span></a>
+            <ul class="dropdown-menu d1">
+              <li><a href="#">Sign Up</a></li>
+              <li><a href="#">Login</a></li>
+            </ul>
+          </div>
+        </div>
+        <div class="col-md-2">
+         <div class="dropdown drop1">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-user"></i> Advertiser
+            <span class="caret"></span></a>
+            <ul class="dropdown-menu d1">
+              <li><a href="#">Sign Up</a></li>
+              <li><a href="#">Login</a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+</div>
+</div>
+ <!-- header ends here -->
+
+<!-- bse scrolling bar starts here -->
+<div class="runtext-container">
+<div class="main-runtext">
+<marquee direction="" onmouseover="this.stop();" onmouseout="this.start();">
+
+<div class="holder">
+
+     <div class="text-container">
+   &nbsp; &nbsp; <img src=""> &nbsp; <a data-fancybox-group="gallery" class="fancybox" " title="Feederfox">BSE updates coming soon!!! Please come back again for live updates!! </a>
+    </div>
+  
+     <div class="text-container">
+   &nbsp; &nbsp; <img src=""> &nbsp; <a data-fancybox-group="gallery" class="fancybox"  title="Feederfox">BSE updates coming soon!!! Please come back again for live updates!! </a>
+    </div>
+    
+     <div class="text-container">
+   &nbsp; &nbsp; <img src=""> &nbsp; <a data-fancybox-group="gallery" class="fancybox"  title="Feederfox">BSE updates coming soon!!! Please come back again for live updates!! </a>
+    </div>
+     
+     <div class="text-container">
+   &nbsp; &nbsp; <img src=""> &nbsp; <a data-fancybox-group="gallery" class="fancybox" title="Feederfox">BSE updates coming soon!!! Please come back again for live updates!! </a>
+    </div>
+     
+     <div class="text-container">
+   &nbsp; &nbsp; <img src=""> &nbsp; <a data-fancybox-group="gallery" class="fancybox"  title="Feederfox">BSE updates coming soon!!! Please come back again for live updates!! </a>
+    </div>
+     
+     <div class="text-container">
+   &nbsp; &nbsp; <img src=""> &nbsp; <a data-fancybox-group="gallery" class="fancybox"  title="Feederfox">BSE updates coming soon!!! Please come back again for live updates!! </a>
+    </div>
+     
+     <div class="text-container">
+   &nbsp; &nbsp; <img src=""> &nbsp; <a data-fancybox-group="gallery" class="fancybox"  title="Feederfox">BSE updates coming soon!!! Please come back again for live updates!! </a>
+    </div>
+     
+     <div class="text-container">
+   &nbsp; &nbsp; <img src=""> &nbsp; <a data-fancybox-group="gallery" class="fancybox" title="Feederfox">BSE updates coming soon!!! Please come back again for live updates!! </a>
+    </div>
+    
+</div>
+
+</marquee>
+</div>
+</div>
+ <!-- bse scrolling bar ends here -->
+
+ <!-- navigation bar -->
+ <nav class="navbar navbar-default w3_megamenu" role="navigation">
+  <div class="navbar-header">
+    <button type="button" data-toggle="collapse" data-target="#defaultmenu" class="navbar-toggle"><span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span></button><a href="#" class="navbar-brand"></a>
+  </div><!-- end navbar-header -->
+
+  <div id="defaultmenu" class="navbar-collapse collapse">
+    <ul class="nav navbar-nav">
+     <li class="dropdown"><a href="#" data-toggle="dropdown" class="dropdown-toggle">Home <b class="caret"></b></a>
+        <ul class="dropdown-menu" role="menu">
+
+          <li><a href="">NewsChannels</a></li>
+          <li><a href="">Newspapers</a></li>
+          <li><a href="">Magazines</a></li>
+          <li><a href="">Social Channels</a></li>
+        </ul>
+      </li> 
+      <!-- Mega Menu -->
+        <li class="dropdown w3_megamenu-fw"><a href="#" data-toggle="dropdown" class="dropdown-toggle">Political Forum<b class="caret"></b></a>
+          <ul class="dropdown-menu fullwidth">
+            <li class="w3_megamenu-content withdesc">
+              <div class="row">
+                <div class="col-sm-6">
+                  <ul>
+                    <li><a data-description="" href="">
+                      <div class="card elevation-2dp box">
+                          <div class="row">
+                          <div class="col-md-5"></div>
+                          <div class="col-md-3">
+                          <img src="dist/images/modi.jpg" alt="" style="margin-left:-8px;height:130px;">
+                        </div>
+                        </div>
+                      
+                   
+                        <div class="supporting-text">
+                          <p> Narendra Damodardas Modi (Gujarati: [ˈnəɾeːnd̪rə d̪aːmoːd̪əɾˈd̪aːs ˈmoːd̪iː] (About this sound listen); born 17 September 1950) is an Indian politician serving as the 14th and current Prime Minister of India since 2014. He was the Chief Minister of Gujarat from 2001 to 2014, and is the Member of Parliament for Varanasi. Modi, a member of the Bharatiya Janata Party (BJP), is a Hindu nationalist and member of the right-wing Rashtriya Swayamsevak Sangh (RSS).</p>
+                        </div>
+                      </div>
+                    </a></li>
+                  </ul>
+                </div>
+                <div class="col-sm-6">
+                  <ul>
+                   <li><a data-description="" href="">
+                       <div class="card elevation-2dp box">
+                        <div class="row">
+                          <div class="col-md-5"></div>
+                          <div class="col-md-3">
+                          <img src="dist/images/rahul_gandhi.jpg" alt="" style="margin-left:-8px;height:130px;">
+                        </div>
+                        </div>
+                        <div class="supporting-text">
+                          <p> Rahul Gandhi About this sound pronunciation (help·info) [ˈraːɦʊl ˈɡaːnd̪ʱiː] (born 19 June 1970) is an Indian politician. The son of Sonia and Rajiv Gandhi, he is the President of the Indian National Congress and serves such additional offices as the Chairperson of the Indian Youth Congress and the National Students Union of India.</p>
+                        </div>
+                      </div>
+                    </a></li>
+                  </ul>
+                </div>
+              </div>
+            </li>
+            <li class="w3_megamenu-content withdesc">
+              <div class="row">
+                <div class="col-sm-6" style="margin-top:-50px;">
+                  <ul>
+                    <li><a data-description="" href="">
+                      <div class="card elevation-2dp box">
+                        <div class="row">
+                          <div class="col-md-5"></div>
+                          <div class="col-md-3">
+                          <img src="dist/images/kumarswamy.jpg" alt="" style="margin-left:-8px;height:130px;">
+                        </div>
+                        </div>
+                        <div class="supporting-text">
+                          <p> Haradanahalli Devegowda Kumaraswamy (born 16 December 1959)[4] is an Indian politician and current Chief Minister of Karnataka. He is the President of Karnataka State Janata Dal (Secular) and son of former Prime Minister of India H. D. Deve Gowda.[5] During his 2006 cheif ministerial period Karnataka state recorded all time high GDP growth and he was called people's CM</p>
+                        </div>
+                      </div>
+                    </a></li>
+                  </ul>
+                </div>
+             
+                <div class="col-sm-6" style="margin-top:-50px;">
+                  <ul>
+                   <li><a data-description="" href="">
+                       <div class="card elevation-2dp box">
+                        <div class="row">
+                          <div class="col-md-5"></div>
+                          <div class="col-md-3">
+                          <img src="dist/images/Nitish_Kumar2.jpg" alt="" style="margin-left:-8px;height:130px;">
+                        </div>
+                        </div>
+                        <div class="supporting-text">
+                          <p> The Chief Minister of Bihar is the chief executive of the Indian state of Bihar. As per the Constitution of India, the Governor of Bihar is the state's de jure head, but de facto executive authority rests with the chief minister. </p>
+                        </div>
+                      </div>
+                    </a></li>
+                  </ul>
+                </div>
+              </div>
+            </li>
+          </ul>
+        </li>
+        <li class="dropdown"><a href="#" data-toggle="dropdown" class="dropdown-toggle">NewsFeeds <b class="caret"></b></a>
+        <ul class="dropdown-menu" role="menu">
+
+          <li><a href="">Headlines/Breaking News</a></li>
+          <li><a href="">Educational</a></li>
+          <li><a href="">Entertainment</a></li>
+          <li><a href="">Business</a></li>
+          <li><a href="">Sports</a></li>
+          <li><a href="">Lifestyle</a></li>
+          <li><a href="">Social</a></li>
+          <li><a href="">World/International</a></li>
+          <li><a href="">Global</a></li>
+        </ul>
+      </li>
+        <li class="dropdown"><a href="#" data-toggle="dropdown" class="dropdown-toggle">Article/Blog <b class="caret"></b></a>
+        <ul class="dropdown-menu" role="menu">
+
+          <li><a href="">Business/Economic</a></li>
+          <li><a href="">Write Article</a></li>
+          <li><a href="">E-books</a></li>
+        </ul>
+      </li>
+
+      <li class="dropdown"><a href="#" data-toggle="dropdown" class="dropdown-toggle">Business <b class="caret"></b></a>
+        <ul class="dropdown-menu" role="menu">
+
+          <li><a href="">Consulting</a></li>
+        </ul><!-- end dropdown-menu -->
+      </li><!-- end standard drop down -->
+      <!-- end dropdown w3_megamenu-fw -->
+    </ul><!-- end nav navbar-nav -->
+  </div><!-- end #navbar-collapse-1 -->
+
+</nav><!-- end navbar navbar-default w3_megamenu -->
+
+<!-- Contact Us Page Starts here -->
+
+<div class="container animated fadeIn">
+
+  <div class="row">
+     <div class="site-title text-center">
+        <h3>Contact Us</h3>
+      </div>
+    <div class="col-sm-12" id="parent">
+      <div class="col-sm-6">
+      <iframe width="100%" height="320px;" frameborder="0" style="border:0" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3887.8093113600585!2d77.59872391491248!3d12.984045090847719!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3bae176651970a1f%3A0xa68b8efb7cfaf512!2sFeederFox+Media!5e0!3m2!1sen!2sin!4v1533708841418" allowfullscreen></iframe>
+      </div>
+
+      <div class="col-sm-6">
+        <form action="" class="contact-form" method="post">
+            {% csrf_token %}
+  
+             <div class="form-group" id="div_id_Name">
+              <input type="text" class="form-control" id="id_Name" name="Name" placeholder="Name" required="" autofocus="">
+            </div>
+        
+            <div class="form-group form_left" id="div_id_Email">
+              <input type="email" class="form-control" id="id_Email" name="Email" placeholder="Email" required="">
+            </div>
+        
+          <div class="form-group" id="div_id_Mobile">
+               <input type="text" class="form-control" id="id_Mobile" name="Mobile" onkeypress="return event.charCode >= 48 && event.charCode <= 57" maxlength="10" placeholder="Mobile No." required="">
+          </div>
+          <div class="form-group" id="div_id_Feedback">
+          <textarea class="form-control textarea-contact" rows="5" id="id_Feedback" name="Feedback" placeholder="Type Your Message/Feedback here..." required=""></textarea>
+            <button class="btn btn-default btn-send" type="submit"> <span class="glyphicon glyphicon-send"></span> Send </button>
+          </div> 
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <div class="container second-portion">
+  <div class="row">
+        <!-- Boxes de Acoes -->
+      <div class="col-xs-12 col-sm-6 col-lg-4">
+      <div class="box_contact">             
+        <div class="icon">
+          <div class="image"><i class="fa fa-envelope" aria-hidden="true"></i></div>
+          <div class="info">
+            <h3 class="title">MAIL & WEBSITE</h3>
+            <p>
+              <i class="fa fa-envelope" aria-hidden="true"></i> &nbsp ankita.sinha@feederfox.com
+              <br>
+              <br>
+              <i class="fa fa-globe" aria-hidden="true"></i> &nbsp www.feederfox.com
+            </p>
+          
+          </div>
+        </div>
+        <div class="space"></div>
+      </div> 
+    </div>
+      
+        <div class="col-xs-12 col-sm-6 col-lg-4">
+      <div class="box_contact">             
+        <div class="icon">
+          <div class="image"><i class="fa fa-mobile" aria-hidden="true"></i></div>
+          <div class="info">
+            <h3 class="title">CONTACT</h3>
+              <p>
+              <i class="fa fa-mobile" aria-hidden="true"></i> &nbsp (+91)-9972836272
+              <br>
+              <br>
+              <i class="fa fa-mobile" aria-hidden="true"></i> &nbsp  (+91)- 
+            </p>
+          </div>
+        </div>
+        <div class="space"></div>
+      </div> 
+    </div>
+      
+        <div class="col-xs-12 col-sm-6 col-lg-4">
+      <div class="box_contact">             
+        <div class="icon">
+          <div class="image"><i class="fa fa-map-marker" aria-hidden="true"></i></div>
+          <div class="info">
+            <h3 class="title">ADDRESS</h3>
+              <p>
+               <i class="fa fa-map-marker" aria-hidden="true"></i> FeederFox Media
+                Fortune Park, 3rd Floor, 35/1, Park Plaza Junction, 
+                Park Rd, Shivaji Nagar, Bengaluru, Karnataka 560051
+            </p>
+          </div>
+        </div>
+        <div class="space"></div>
+      </div> 
+    </div>        
+    <!-- /Boxes de Acoes -->
+    
+    <!--My Portfolio  dont Copy this -->
+      
+  </div>
+</div>
+
+</div>
+
+<!-- Ends here -->
+
+<br><br>
+
+
+
+ <div class="bg-footer">
+    <!-- footer -->
+    <div class="footer">
+        <div class="container">
+            <div class="row ">
+                <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" style="margin-top:-47px;">
+                    <div class="ft-logo"><img src="{% static 'dist/images/only_logo.png' %}" alt="" style="width:136px;height:87px;"></div>
+                </div>
+            </div>
+            <hr class="footer-line">
+            <div class="row" style="margin-top:-20px;">
+                <!-- footer-about -->
+                <div class="col-xl-3 col-lg-3 col-md-4 col-sm-6 col-6 ">
+                    <div class="footer-widget">
+                        <div class="footer-title">Company</div>
+                        <ul class="list-unstyled">
+                            <li><a href="{% url 'about' %}" class="footer_links" target="_blank">About</a></li>
+                            <li><a href="#" class="footer_links">Support</a></li>
+                            <li><a href="#" class="footer_links">Press</a></li>
+                            <li><a href="{% url 'privacy' %}" class="footer_links" target="_blank">Legal & Privacy</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <!-- /.footer-about -->
+                <!-- footer-links -->
+                <div class="col-xl-3 col-lg-3 col-md-4 col-sm-6 col-6 ">
+                    <div class="footer-widget ">
+                        <div class="footer-title">Quick Links</div>
+                        <ul class="list-unstyled">
+                            <li><a href="#" class="footer_links">News</a></li>
+                            <li><a href="{% url 'contact' %}" class="footer_links">Contact us</a></li>
+                            <li><a href="{% url 'faq' %}" class="footer_links" target="_blank">FAQ</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <!-- /.footer-links -->
+                <!-- footer-links -->
+                <div class="col-xl-3 col-lg-3 col-md-4 col-sm-6 col-6 ">
+                    <div class="footer-widget ">
+                        <div class="footer-title">Social</div>
+                        <ul class="list-unstyled">
+                            <li><a href="https://twitter.com/feederfoxmedia?lang=en" class="footer_links">Twitter</a></li>
+                            <li><a href="https://www.google.co.in/search?rlz=1C1CHBF_enIN802IN803&biw=1600&bih=794&ei=G3xhW8CWBoKurQG5pbWgBg&q=feederfox+media+bangalore&oq=Feeder+Fox+Media&gs_l=psy-ab.1.0.0i71k1l8.0.0.0.63812.0.0.0.0.0.0.0.0..0.0....0...1c..64.psy-ab..0.0.0....0.18pMIgbxhZI" class="footer_links">Google +</a></li>
+                            <li><a href="https://in.linkedin.com/company/feederfox-media" class="footer_links">Linked In</a></li>
+                            <li><a href="https://www.facebook.com/FeederFox" class="footer_links">Facebook</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <!-- /.footer-links -->
+                <!-- footer-links -->
+                <div class="col-xl-3 col-lg-3 col-md-12 col-sm-6 col-6 ">
+                    <div class="footer-widget ">
+                        <h3 class="footer-title">Subscribe Newsletter</h3>
+                        <form>
+                            <div class="newsletter-form">
+                                <input class="form-control" placeholder="Enter Your Email address" type="text">
+                                <button class="btn btn-sm btn-footer" type="submit">Go</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                <!-- /.footer-links -->
+                <!-- tiny-footer -->
+            </div>
+            <div class="row ">
+                <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 text-center ">
+                    <div class="tiny-footer">
+                        <p class="footer_para">Copyright © All Rights Reserved 2020 | Design & Development by <a href="#" class="copyrightlink">FeederFox</a></p>
+                    </div>
+                </div>
+                <!-- /. tiny-footer -->
+            </div>
+        </div>
+    </div>
+    <!-- /.footer -->
+  </div>
+
+
+<!-- ebooks js -->
+<script type="text/javascript">
+  (function ($) {
+    "use strict";
+
+    window.coverBrowser = window.coverBrowser || {};
+
+    var self = window.coverBrowser;
+
+    self.utils = (function () {
+
+        var getDir = function (of) {
+
+            var id = of,
+                start = id.indexOf("cbcontrol") + 10,
+                dir = id.substring(start, id.length);
+
+            return dir;
+
+        };
+
+        return {
+            getDir: getDir
+        };
+
+    })();
+
+    self.state = (function () {
+
+        var classes = [],
+            activeIndex = 0,
+            stageDim = {},
+            coverDim = {};
+
+        return {
+            classes: classes,
+            activeIndex: activeIndex
+        };
+
+    })();
+
+    self.actions = (function () {
+
+        var doMove = function () {
+
+            var activeIndex = self.state.activeIndex,
+                $covers = $(".cbImage"),
+                newActive, oldActive = $(".cbImage .active");
+
+            $covers.each(function (i, e) {
+
+                if (i < activeIndex) {
+
+                    this.className = "cbImage inactiveLeft inactiveLeft" + (activeIndex - i);
+                    this.style.zIndex = ((activeIndex + i) * 1);
+
+                }
+                else if (i === activeIndex) {
+                    this.className = "cbImage active";
+                    newActive = this;
+                }
+                else if (i > activeIndex) {
+
+                    this.className = "cbImage inactiveRight inactiveRight" + ((activeIndex - i) * -1);
+                    this.style.zIndex = ((activeIndex - i) * 1);
+
+                }
+
+            });
+
+            $(document).trigger("endmove.cvr", [{ "newActive": newActive, "oldActive": oldActive }]);
+
+        },
+
+            moveRight = function () {
+
+                if ($(document).trigger("startmoveright") !== false) {
+
+                    self.state.activeIndex = self.state.activeIndex - 1;
+
+                    doMove();
+
+                }
+            },
+
+            moveLeft = function () {
+
+                if ($(document).trigger("startmoveleft") !== false) {
+
+                    self.state.activeIndex = self.state.activeIndex + 1;
+
+                    doMove();
+
+                }
+            };
+
+        return {
+            moveRight: moveRight,
+            moveLeft: moveLeft,
+            doMove: doMove
+        };
+
+    })();
+
+    self.imgs = (function () {
+
+        var attachEvents = function () {
+
+            $(".cbImage").on("click", function (event) {
+                //move[dir] the number of times difference
+                //between index of active and index of clicked
+                var dir = this.className.search(/left/gi) !== -1 ? "Right" : "Left",
+                    $coll = $(".cbImage"),
+                    diff = dir === "Right" ? ($coll.index($(".cbImage.active")) - $coll.index(this)) :
+                        ($coll.index($(".cbImage.active")) - $coll.index(this)) * -1,
+                    x;
+
+                for (x = 0; x < diff; x++) {
+                    self.actions["move" + dir]();
+                }
+            });
+
+        };
+
+        return {
+            attachEvents: attachEvents
+        };
+
+    })();
+
+
+    self.controls = (function () {
+
+        var attachEvents = function () {
+
+            $(".cbcontrol").on("click", function (event) {
+
+                var dir = self.utils.getDir(this.id),
+                    active = $(".cbImage.active"),
+                    makeActive = dir === "Right" ? active.prev(".cbImage") : active.next(".cbImage");
+
+                if (makeActive.length > 0) {
+                    self.actions["move" + dir]();
+                }
+            });
+
+            $(".stage").on("touchstart", function (event) {
+                console.log("touch start");
+            });
+
+        };
+
+        return {
+            attachEvents: attachEvents
+        };
+    })();
+
+    self.init = (function () {
+
+
+
+        var $covers = $(".cbImage"),
+            setStageDims = function () {
+                self.state.stageDim = { x: $(".stage").outerWidth(), y: $(".stage").outerHeight() };
+            },
+            setCoverDims = function ($active) {
+                self.state.coverDim = { x: $active.outerWidth(), y: $active.outerHeight() };
+            },
+            getSheet = function () {
+                var l = $("#cbGeneratedClasses").length;
+                if (l === 0) {
+                    var $newsheet = $("<style type='text/css' id='cbGeneratedClasses'></style>"),
+                        ss = $newsheet.appendTo("head")[0].sheet;
+                }
+                else {
+                    $("#cbGeneratedClasses").text('');
+                    var ss = $("#cbGeneratedClasses")[0].sheet;
+                }
+                return ss;
+            },
+            generateClasses = function () {
+
+                var leftfac,
+                    rightfac,
+                    x,
+                    z = 100,//TODO figure equation for zindex, increase closer to activeIndex, decrease after
+                    cvrLength = $covers.length,
+                    l = cvrLength * 2,
+                    ss = getSheet(),
+                    al;
+
+                al = (self.state.stageDim.x / 2) - (self.state.coverDim.x / 2);
+
+                ss.insertRule(".stage .active{left:" + al + "px;}", 0);
+
+                for (x = 0; x < l; x++) {
+
+                    //create an inactive class for each direction
+                    //for every element in the set
+                    leftfac = al - ((self.state.coverDim.x * x) / 2) - (self.state.coverDim.x / 2);
+                    rightfac = al + ((self.state.coverDim.x * x) / 2) + (self.state.coverDim.x / 2);
+                    ss.insertRule(".inactiveLeft" + x + "{left:" + leftfac + "px;z-index:" + z + ";}", 0);
+                    ss.insertRule(".inactiveRight" + x + "{left:" + rightfac + "px;z-index:" + z + ";}", 0);
+
+                }
+
+            },
+            doInit = function () {
+
+                var $active = $covers.filter(".active"),
+                    activeIndex = $covers.index($active) !== -1 ? $covers.index($active) : 0;
+
+                setStageDims();
+                setCoverDims($active);
+
+                generateClasses();
+
+                self.controls.attachEvents();
+
+                self.imgs.attachEvents();
+
+                self.state.activeIndex = activeIndex;
+
+                self.actions.doMove();
+
+            }(),
+            reInit = function () {
+
+                var $active = $covers.filter(".active");
+
+                setStageDims();
+                setCoverDims($active);
+
+                generateClasses();
+
+            };
+
+        $(window).on("resize", function (event) {
+            self.init.reInit();
+        });
+
+        return {
+            reInit: reInit
+        };
+
+    })();
+
+})(jQuery);
+</script>
+<!-- ebooks js ends here -->
+<script type="text/javascript">
+  $('.owl-carousel').owlCarousel({
+    loop:true,
+    margin:10,
+    nav:true,
+    responsive:{
+        0:{
+            items:1
+        },
+        600:{
+            items:3
+        },
+        1000:{
+            items:5
+        }
+    }
+})
+</script>
+<script type="text/javascript">
+  $(document).ready(function(){
+    $(".dropdown").hover(
+        function() {
+            $('.dropdown-menu', this).not('.in .dropdown-menu').stop(true,true).slideDown("400");
+            $(this).toggleClass('open');
+        },
+        function() {
+            $('.dropdown-menu', this).not('.in .dropdown-menu').stop(true,true).slideUp("400");
+            $(this).toggleClass('open');
+        }
+    );
+});
+</script>
+
+{% endblock %}
+</body>
+</html>
