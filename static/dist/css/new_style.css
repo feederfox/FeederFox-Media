@@ -715,16 +715,7 @@
     margin-bottom: 30px;
 
 }
-.filter-button:hover
-{
-    font-size: 18px;
-    border: 1px solid #c52026;
-    border-radius: 5px;
-    text-align: center;
-    color: #ffffff;
-    background-color: #c52026;
 
-}
 .btn-default:active .filter-button:active
 {
     background-color: #000;
@@ -980,7 +971,7 @@ body {
     border-radius: 5px;
     text-align: center;
     color: #ffffff;
-    background-color: #c52026;
+    background-color: #000;
 
 }
 .btn-default:active .filter-button:active
@@ -1384,7 +1375,7 @@ hr {
 .caption,
 .article-header {
   font-family: "Reenie Beanie", sans-serif;
-  font-size: 2em;
+  font-size: 20px;
   padding: 10px 10px 0 10px;
 }
 
@@ -1635,8 +1626,8 @@ p{
 }
 
 .btn.btn-default {
-    /*background-color: #5db4c0;*/
-    color: #000;
+    background-color: #000;
+    color: #fff;
     border-radius: 0;
     border: none;
     padding: 13px 20px;
@@ -1723,10 +1714,10 @@ h1 {
   font-size: 13.5px;
 }
 .accordion ul li:nth-child(1) {
-  background-image: url('http://michael-ferry.com/assets/accordion1.jpg');
+  background-image: url('../images/hawk.png');
 }
 .accordion ul li:nth-child(2) {
-  background-image: url('http://michael-ferry.com/assets/accordion2.jpg');
+  background-image: url('../images/lallantop.jpg');
 }
 .accordion ul li:nth-child(3) {
   background-image: url('http://michael-ferry.com/assets/accordion3.jpg');
@@ -1838,11 +1829,161 @@ h1 {
 }
 
 .add-bg{
-  background-color: #070908;
-  height:900px;
+  background-color: #fff;
+  height:768px;
 }
 
-/*new social channels*/
+
+/* Conatct start */
+
+.header-title
+  {
+  text-align: center;
+  color:#00bfff;
+}
+
+#tip 
+  {
+    display:none;  
+}
+
+.fadeIn
+    {
+  animation-duration: 3s;
+}
+
+.form-control
+  {
+  border-radius:0px;
+  border:1px solid #EDEDED;
+}
+
+.form-control:focus
+  {
+  border:1px solid #000;
+}
+
+.textarea-contact
+  {
+  resize:none; 
+}
+
+.btn-send
+  {
+  border-radius: 0px;
+  border:1px solid #00bfff;
+  background:#00bfff;
+  color:#fff; 
+}
+
+.btn-send:hover
+  {
+  border:1px solid #c70716;
+  background:#fff;
+  color:#c70716;
+  transition:background 0.5s;   
+}
+
+.second-portion
+  {
+  margin-top:50px; 
+}
+
+.box_contact > .icon { 
+  text-align: center;
+   position: relative; 
+ }
+.box_contact > .icon > .image {
+     position: relative; 
+     z-index: 2; margin: auto; 
+     width: 88px; height: 88px; 
+     border: 8px solid white; 
+     line-height: 88px; 
+     border-radius: 50%; 
+     background: #c70716; 
+     vertical-align: middle; 
+  }
+.box_contact > .icon:hover > .image { 
+  background: #333; 
+}
+.box_contact > .icon > .image > i {
+  font-size: 36px !important; 
+  color: #fff !important; 
+}
+.box_contact > .icon:hover > .image > i {
+ color: white !important; 
+}
+.box_contact > .icon > .info { 
+  margin-top: -24px; 
+  background: rgba(0, 0, 0, 0.04); 
+  border: 1px solid #e0e0e0; 
+  padding: 15px 0 10px 0; 
+  min-height:163px;
+}
+.box_contact > .icon:hover > .info { 
+      background: rgba(0, 0, 0, 0.04); 
+      border-color: #e0e0e0; 
+      color: white; 
+}
+.box_contact > .icon > .info > h3.title { 
+    font-family: "Robot",sans-serif !important; 
+    font-size: 16px; 
+    color: #222; 
+    font-weight: 700; 
+}
+.box_contact > .icon > .info > p { 
+    font-family: "Robot",sans-serif !important; 
+    font-size: 13px; 
+    color: #666; 
+    line-height: 1.5em; 
+    margin: 20px;
+}
+.box_contact > .icon:hover > .info > h3.title, .box > .icon:hover > .info > p, .box > .icon:hover > .info > .more > a { 
+  color: #222; 
+}
+.box_contact > .icon > .info > .more a { 
+  font-family: "Robot",sans-serif !important; 
+  font-size: 12px; 
+  color: #222; 
+  line-height: 12px; 
+  text-transform: uppercase; 
+  text-decoration: none; 
+}
+.box_contact > .icon:hover > .info > .more > a { 
+  color: #fff; 
+  padding: 6px 8px; 
+  background-color: #63B76C; 
+}
+.box_contact .space { 
+  height: 30px; 
+}
+
+.contact-border{
+  border:1px solid red;
+  margin-bottom: 0px;
+  margin-top: -17px;
+}
+}
+
+@media only screen and (max-width: 768px)
+  {
+  .contact-form
+    {
+     margin-top:25px; 
+  }
+
+  .btn-send
+    {
+      width: 100%;
+      padding:10px; 
+  }
+
+  .second-portion
+    {
+      margin-top:25px; 
+    }
+}
+  /* Conatct end */
 
 
 
