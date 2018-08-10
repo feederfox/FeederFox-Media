@@ -1986,7 +1986,32 @@ h1 {
   /* Conatct end */
 
 
+.cntct-heading {
+  text-align: center
+}
 
+.cntct-heading h1 {
+  posiotion: relative;
+  border-width: 1px;
+  /*border-style: solid;*/
+  /*border-color: transparent transparent red transparent;*/
+  text-transform: uppercase;
+  font-weight: bold;
+  color: #272727;
+  padding: 15px 30px;
+  display: inline-block;
+  overflow: hidden;
+}
+
+.cntct-heading h1 hr {
+  border: 1px solid red;
+  position: absolute;
+  /*top: 61%;*/
+  right: 0;
+  left: 0;
+  width: 9%;
+  margin-top:0px;
+}
 
 
 
