@@ -30,6 +30,18 @@ def dashboard(request):
     
     return redirect('accounts:post')
 
+def article1(request):
+    return render(request,'article1.html',{})
+
+def article2(request):
+    return render(request,'article2.html',{})
+
+def article3(request):
+    return render(request,'article3.html',{})
+
+def article4(request):
+    return render(request,'article4.html',{})                
+
 def contact(request):
     form = ContactForm()
     if request.method=='POST':

@@ -67,32 +67,6 @@
  <!-- header ends here -->
 </marquee><!doctype html>
 <html>
-<!-- <head>
-  <meta charset="utf-8">
-  <title>Feederfox Media</title>
-  <link rel="icon" href="static/dist/images/logo-web.png">
-  <meta name="tvchannels" content="100,000"/>
-  <meta name="tvchannels" content="100,000"/>
-  <link href="static/dist/css/bootstrap.min.css" rel="stylesheet">
-  <link href="static/dist/css/animate.css" rel="stylesheet">
-  <link href="static/dist/css/new_style.css" rel="stylesheet">
-  <link href="static/dist/css/video.css" rel="stylesheet">
-  <link href="static/dist/css/social_channels.css" rel="stylesheet">
-  <link href="static/dist/css/responsive.css" rel="stylesheet">
-  <link href="static/dist/css/animate.css" rel="stylesheet">
-  <link rel="stylesheet" href="static/dist/css/owl.carousel.min.css">
-  <link rel="stylesheet" href="static/dist/css/owl.theme.default.min.css">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-  <link href="https://fonts.googleapis.com/css?family=Ubuntu" rel="stylesheet">
-  <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
-  <script src="static/dist/js/jquery-1.12.4.min.js"></script>
-  <script src="static/dist/js/jquery.easing.1.3.js"></script>
-  <script src="static/dist/js/bootstrap.min.js"></script>
-  <script src="static/dist/js/custom.js"></script>
-  <script src="static/dist/js/animate.js"></script>
-   <script src="static/dist/js/owl.carousel.min.js"></script>
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-</head> -->
 <body>
 
  <!--header starts here -->
@@ -1030,81 +1004,90 @@
 
 <br>
 <!--Articles-->
+
+<!--Articles-->
 <div class="container">
 <h2 class="article_heading"><strong>Articles / Blogs</strong></h2>
 <div class="articles_bg box-artcl effect5">
-  <div class="row">
+ <div class="row">
 <div id="content">
-  <div class="col-md-3">
-  <div class="container1">
-    <div class="flipper">
-      <div class="front">
-        <img src="{% static 'dist/images/articles/1.jpg' %}" alt="cherry blossoms" class="artcle_img">
-        <p class="caption">More than 1 lakh stranded...</p>
-      </div>
-      <div class="back">
-        <a href="https://en.wikipedia.org/wiki/Cherry_blossom" target="_blank">
-          <h1 class="article-header">More than 1 lakh stranded Indians in foreign...</h1>
-        </a>
-{#        <p class="date">23/07/1997</p>#}
-        <p class="description">More than 1 lakh Indians stranded in foreign countries where brought back the Indian government between April 2014 to December 2017,.......     </div>
-    </div>
-  </div>
+ <div class="col-md-3">
+ <div class="container1">
+   <div class="flipper">
+     <div class="front">
+       <img src="static/dist/images/articles/1.jpg" alt="image" class="artcle_img">
+       <p class="caption">More than 1 lakh stranded...</p>
+     </div>
+     <div class="back">
+       <a href="{% url 'article1' %} " target="_blank">
+         <h1 class="article-header">More than 1 lakh stranded Indians in foreign...</h1>
+       </a>
+       <!-- <p class="date">23/07/1997</p> -->
+
+
+         <br/>
+       <p class="description">More than 1 lakh Indians stranded in foreign countries where brought back the Indian government between April 2014 to December 2017,.......     </div>
+   </div>
+ </div>
 </div>
-  <div class="col-md-3">
-  <div class="container1">
-    <div class="flipper">
-      <div class="front">
-        <img src="{% static 'dist/images/articles/2.jpg' %}" alt="white daisy" class="artcle_img">
-        <p class="caption">Outmuscling-Insurance-Agents</p>
-      </div>
-      <div class="back">
-        <a href="https://en.wikipedia.org/wiki/Tulip" target="_blank">
-          <h1 class="article-header">Outmuscling-Insurance-Agents</h1>
-        </a>
-{#        <p class="date">14/07/2001</p>#}
-        <p class="description">When Zain Jeewanjee speaks on how to sell insurance on the Internet, people listen. The founder and CEO of g1g.com has made insurance—often ridiculed for its persistent agents and hidden conditions—a nice place to be in and to make money too....      </div>
-    </div>
-  </div>
+ <div class="col-md-3">
+ <div class="container1">
+   <div class="flipper">
+     <div class="front">
+       <img src="static/dist/images/articles/2.jpg" alt="image" class="artcle_img">
+       <p class="caption">Outmuscling-Insurance-Agents</p>
+     </div>
+     <div class="back">
+       <a href="{% url 'article2' %}" target="_blank">
+         <h1 class="article-header">Outmuscling-Insurance-Agents</h1>
+       </a>
+ <p class="date">14/07/2001</p>
+         <br/>
+       <p class="description">When Zain Jeewanjee speaks on how to sell insurance on the Internet, people listen. The founder and CEO of g1g.com has made insurance—often ridiculed for its persistent agents and hidden conditions—a nice place to be in and to make money too....      </div>
+   </div>
+ </div>
 </div>
-  <div class="col-md-3">
-  <div class="container1">
-    <div class="flipper">
-      <div class="front">
-        <img src="{% static 'dist/images/articles/3.jpg' %}" alt="Red Purple and Yellow Tulip" class="artcle_img">
-        <p class="caption">Ankoor spurs Indian product..</p>
-      </div>
-      <div class="back">
-        <a href="https://en.wikipedia.org/wiki/Lavandula" target="_blank">
-          <h1 class="article-header">Ankoor spurs Indian product development</h1>
-        </a>
-{#        <p class="date">06/08/2004</p>#}
-        <p class="description">In October, 1995, Sham Banerji, Design Manager with Texas Instruments, landed in Bangalore from Houston, Texas,...    </div>
-    </div>
-  </div>
+ <div class="col-md-3">
+ <div class="container1">
+   <div class="flipper">
+     <div class="front">
+       <img src="static/dist/images/articles/3.jpg" alt="image" class="artcle_img">
+       <p class="caption">Ankoor spurs Indian product..</p>
+     </div>
+     <div class="back">
+       <a href="{% url 'article3' %}" target="_blank">
+         <h1 class="article-header">Ankoor spurs Indian product development</h1>
+       </a>
+      <p class="date">06/08/2004</p>
+         <br/>
+       <p class="description">In October, 1995, Sham Banerji, Design Manager with Texas Instruments, landed in Bangalore from Houston, Texas,...    </div>
+   </div>
+ </div>
 </div>
 
- <div class="col-md-3">
-  <div class="container1">
-    <div class="flipper">
-      <div class="front">
-        <img src="https://images.pexels.com/photos/69776/tulips-bed-colorful-color-69776.jpeg?auto=compress&cs=tinysrgb&h=650&w=940" alt="white daisy" class="artcle_img">
-        <p class="caption">Tulip</p>
-      </div>
-      <div class="back">
-        <a href="https://en.wikipedia.org/wiki/Tulip" target="_blank">
-          <h1 class="article-header">Tulip</h1>
-        </a>
-        <p class="date">14/07/2001</p>
-        <p class="description">Tulips (Tulipa) form a genus of spring-blooming perennial herbaceous bulbiferous geophytes. The flowers are usually large, showy and brightly coloured, generally red, yellow, or white.</p>
-      </div>
-    </div>
-  </div>
+<div class="col-md-3">
+ <div class="container1">
+   <div class="flipper">
+     <div class="front">
+       <img src="static/dist/images/articles/4.jpg" alt="image" class="artcle_img">
+       <p class="caption">More than 1,000 MPs and MLAs...</p>
+     </div>
+     <div class="back">
+       <a href="{% url 'article4' %}" target="_blank">
+         <h1 class="article-header">More than 1,000 MPs and MLAs...</h1>
+       </a>
+ <p class="date">14/07/2001</p>
+         <p>REJIMON K</p><br/>
+       <p class="description">Are our elected representatives rapists, dacoits and kidnappers? A fresh analysis reveals at least 20 per cent are!</p>
+     </div>
+   </div>
+ </div>
 </div>
 </div>
 </div>
 </div>
 </div>
+<!--End of Articles-->
 <!--End of Articles-->
 
 <br><br>

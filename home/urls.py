@@ -12,5 +12,9 @@ urlpatterns = [
     url(r'^privacy/$', views.PrivacyPageView.as_view(), name='privacy'),
     url(r'^dashboard/$',views.dashboard,name='dashboard'),
     url(r'^admin/',views.admin,name='admin'),
+    url(r'^article1/',views.article1,name='article1'),
+    url(r'^article2/',views.article2,name='article2'),
+    url(r'^article3/',views.article3,name='article3'),
+    url(r'^article4/',views.article4,name='article4'),
     #url(r'^post/',views.post,name='post')
 ]

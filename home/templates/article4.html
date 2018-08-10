@@ -1,0 +1,391 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block pagecontent %}
+<div class="bg-header">
+  <div class="container">
+   <div class="row">
+       <div class="col-md-6">
+        <div id="weather-frame" class="container">
+          <div id="upper-detail">
+            <div id="city-name"></div>
+          </div>
+          <div id="lower-detail">
+            <div class="row">
+              <div id="temp" class="col-xs-6">
+              </div>
+            </div>
+          </div>
+        </div>
+        <img src="{% static 'dist/images/logos/logo.png' %}" class="img-responsive header_img">
+      </div>
+      <div class="col-md-2" >
+        <div class="dropdown drop1">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-user"></i> Publisher
+            <span class="caret"></span></a>
+            <ul class="dropdown-menu d1">
+              <li><a href=" {% url 'accounts:signup' %} ">Sign Up</a></li>
+              <li><a href=" {% url 'accounts:login' %} ">Login</a></li>
+            </ul>
+          </div>
+        </div>
+        <div class="col-md-2">
+         <div class="dropdown drop1">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-user"></i> Customer
+            <span class="caret"></span></a>
+            <ul class="dropdown-menu d1">
+              <li><a href=" {% url 'accounts:signup' %} ">Sign Up</a></li>
+              <li><a href=" {% url 'accounts:login' %} ">Login</a></li>
+            </ul>
+          </div>
+        </div>
+        <div class="col-md-2">
+         <div class="dropdown drop1">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-user"></i> Advertiser
+            <span class="caret"></span></a>
+            <ul class="dropdown-menu d1">
+              <li><a href=" {% url 'accounts:signup' %} ">Sign Up</a></li>
+              <li><a href=" {% url 'accounts:login' %} ">Login</a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+</div>
+</div>
+
+<!-- bse scrolling bar starts here -->
+<div class="runtext-container">
+<div class="main-runtext">
+<marquee direction="" onmouseover="this.stop();" onmouseout="this.start();">
+
+<div class="holder">
+
+     <div class="text-container">
+   &nbsp; &nbsp; <img src=""> &nbsp; <a data-fancybox-group="gallery" class="fancybox" " title="Feederfox">BSE updates coming soon!!! Please come back again for live updates!! </a>
+    </div>
+  
+     <div class="text-container">
+   &nbsp; &nbsp; <img src=""> &nbsp; <a data-fancybox-group="gallery" class="fancybox"  title="Feederfox">BSE updates coming soon!!! Please come back again for live updates!! </a>
+    </div>
+    
+     <div class="text-container">
+   &nbsp; &nbsp; <img src=""> &nbsp; <a data-fancybox-group="gallery" class="fancybox"  title="Feederfox">BSE updates coming soon!!! Please come back again for live updates!! </a>
+    </div>
+     
+     <div class="text-container">
+   &nbsp; &nbsp; <img src=""> &nbsp; <a data-fancybox-group="gallery" class="fancybox" title="Feederfox">BSE updates coming soon!!! Please come back again for live updates!! </a>
+    </div>
+     
+     <div class="text-container">
+   &nbsp; &nbsp; <img src=""> &nbsp; <a data-fancybox-group="gallery" class="fancybox"  title="Feederfox">BSE updates coming soon!!! Please come back again for live updates!! </a>
+    </div>
+     
+     <div class="text-container">
+   &nbsp; &nbsp; <img src=""> &nbsp; <a data-fancybox-group="gallery" class="fancybox"  title="Feederfox">BSE updates coming soon!!! Please come back again for live updates!! </a>
+    </div>
+     
+     <div class="text-container">
+   &nbsp; &nbsp; <img src=""> &nbsp; <a data-fancybox-group="gallery" class="fancybox"  title="Feederfox">BSE updates coming soon!!! Please come back again for live updates!! </a>
+    </div>
+     
+     <div class="text-container">
+   &nbsp; &nbsp; <img src=""> &nbsp; <a data-fancybox-group="gallery" class="fancybox" title="Feederfox">BSE updates coming soon!!! Please come back again for live updates!! </a>
+    </div>
+    
+</div>
+
+</marquee>
+</div>
+</div>
+ <!-- bse scrolling bar ends here -->
+
+ <!-- navigation bar -->
+ <nav class="navbar navbar-default w3_megamenu" role="navigation">
+  <div class="navbar-header">
+    <button type="button" data-toggle="collapse" data-target="#defaultmenu" class="navbar-toggle"><span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span></button><a href="#" class="navbar-brand"></a>
+  </div><!-- end navbar-header -->
+
+  <div id="defaultmenu" class="navbar-collapse collapse">
+    <ul class="nav navbar-nav">
+     <li class="dropdown"><a href="#" data-toggle="dropdown" class="dropdown-toggle">Home <b class="caret"></b></a>
+        <ul class="dropdown-menu" role="menu">
+
+          <li><a href="">NewsChannels</a></li>
+          <li><a href="">Newspapers</a></li>
+          <li><a href="">Magazines</a></li>
+          <li><a href="">Social Channels</a></li>
+        </ul>
+      </li> 
+      <!-- Mega Menu -->
+        <li class="dropdown w3_megamenu-fw"><a href="#" data-toggle="dropdown" class="dropdown-toggle">Political Forum<b class="caret"></b></a>
+          <ul class="dropdown-menu fullwidth">
+            <li class="w3_megamenu-content withdesc">
+              <div class="row">
+                <div class="col-sm-6">
+                  <ul>
+                    <li><a data-description="" href="">
+                      <div class="card elevation-2dp box">
+                          <div class="row">
+                          <div class="col-md-5"></div>
+                          <div class="col-md-3">
+                          <img src="dist/images/modi.jpg" alt="" style="margin-left:-8px;height:130px;">
+                        </div>
+                        </div>
+                      
+                   
+                        <div class="supporting-text">
+                          <p> Narendra Damodardas Modi (Gujarati: [ˈnəɾeːnd̪rə d̪aːmoːd̪əɾˈd̪aːs ˈmoːd̪iː] (About this sound listen); born 17 September 1950) is an Indian politician serving as the 14th and current Prime Minister of India since 2014. He was the Chief Minister of Gujarat from 2001 to 2014, and is the Member of Parliament for Varanasi. Modi, a member of the Bharatiya Janata Party (BJP), is a Hindu nationalist and member of the right-wing Rashtriya Swayamsevak Sangh (RSS).</p>
+                        </div>
+                      </div>
+                    </a></li>
+                  </ul>
+                </div>
+                <div class="col-sm-6">
+                  <ul>
+                   <li><a data-description="" href="">
+                       <div class="card elevation-2dp box">
+                        <div class="row">
+                          <div class="col-md-5"></div>
+                          <div class="col-md-3">
+                          <img src="dist/images/rahul_gandhi.jpg" alt="" style="margin-left:-8px;height:130px;">
+                        </div>
+                        </div>
+                        <div class="supporting-text">
+                          <p> Rahul Gandhi About this sound pronunciation (help·info) [ˈraːɦʊl ˈɡaːnd̪ʱiː] (born 19 June 1970) is an Indian politician. The son of Sonia and Rajiv Gandhi, he is the President of the Indian National Congress and serves such additional offices as the Chairperson of the Indian Youth Congress and the National Students Union of India.</p>
+                        </div>
+                      </div>
+                    </a></li>
+                  </ul>
+                </div>
+              </div>
+            </li>
+            <li class="w3_megamenu-content withdesc">
+              <div class="row">
+                <div class="col-sm-6" style="margin-top:-50px;">
+                  <ul>
+                    <li><a data-description="" href="">
+                      <div class="card elevation-2dp box">
+                        <div class="row">
+                          <div class="col-md-5"></div>
+                          <div class="col-md-3">
+                          <img src="dist/images/kumarswamy.jpg" alt="" style="margin-left:-8px;height:130px;">
+                        </div>
+                        </div>
+                        <div class="supporting-text">
+                          <p> Haradanahalli Devegowda Kumaraswamy (born 16 December 1959)[4] is an Indian politician and current Chief Minister of Karnataka. He is the President of Karnataka State Janata Dal (Secular) and son of former Prime Minister of India H. D. Deve Gowda.[5] During his 2006 cheif ministerial period Karnataka state recorded all time high GDP growth and he was called people's CM</p>
+                        </div>
+                      </div>
+                    </a></li>
+                  </ul>
+                </div>
+             
+                <div class="col-sm-6" style="margin-top:-50px;">
+                  <ul>
+                   <li><a data-description="" href="">
+                       <div class="card elevation-2dp box">
+                        <div class="row">
+                          <div class="col-md-5"></div>
+                          <div class="col-md-3">
+                          <img src="dist/images/Nitish_Kumar2.jpg" alt="" style="margin-left:-8px;height:130px;">
+                        </div>
+                        </div>
+                        <div class="supporting-text">
+                          <p> The Chief Minister of Bihar is the chief executive of the Indian state of Bihar. As per the Constitution of India, the Governor of Bihar is the state's de jure head, but de facto executive authority rests with the chief minister. </p>
+                        </div>
+                      </div>
+                    </a></li>
+                  </ul>
+                </div>
+              </div>
+            </li>
+          </ul>
+        </li>
+        <li class="dropdown"><a href="#" data-toggle="dropdown" class="dropdown-toggle">NewsFeeds <b class="caret"></b></a>
+        <ul class="dropdown-menu" role="menu">
+
+          <li><a href="">Headlines/Breaking News</a></li>
+          <li><a href="">Educational</a></li>
+          <li><a href="">Entertainment</a></li>
+          <li><a href="">Business</a></li>
+          <li><a href="">Sports</a></li>
+          <li><a href="">Lifestyle</a></li>
+          <li><a href="">Social</a></li>
+          <li><a href="">World/International</a></li>
+          <li><a href="">Global</a></li>
+        </ul>
+      </li>
+        <li class="dropdown"><a href="#" data-toggle="dropdown" class="dropdown-toggle">Article/Blog <b class="caret"></b></a>
+        <ul class="dropdown-menu" role="menu">
+
+          <li><a href="">Business/Economic</a></li>
+          <li><a href="">Write Article</a></li>
+          <li><a href="">E-books</a></li>
+        </ul>
+      </li>
+
+      <li class="dropdown"><a href="#" data-toggle="dropdown" class="dropdown-toggle">Business <b class="caret"></b></a>
+        <ul class="dropdown-menu" role="menu">
+
+          <li><a href="">Consulting</a></li>
+        </ul><!-- end dropdown-menu -->
+      </li><!-- end standard drop down -->
+      <!-- end dropdown w3_megamenu-fw -->
+    </ul><!-- end nav navbar-nav -->
+  </div><!-- end #navbar-collapse-1 -->
+
+</nav><!-- end navbar navbar-default w3_megamenu -->
+<div class="container">
+<!-- Contact Us Page Starts here -->
+<h3>More than 1,000 MPs and MLAs are rapists, dacoits, kidnappers; their own affidavits reveal</h3>
+
+ 
+<h4>REJIMON K</h4>
+
+<pre style="FONT-SIZE:13px; COLOR:#000000; LINE-HEIGHT:20px; FONT-FAMILY:Arial,Helvetica,sans-serif"> 
+Are our elected representatives rapists, dacoits and kidnappers? A fresh analysis reveals at least 20 per cent are!
+
+According to the analysis of affidavits submitted by Members of Parliament (MPs) and Member of Legislative Assemblies (MLAs) reveal that more than 1,000 members of democratic India declared serious criminal charges against themselves.
+
+Among the 1,024 Members of Parliament (MPs) and Member of Legislative Assemblies (MLAs), 64 (6%) have even declared charges related to kidnapping against themselves.
+
+The analysis was done by the Association for Democratic Reforms (ADR) and National Election Watch (NEW) based on the affidavits of sitting 770 Members of Parliament (MPs) and 4,086 Member of Legislative Assemblies (MLAs).
+
+According to ADR and NEW analysis, out of the 4,856 MPs and MLAs, 1,024 (21%) have declared serious criminal charges against themselves.
+
+The report considered different Indian Penal Code Sections for kidnapping, kidnapping from India, kidnapping from lawful guardianship, abduction, kidnapping or maiming a minor for purposes of begging, kidnapping or abducting to murder, kidnapping for ransom, kidnapping or abducting with intent secretly and wrongfully to confine person and kidnapping, abducting or inducing woman to compel her marriage, etc.
+
+The report also considered, kidnapping or abducting to subject person to grievous hurt, slavery, wrongfully concealing or keeping in confinement, kidnapped or abducted person and kidnapping or abducting child under ten years with intent to steal from its person.
+
+Out of 64 MPs and MLAs with declared charges related to kidnapping, 16 are from Bharatiya Janatha Party and six each from Indian National Congress and Rashtriya Janatha Dal.
+
+And out of MLAs with declared charges related to kidnapping, the highest number of MLAs i.e. nine each are from Bihar and Uttar Pradesh.
+
+There are five Lok Sabha and three Rajya Sabha MPs who have declared charges related to kidnapping against themselves.
+
+Maj.Gen. Anil Verma (Retd), the Head of National Election Watch and Association for Democratic Reforms, said that this is an exercise to tell people that those who you have voted are already facing criminal charges and rethink while you vote for them next time.
+
+“While the rapes were on a rise in the country, we have come out with such a kind of data. Now, when kidnapping and lynching are on a rise, we wanted to tell the people that how of the elected members in the Indian democracy are involved,” Anil said.
+
+While asked whether releasing such a kind of data will help to better the Indian democracy, he said that it’s a small attempt from their side.
+
+“Candidates provide money and voters also accept it. Always a blame game is there. But in the end, what we get is a flawed democracy and such members who face severe criminal charges to lead us,” he said adding that the study is to make and advise people to vote responsibly.
+
+In January, an European Intelligence Unit study revealed that India slipped to 42nd place on an annual Global Democracy Index amid “rise of conservative religious ideologies” and increase in vigilantism and violence against minorities as well as other dissenting voices.
+
+While Norway has again topped the list, followed by Iceland and Sweden, compiled by the Economist Intelligence Unit (EIU), India has moved down from 32nd place last year and remains classified among “flawed democracies”.
+
+The index ranked 165 independent states and two territories based on five categories: electoral process and pluralism, civil liberties, the functioning of government, political participation and political culture. The list has been divided into four broad categories—full democracy, flawed democracy, hybrid regime and authoritarian regime.
+
+“The rise of conservative religious ideologies also affected India. The strengthening of right-wing Hindu forces in an otherwise secular country led to a rise of vigilantism and violence against minority communities, particularly Muslims, as well as other dissenting voices,” the EIU report added.
+
+Meanwhile, Joseph C Mathew, a political observer in Kerala, said that voters are left with only a few options in democracy and they can’t be blamed for electing kidnappers and dacoits.
+
+“See, if all the political parties field a corrupt or criminal candidate, what options are left in front of the voter. He will choose one based on his political stand and he may be or not the lesser evil one. But one who elected will be an ‘evil’. Bigger or smaller is a different question,” he added.
+
+According to latest National Crime Records Bureau data, 88,008 cases of kidnapping and abduction were reported during 2016, showing an increase of 6.0% over 2015 (82,999 cases).
+
+A total of 89,875 (23,350 male and 66,525 females) were kidnapped or abducted, out of which maximum number of persons were kidnapped or abducted for marriage (33,855) during 2016.
+
+And Uttar Pradesh (15,898 cases) reported the highest number of cases of kidnapping & abduction accounting for 18.1 per cent followed by Maharashtra with 10.6% (9,333 cases) and Bihar with 8.3% (7,324 cases) during 2016.
+
+During 2016, a total of 69,599 kidnapped or abducted persons (18,974 males and 50,625 females) were recovered of which 69,274 persons were recovered alive and 325 persons were dead.
+</pre>
+</div>
+<br><br>
+
+
+
+ <div class="bg-footer">
+    <!-- footer -->
+    <div class="footer">
+        <div class="container">
+            <div class="row ">
+                <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" style="margin-top:-47px;">
+                    <div class="ft-logo"><img src="dist/images/only_logo.png" alt="" style="width:136px;height:87px;"></div>
+                </div>
+            </div>
+            <hr class="footer-line">
+            <div class="row" style="margin-top:-20px;">
+                <!-- footer-about -->
+                <div class="col-xl-3 col-lg-3 col-md-4 col-sm-6 col-6 ">
+                    <div class="footer-widget">
+                        <div class="footer-title">Company</div>
+                        <ul class="list-unstyled">
+                            <li><a href="#" class="footer_links">About</a></li>
+                            <li><a href="#" class="footer_links">Support</a></li>
+                            <li><a href="#" class="footer_links">Press</a></li>
+                            <li><a href="#" class="footer_links">Legal & Privacy</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <!-- /.footer-about -->
+                <!-- footer-links -->
+                <div class="col-xl-3 col-lg-3 col-md-4 col-sm-6 col-6 ">
+                    <div class="footer-widget ">
+                        <div class="footer-title">Quick Links</div>
+                        <ul class="list-unstyled">
+                            <li><a href="#" class="footer_links">News</a></li>
+                            <li><a href="#" class="footer_links">Contact us</a></li>
+                            <li><a href="#" class="footer_links">FAQ</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <!-- /.footer-links -->
+                <!-- footer-links -->
+                <div class="col-xl-3 col-lg-3 col-md-4 col-sm-6 col-6 ">
+                    <div class="footer-widget ">
+                        <div class="footer-title">Social</div>
+                        <ul class="list-unstyled">
+                            <li><a href="https://twitter.com/feederfoxmedia?lang=en" class="footer_links">Twitter</a></li>
+                            <li><a href="https://www.google.co.in/search?rlz=1C1CHBF_enIN802IN803&biw=1600&bih=794&ei=G3xhW8CWBoKurQG5pbWgBg&q=feederfox+media+bangalore&oq=Feeder+Fox+Media&gs_l=psy-ab.1.0.0i71k1l8.0.0.0.63812.0.0.0.0.0.0.0.0..0.0....0...1c..64.psy-ab..0.0.0....0.18pMIgbxhZI" class="footer_links">Google +</a></li>
+                            <li><a href="https://in.linkedin.com/company/feederfox-media" class="footer_links">Linked In</a></li>
+                            <li><a href="https://www.facebook.com/FeederFox" class="footer_links">Facebook</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <!-- /.footer-links -->
+                <!-- footer-links -->
+                <div class="col-xl-3 col-lg-3 col-md-12 col-sm-6 col-6 ">
+                    <div class="footer-widget ">
+                        <h3 class="footer-title">Subscribe Newsletter</h3>
+                        <form>
+                            <div class="newsletter-form">
+                                <input class="form-control" placeholder="Enter Your Email address" type="text">
+                                <button class="btn btn-sm btn-footer" type="submit">Go</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                <!-- /.footer-links -->
+                <!-- tiny-footer -->
+            </div>
+            <div class="row ">
+                <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 text-center ">
+                    <div class="tiny-footer">
+                        <p class="footer_para">Copyright © All Rights Reserved 2020 | Design & Development by <a href="#" class="copyrightlink">Feederfox</a></p>
+                    </div>
+                </div>
+                <!-- /. tiny-footer -->
+            </div>
+        </div>
+    </div>
+    <!-- /.footer -->
+  </div>
+
+<script type="text/javascript">
+  $(document).ready(function(){
+    $(".dropdown").hover(            
+        function() {
+            $('.dropdown-menu', this).not('.in .dropdown-menu').stop(true,true).slideDown("400");
+            $(this).toggleClass('open');        
+        },
+        function() {
+            $('.dropdown-menu', this).not('.in .dropdown-menu').stop(true,true).slideUp("400");
+            $(this).toggleClass('open');       
+        }
+    );
+});
+</script>
+</body>
+</html>
+
+{% endblock %}
