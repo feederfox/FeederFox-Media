@@ -244,6 +244,218 @@ function setIcon(iconURL) {
 }
 
 
+//video player
+
+/*
+* Included Jquery
+*/
+$(document).ready(function() {
+  $(".videoPlayer")
+    .toArray()
+    .forEach(function(videoPlayer) {
+      var video = $(videoPlayer).find("video")[0];
+      var playPauseBtn = $(videoPlayer).find(".playPauseBtn");
+      var fullscreen = $(videoPlayer).find(".fullscreen");
+      var startTime = $(videoPlayer).find(".startTime");
+      var endTime = $(videoPlayer).find(".endTime");
+      var playerSeekBar = $(videoPlayer).find(".topControls .seekbar");
+      var playerProgressBar = $(videoPlayer).find(
+        ".topControls .seekbar .progressBar"
+      );
+      var volumeSeekBar = $(videoPlayer).find(".volumeCtrl .seekbar");
+      var volumeProgressBar = $(videoPlayer).find(
+        ".volumeCtrl .seekbar .progressBar"
+      );
+      var volumePercentage = $(videoPlayer).find(".volumeCtrl .percentage");
+      var fastForward = $(videoPlayer).find(".forward");
+      var fastBackward = $(videoPlayer).find(".backward");
+
+      var endDuration,
+        startDuration,
+        seekBarPercentage,
+        interval,
+        completeDuration;
+
+      /* on click of play btn start playing video*/
+      $(playPauseBtn).on("click", function() {
+        var btn = $(this); /*local reference*/
+
+        completeDuration = video.duration;
+
+        if (btn.hasClass("play")) {
+          video.play();
+          btn.addClass("pause").removeClass("play");
+        } else if (btn.hasClass("pause")) {
+          video.pause();
+          btn.addClass("play").removeClass("pause");
+        }
+
+        /********************* calculate the length of video ****************/
+
+        endDuration = calculateDuration(completeDuration);
+        $(endTime).text(
+          `${endDuration.hours}:${endDuration.minutes}:${endDuration.seconds}`
+        );
+
+        $(videoPlayer).hover(
+          function() {
+            $(videoPlayer).addClass("showControls");
+          },
+          function() {
+            if (!video.paused) {
+              hideControls();
+            }
+          }
+        );
+
+        /*********************** update seekbar percentages ****************/
+        interval = setInterval(function() {
+          if (!video.paused) {
+            startDuration = calculateDuration(video.currentTime);
+            updateSeekBar();
+            $(startTime).text(
+              `${startDuration.hours}:${startDuration.minutes}:${
+                startDuration.seconds
+              }`
+            );
+          }
+          if (video.ended) {
+            clearInterval(interval);
+            $(videoPlayer).addClass("showControls");
+            $(btn)
+              .removeClass("pause")
+              .addClass("play");
+          }
+        }, 250);
+        /****************** end of playPause Click Function *******************/
+      });
+
+      fastBackward.on("click", function() {
+        if (!video.ended && completeDuration != undefined) {
+          video.currentTime > 0 && video.currentTime < completeDuration
+            ? (video.currentTime -= 10)
+            : 0;
+        }
+      });
+
+      fastForward.on("click", function() {
+        if (!video.ended && completeDuration != undefined) {
+          video.currentTime > 0 && video.currentTime < completeDuration
+            ? (video.currentTime += 10)
+            : 0;
+        }
+      });
+
+      /********* on click of player Seekbar ***********/
+      playerSeekBar.on("click", function(e) {
+        if (!video.ended && completeDuration != undefined) {
+          var seekPosition = e.pageX - $(playerSeekBar).offset().left;
+          video.currentTime =
+            (seekPosition * completeDuration) / $(playerSeekBar).outerWidth();
+          startDuration = calculateDuration(video.currentTime);
+          updateSeekBar();
+        }
+      });
+
+      /********* on click of volume seekbar ********/
+      volumeSeekBar.on("click", function(e) {
+        var volumePosition = e.pageX - $(volumeSeekBar).offset().left;
+        var videoVolume = volumePosition / $(volumeSeekBar).outerWidth();
+
+        if (videoVolume >= 0 && videoVolume <= 1) {
+          video.volume = videoVolume;
+          volumeProgressBar.css("width", videoVolume * 100 + "%");
+          volumePercentage.text(Math.floor(videoVolume * 100) + "%");
+        }
+      });
+
+      /******* for full screen functionality ***************/
+      $(fullscreen).on("click", function() {
+        if (video.requestFullscreen) {
+          video.requestFullscreen();
+        } else if (video.webkitRequestFullscreen) {
+          video.webkitRequestFullscreen();
+        }
+      });
+
+      /************* update seekbar Function **************/
+      var updateSeekBar = function() {
+        seekBarPercentage = getPercentage(
+          video.currentTime.toFixed(2),
+          completeDuration.toFixed(2)
+        );
+
+        $(playerProgressBar).css("width", seekBarPercentage + "%");
+
+        /***update seekbar end */
+      };
+
+      var hideControls = function() {
+        setTimeout(function() {
+          $(videoPlayer).removeClass("showControls");
+        }, 5000);
+      };
+
+      /*************** for each end ***********/
+    });
+
+  /******************** All Functions ***********************/
+
+  var getPercentage = function(presentTime, totalLength) {
+    var calcPercentage = (presentTime / totalLength) * 100;
+    return parseFloat(calcPercentage.toString());
+  };
+
+  var calculateDuration = function(duration) {
+    var seconds = Math.floor((duration % 3600) % 60);
+    var minutes = Math.floor((duration % 3600) / 60);
+    var hours = duration / 3600;
+
+    return {
+      hours: pad(hours.toFixed()),
+      minutes: pad(minutes.toFixed()),
+      seconds: pad(seconds.toFixed())
+    };
+  };
+
+  var pad = function(number) {
+    if (number > -10 && number < 10) {
+      return "0" + number;
+    } else {
+      return number;
+    }
+  };
+});
+
+
 //
+     $('#custom_carousel').on('slide.bs.carousel', function (evt) {
+      $('#custom_carousel .controls li.active').removeClass('active');
+      $('#custom_carousel .controls li:eq('+$(evt.relatedTarget).index()+')').addClass('active');
+    })
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+$( document ).ready(function() {
+  $('.trigger').click(function() {
+     $('.modal-wrapper').toggleClass('open');
+    $('.page-wrapper').toggleClass('blur');
+     return false;
+  });
+});

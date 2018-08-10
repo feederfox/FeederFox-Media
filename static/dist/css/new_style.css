@@ -1714,10 +1714,10 @@ h1 {
   font-size: 13.5px;
 }
 .accordion ul li:nth-child(1) {
-  background-image: url('../images/hawk.png');
+  background-image: url('http://michael-ferry.com/assets/accordion3.jpg');
 }
 .accordion ul li:nth-child(2) {
-  background-image: url('../images/lallantop.jpg');
+  background-image: url('http://michael-ferry.com/assets/accordion5.jpg');
 }
 .accordion ul li:nth-child(3) {
   background-image: url('http://michael-ferry.com/assets/accordion3.jpg');
@@ -1984,6 +1984,21 @@ h1 {
     }
 }
   /* Conatct end */
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
