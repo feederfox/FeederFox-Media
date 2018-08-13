@@ -17,9 +17,9 @@ class RegionalNewsChannel(models.Model):
 		return str(self.channel_name)
 
 
-class NewsChannel(models.Model):
-	National = models.ForeignKey(NationalNewsChannel,on_delete=models.CASCADE)
-	Regional = models.ForeignKey(RegionalNewsChannel,on_delete=models.CASCADE)
+# class NewsChannel(models.Model):
+# 	National = models.ForeignKey(NationalNewsChannel,on_delete=models.CASCADE)
+# 	Regional = models.ForeignKey(RegionalNewsChannel,on_delete=models.CASCADE)
 
 
 
