@@ -253,11 +253,10 @@
 </div>
 
 <div class="container">
-<p>If you have not created an account yet, then please
-<a href="{{ signup_url }}">sign up</a> first.</p>
+<p style="FONT-SIZE:25px; COLOR:#000000; LINE-HEIGHT:30px;">
 
 
-<form  method="POST" action="" enctype="multipart/form-data">
+<form  method="POST" action="" enctype="multipart/form-data" style="width:779px;padding-left: 302px;">
   {% csrf_token %}
   {{ form|crispy }}
   <button class="primaryAction" type="submit">Upload</button>

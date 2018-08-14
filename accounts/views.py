@@ -1,6 +1,7 @@
 from django.contrib.auth import login, authenticate
 from django.shortcuts import render, redirect,HttpResponse
-from .forms import SignUpForm,PostForm,PublisherForm,PublisherEditForm,CustomerEditForm,CustomerForm,AdvertiserForm,AdvertiserEditForm
+from .forms import ( SignUpForm,PostForm,PublisherForm,PublisherEditForm,CustomerEditForm,CustomerForm,
+                        AdvertiserForm,AdvertiserEditForm,PublisherSignUpForm,AdvertiserSignUpForm,CustomerSignUpForm)
 from .models import Profile,Post
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
@@ -25,6 +26,65 @@ def signup(request):
         form = SignUpForm()
     return render(request, 'account/signup.html', {'form': form})
 
+def publisher_signup(request):
+    if request.method=='POST':
+        form = PublisherSignUpForm(request.POST)
+        if form.is_valid():
+            user = form.save()
+            user.refresh_from_db()
+            user.profile.Account_type = 1
+            user.profile.username = form.cleaned_data.get('username')
+            user.profile.email = form.cleaned_data.get('email')
+            print(user.profile.Account_type)
+            user.save()
+            raw_password = form.cleaned_data.get('password1')
+            user = authenticate(username=user.username, password=raw_password)
+            login(request, user)
+            return redirect('accounts:login')
+    else:
+        form = PublisherSignUpForm()
+    return render (request, 'account/publishersignup.html', {'form':form})    
+
+
+def customer_signup(request):
+    if request.method=='POST':
+        form = CustomerSignUpForm(request.POST)
+        if form.is_valid():
+            user = form.save()
+            user.refresh_from_db()
+            user.profile.Account_type = 2
+            user.profile.username = form.cleaned_data.get('username')
+            user.profile.email = form.cleaned_data.get('email')
+            print(user.profile.Account_type)
+            user.save()
+            raw_password = form.cleaned_data.get('password1')
+            user = authenticate(username=user.username, password=raw_password)
+            login(request, user)
+            return redirect('accounts:login')
+    else:
+        form = CustomerSignUpForm()
+    return render (request, 'account/signup.html', {'form':form})    
+
+
+
+def advertiser_signup(request):
+    if request.method=='POST':
+        form = AdvertiserSignUpForm(request.POST)
+        if form.is_valid():
+            user = form.save()
+            user.refresh_from_db()
+            user.profile.Account_type = 3
+            user.profile.username = form.cleaned_data.get('username')
+            user.profile.email = form.cleaned_data.get('email')
+            print(user.profile.Account_type)
+            user.save()
+            raw_password = form.cleaned_data.get('password1')
+            user = authenticate(username=user.username, password=raw_password)
+            login(request, user)
+            return redirect('accounts:login')
+    else:
+        form = AdvertiserSignUpForm()
+    return render (request, 'account/signup.html', {'form':form})    
 
 
 def publisher_list(request):

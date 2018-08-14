@@ -28,6 +28,9 @@ def dashboard(request):
     a = User.objects.all()
     p = Profile.objects.all()
     
+    if request.user.is_superuser:
+        return render(request,'admin_dashboard.html',{})
+    messages.error(request,'Please Login with Admin Credentials')    
     return redirect('accounts:post')
 
 def article1(request):
