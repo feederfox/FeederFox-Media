@@ -1,25 +1,25 @@
 from rest_framework import serializers
-from .models import Ebook,Magazine,SocialChannel,NationalNewsChannel,RegionalNewsChannel
+from .models import Ebook,Magazine,SocialChannel,NationalNewsChannel,RegionalNewsChannel,NationalNewsPaper,RegionalNewsPaper
 
 class EbookSerializer(serializers.ModelSerializer):
 	class Meta:
 		model = Ebook
-		fields = ('ebooks_name','ebooks_url','ebooks_image')
+		fields = '__all__'
 
 class MagazineSerializer(serializers.ModelSerializer):
 	class Meta:
 		model = Magazine
-		fields = ('magazine_name','magazine_url','magazine_image')
+		fields = '__all__'
 
 class SocialChannelSerializer(serializers.ModelSerializer):
 	class Meta:
 		model = SocialChannel
-		fields = ('socialchannels_name','socialchannels_url','socialchannels_image')
+		fields = '__all__'
 
 class NationalNewsChannelSerializer(serializers.ModelSerializer):
 	class Meta:
 		model = NationalNewsChannel
-		fields = ('channel_name','channel_url','channel_image')
+		fields = '__all__'
 
 
 class RegionalNewsChannelSerializer(serializers.ModelSerializer):
@@ -27,6 +27,15 @@ class RegionalNewsChannelSerializer(serializers.ModelSerializer):
 		model = RegionalNewsChannel
 		fields = '__all__'
 
+class NationalNewsPaperSerializer(serializers.ModelSerializer):
+	class Meta:
+		model = NationalNewsPaper
+		fields = '__all__'
+
+class RegionalNewsPaperSerializer(serializers.ModelSerializer):
+	class Meta:
+		model = RegionalNewsPaper
+		fields = '__all__'		
 
 class NewsChannelsSerializer(serializers.Serializer):
     NationalNewsChannels = NationalNewsChannelSerializer()
