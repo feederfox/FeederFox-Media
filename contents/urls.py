@@ -8,5 +8,5 @@ urlpatterns = [
     url(r'^newschannels',news,name='newschannels'),
     url(r'^nn/',nationalchannels_list,name='nationalchannels_list'),
     url(r'^rn/',regionalchannels_list,name='regionalchannels_list'),
-    url(r'^contents_list',contents_list,name='contents_list'),
+    url(r'^',contents_list,name='contents_list'),
     ]
