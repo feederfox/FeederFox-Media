@@ -180,7 +180,9 @@ def edit_customers(request,pk):
 
 def delete_customer(request,pk):
     customer = Profile.objects.filter(Account_type=2).get(pk=pk)
+    user = User.objects.filter(username=customer.username)
     customer.delete()
+    user.delete()
     return redirect('accounts:customer_list')   
 
 
@@ -227,18 +229,22 @@ def edit_advertisers(request,pk):
 
 def delete_advertiser(request,pk):
     advertiser = Profile.objects.filter(Account_type=3).get(pk=pk)
+    user = User.objects.filter(username=advertiser.username)
     advertiser.delete()
+    user.delete()
     return redirect('accounts:advertiser_list')   
 
 
 
 @login_required
 def post(request):
-    form = PostForm()
     if request.method=='POST':
         form = PostForm(request.POST,request.FILES)
         if form.is_valid():
             form.save()
+            Uploader_Contact_Details = request.user
+            print(Uploader_Contact_Details)
             messages.success(request,'Post has been Uploaded')
 
+    form = PostForm()        
     return render(request,'post.html',{'form':form})    

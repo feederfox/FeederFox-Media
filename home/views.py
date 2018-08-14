@@ -31,7 +31,7 @@ def dashboard(request):
     if request.user.is_superuser:
         return render(request,'admin_dashboard.html',{})
     messages.error(request,'Please Login with Admin Credentials')    
-    return redirect('accounts:post')
+    return render (request,'publisher_dashboard.html',{})
 
 def article1(request):
     return render(request,'article1.html',{})
