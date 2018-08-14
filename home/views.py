@@ -87,32 +87,3 @@ class PrivacyPageView(TemplateView):
     template_name = "privacy.html"
 
 
-
-class PublisherSignupPageView(TemplateView):
-    template_name = "publisher_signup.html"
-
-    def get(self, request):
-        form = HomeForm()
-
-
-        return render(request, self.template_name, {'form': form})
-
-    def post(self, request):
-        sample_chapter = None
-        text = None
-        form = HomeForm(request.POST, request.FILES)
-
-        if form.is_valid():
-            post = form.save(commit=False)
-            post.user = request.user
-            post.save()
-
-
-            text = form.cleaned_data['post']
-            sample_chapter = form.cleaned_data['post']
-            form = HomeForm()
-            # return redirect('home:home')
-
-        args = {'form': form, 'text': text, 'sample_chapter': sample_chapter}
-        return render(request, 'publisher_signup.html', args)
-
