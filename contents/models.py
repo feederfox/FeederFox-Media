@@ -39,7 +39,7 @@ class RegionalNewsPaper(models.Model):
 class Magazine(models.Model):
 	name = models.CharField(max_length=100)
 	url = models.URLField()
-	image = models.ImageField(blank=True,null=True)
+	image = models.ImageField(upload_to='Magazine/',blank=True,null=True)
 
 	def __str__(self):
 		return str(self.name)
@@ -47,7 +47,7 @@ class Magazine(models.Model):
 class SocialChannel(models.Model):
 	name = models.CharField(max_length=100)
 	url = models.URLField()
-	image = models.ImageField(blank=True,null=True)
+	image = models.ImageField(upload_to='SocialChannel/',blank=True,null=True)
 
 	def __str__(self):
 		return str(self.name)
@@ -55,7 +55,7 @@ class SocialChannel(models.Model):
 class Ebook(models.Model):
 	name = models.CharField(max_length=100)
 	url = models.URLField()
-	image = models.ImageField(blank=True,null=True)
+	image = models.ImageField(upload_to='Ebook/',blank=True,null=True)
 
 	def __str__(self):
 		return str(self.name)		
@@ -64,7 +64,7 @@ class Ebook(models.Model):
 class Article(models.Model):
 	name = models.CharField(max_length=100)
 	url = models.URLField()
-	image = models.ImageField(blank=True,null=True)
+	image = models.ImageField(upload_to='Articles/',blank=True,null=True)
 
 	def __str__(self):
 		return str(self.name)		
