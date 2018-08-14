@@ -34,9 +34,9 @@ EMAIL_USE_TLS = True
 SECRET_KEY = '(+lc+x&n-r9_17saz*#avru-rt-+!t_mgn47&s%faqadyk%tjm'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
-ALLOWED_HOSTS = ['www.feederfox.com']
+ALLOWED_HOSTS = []
 
 
 # Application definition
@@ -63,13 +63,13 @@ INSTALLED_APPS = [
 
 
 AUTHENTICATION_BACKENDS = (
-
+    
     # Needed to login by username in Django admin, regardless of `allauth`
     'django.contrib.auth.backends.ModelBackend',
 
     # `allauth` specific authentication methods, such as login by e-mail
     'allauth.account.auth_backends.AuthenticationBackend',
-
+    
 )
 
 
@@ -159,7 +159,7 @@ STATICFILES_DIRS = (
     os.path.join(BASE_DIR, 'static'),
 )
 
-STATIC_ROOT = '/home/feederfoxmedia/FeederFox-Media/staticonly'
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
 
 SITE_ID = 1
