@@ -3,9 +3,10 @@ from rest_framework import status
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from rest_framework.views import APIView
-from .models import Ebook,Magazine,SocialChannel,RegionalNewsChannel,NationalNewsChannel,NationalNewsPaper,RegionalNewsPaper
-from .serializers import (EbookSerializer,MagazineSerializer,SocialChannelSerializer,NewsChannelsSerializer,ContentSerializer,
-							NationalNewsChannelSerializer,RegionalNewsChannelSerializer,NationalNewsPaperSerializer,RegionalNewsPaperSerializer)
+from .models import Ebook,Magazine,SocialChannel,RegionalNewsChannel,NationalNewsChannel,NationalNewsPaper,RegionalNewsPaper,Article
+from .serializers import (EbookSerializer,MagazineSerializer,SocialChannelSerializer,
+							NationalNewsChannelSerializer,RegionalNewsChannelSerializer,NationalNewsPaperSerializer,
+							RegionalNewsPaperSerializer,ArticleSerializer)
 
 
 @api_view(['GET', 'POST'])
@@ -104,6 +105,7 @@ def contents_list(request):
 		socialchannel = SocialChannel.objects.all()
 		national = NationalNewsPaper.objects.all()
 		regional = RegionalNewsPaper.objects.all()
+		article = Article.objects.all()
 		ebookserializer = EbookSerializer(ebook, many=True,context=context)
 		magazineserializer = MagazineSerializer(magazine,many=True,context=context)
 		socialserializer = SocialChannelSerializer(socialchannel,many=True,context=context)
@@ -111,6 +113,7 @@ def contents_list(request):
 		RegionalSerializer = RegionalNewsChannelSerializer(Regional,many=True,context=context)
 		nationalserializer = NationalNewsPaperSerializer(national,many=True,context=context)
 		regionalserializer = RegionalNewsPaperSerializer(regional,many=True,context=context)
+		articleserializer = ArticleSerializer(article,many=True,context=context)
 		resp = ebookserializer.data
 		resp1 = magazineserializer.data
 		resp2 = socialserializer.data
@@ -118,6 +121,7 @@ def contents_list(request):
 		resp4 = RegionalSerializer.data
 		resp5 = nationalserializer.data
 		resp6 = regionalserializer.data
+		resp7 = articleserializer.data
 		ebk = {'E-Books':resp}
 		magaz = {'Magazines':resp1}
 		social = {'SocialChannels':resp2}
@@ -125,6 +129,7 @@ def contents_list(request):
 		regional = {'RegionalNewsChannels':resp4}
 		nat = {'NationalNewsPapers':resp5}
 		reg = {'RegionalNewsPapers':resp6}
+		art = {'Articles':resp7}
 		b = regional.copy()
 		b.update(national)
 		news = {'NewsChannels':b}
@@ -136,7 +141,7 @@ def contents_list(request):
 		a.update(social)
 		a.update(news)
 		a.update(paper)
-
+		a.update(art)
 		return Response(a)
 
     # elif request.method == 'POST':

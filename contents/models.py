@@ -59,3 +59,12 @@ class Ebook(models.Model):
 
 	def __str__(self):
 		return str(self.name)		
+
+
+class Article(models.Model):
+	name = models.CharField(max_length=100)
+	url = models.URLField()
+	image = models.ImageField(blank=True,null=True)
+
+	def __str__(self):
+		return str(self.name)		
