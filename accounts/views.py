@@ -78,13 +78,14 @@ def advertiser_signup(request):
             user.profile.email = form.cleaned_data.get('email')
             print(user.profile.Account_type)
             user.save()
+
             raw_password = form.cleaned_data.get('password1')
             user = authenticate(username=user.username, password=raw_password)
             login(request, user)
             return redirect('accounts:login')
     else:
         form = AdvertiserSignUpForm()
-    return render (request, 'account/signup.html', {'form':form})    
+    return render (request, 'account/advertisersignup.html', {'form':form})    
 
 
 def publisher_list(request):
@@ -130,7 +131,11 @@ def edit_publishers(request,pk):
 
 def delete_publisher(request,pk):
     publisher = Profile.objects.filter(Account_type=1).get(pk=pk)
+    user = User.objects.filter(username=publisher.username)
+    print(publisher)
+    print(user)
     publisher.delete()
+    user.delete()
     return redirect('accounts:publisher_list')   
 
 

@@ -8,8 +8,8 @@ from django.contrib.auth import views as auth_views
 urlpatterns = [
     url(r'^signup/', signup, name='signup'), 
     url(r'^publishersignup/',publisher_signup,name='pubsignup'),
-    url(r'^advertisersignup/',publisher_signup,name='advsignup'),
-    url(r'^customersignup/',publisher_signup,name='cussignup'),
+    url(r'^advertisersignup/',advertiser_signup,name='advsignup'),
+    url(r'^customersignup/',customer_signup,name='cussignup'),
     url(r'^login/$', auth_views.login, {'template_name': 'account/login.html'} ,name='login'),
     url(r'^adminlogin/',auth_views.login, {'template_name': 'account/admin_login.html'},name='admin_login'),
     url(r'^logout/$', auth_views.logout, {'next_page': '/'}, name="logout"),
