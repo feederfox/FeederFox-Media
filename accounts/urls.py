@@ -1,12 +1,15 @@
 
 from django.conf.urls import url,include
-from .views import (signup,publisher_list,customer_list,advertiser_list,post,add_publishers,edit_publishers,add_customers,
-			edit_customers,add_advertisers,edit_advertisers,delete_publisher,delete_customer,delete_advertiser)
+from .views import (signup,publisher_list,customer_list,advertiser_list,post,add_publishers,edit_publishers,add_customers,customer_signup,
+    advertiser_signup,edit_customers,add_advertisers,edit_advertisers,delete_publisher,delete_customer,delete_advertiser,publisher_signup)
 from django.contrib.auth import views as auth_views
 
 
 urlpatterns = [
     url(r'^signup/', signup, name='signup'), 
+    url(r'^publishersignup/',publisher_signup,name='pubsignup'),
+    url(r'^advertisersignup/',publisher_signup,name='advsignup'),
+    url(r'^customersignup/',publisher_signup,name='cussignup'),
     url(r'^login/$', auth_views.login, {'template_name': 'account/login.html'} ,name='login'),
     url(r'^adminlogin/',auth_views.login, {'template_name': 'account/admin_login.html'},name='admin_login'),
     url(r'^logout/$', auth_views.logout, {'next_page': '/'}, name="logout"),

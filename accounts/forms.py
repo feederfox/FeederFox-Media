@@ -28,6 +28,24 @@ class SignUpForm(UserCreationForm):
 		model = User
 		fields = ('username', 'email', 'password1', 'password2','Account_type' )
 
+class PublisherSignUpForm(UserCreationForm):
+	email = forms.EmailField()
+	class Meta:
+		model = User	
+		fields = ('username', 'email', 'password1', 'password2')	
+
+class AdvertiserSignUpForm(UserCreationForm):
+	email = forms.EmailField()
+	class Meta:
+		model = User	
+		fields = ('username', 'email', 'password1', 'password2')	
+
+class CustomerSignUpForm(UserCreationForm):
+	email = forms.EmailField()
+	class Meta:
+		model = User	
+		fields = ('username', 'email', 'password1', 'password2')	
+
 class PostForm(forms.ModelForm):
 	class Meta:
 		model = Post
