@@ -15,5 +15,7 @@ urlpatterns = [
     url(r'^article2/',views.article2,name='article2'),
     url(r'^article3/',views.article3,name='article3'),
     url(r'^article4/',views.article4,name='article4'),
+    url(r'^regionalnewspaper/',views.regionalnewspaper,name='regionalnewspaper'),
+
     #url(r'^post/',views.post,name='post')
 ]

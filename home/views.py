@@ -14,6 +14,8 @@ from django.template.loader import get_template
 
 
 # Add the two views we have been talking about  all this time :)
+def regionalnewspaper(request):
+    return render(request,'regionalnewspaper.html',{})                
 
 def admin(request):
     if request.user.is_authenticated:
