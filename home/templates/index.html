@@ -36,7 +36,7 @@
           <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-user"></i> Publisher
             <span class="caret"></span></a>
             <ul class="dropdown-menu d1">
-              <li><a href=" {% url 'accounts:pubsignup' %} ">Sign Up</a></li>
+              <li><a href=" {% url 'accounts:signup' %} ">Sign Up</a></li>
               <li><a href=" {% url 'accounts:login' %} ">Login</a></li>
             </ul>
           </div>
@@ -46,7 +46,7 @@
           <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-user"></i> Customer
             <span class="caret"></span></a>
             <ul class="dropdown-menu d1">
-              <li><a href=" {% url 'accounts:cussignup' %} ">Sign Up</a></li>
+              <li><a href=" {% url 'accounts:signup' %} ">Sign Up</a></li>
               <li><a href=" {% url 'accounts:login' %} ">Login</a></li>
             </ul>
           </div>
@@ -56,7 +56,7 @@
           <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-user"></i> Advertiser
             <span class="caret"></span></a>
             <ul class="dropdown-menu d1">
-              <li><a href=" {% url 'accounts:advsignup' %} ">Sign Up</a></li>
+              <li><a href=" {% url 'accounts:signup' %} ">Sign Up</a></li>
               <li><a href=" {% url 'accounts:login' %} ">Login</a></li>
             </ul>
           </div>
@@ -253,25 +253,18 @@
 
 </nav><!-- end navbar navbar-default w3_megamenu -->
 
-<!-- <div class="container">
-<div class="row">
-    <div class="col-md-12">
-      <img src="static/dist/images/ads/fgh.jpg" style="width:100%;">
-    </div>
-</div>
-</div> -->
-
 <div class="container">
 <div class="row">
     <div class="col-md-12">
-      <img src="static/dist/images/ads/1.png" style="width:1200px;height:300px;">
+      <img src="static/dist/images/ads/44.jpg" style="width:1200px;height:300px;">
     </div>
 </div>
 </div>
+
 <!-- Video Player -->
 
 <div class="container">
-  <div class="videoPlayer showControls">
+  <div class="videoPlayer showControls" style="height: 745px;">
 
     <div class="videoTitle">
           <marquee>FeederFox</marquee>
@@ -280,7 +273,7 @@
 </iframe>
     
     <div class="controls active">
-<img src="static/dist/images/logos/logo.png" style="height:102px;width:104px;margin-left:-385px;margin-top:-383px;">
+<img src="static/dist/images/logos/logo.png" style="height:102px;width:104px;margin-left:-350px;margin-top:-383px;">
       <!-- <div class="topControls">
         <span class="startTime">00:00:00</span>
         <div class="seekbar">
@@ -341,7 +334,7 @@
 <div class="container">
 <h2 class="heading-chnls"><strong>NewsChannels</strong></h2>
 <div class="news_chnl_bg wow animated fadeInLeft">
-  <h3 style="color:#fff;text-align: center;"> National Channels</h3><br>
+  <h3 style="color:#fff;text-align: center;"></h3><br>
 <div class="owl-carousel owl-theme">
     <div class="item">
       <a href="#">
@@ -431,7 +424,8 @@
 
 <br>
 <br>
-<h3 style="color:#fff;margin-top:-20px;text-align: center;"> Regional / Local Channels</h3><br><br>
+
+<!-- <h3 style="color:#fff;margin-top:-20px;text-align: center;"> Regional / Local Channels</h3><br><br>
 <div class="owl-carousel owl-theme">
     <div class="item">
       <a href="{% url 'regionalnewspaper' %}">
@@ -620,13 +614,20 @@
 <h4 style="color:#fff;text-align: center;">West Bengal</h4>
   </a>
     </div>
-</div>
+</div> -->
 </div>
 </div>
 
 <!-- Newschannels ends here -->
 <br>
-
+<div class="container">
+<div class="row">
+    <div class="col-md-12">
+      <img src="{% static 'dist/images/ads/ad-4.jpg' %}" style="width:100%;" class="wow animated fadeInRight">
+    </div>
+</div>
+</div>
+<br>
 <!--Newspapers-->
 <div class="container">
   <h2 class="heading-news"><strong>NewsPapers</strong></h2>
@@ -634,7 +635,7 @@
   <div class="row">
     <div class="col-md-10">
       <div class="nws-bg wow animated fadeInLeft">
-   <h3 style="color:#fff;text-align: center;">National Newspapers</h3><br>
+   <h3 style="color:#fff;text-align: center;"></h3><br>
 <div class="wrapper">
   <div class="owl-carousel owl-theme">
     <div class="item">
@@ -698,7 +699,7 @@
 <!--National Newspapers sliders Ends here-->
 
 <!--Regional Newspapers sliders starts here-->
- <h3 style="color:#fff;text-align: center;"> Regional / Local Newspapers</h3><br>
+<!--   <h3 style="color:#fff;text-align: center;"> Regional / Local Newspapers</h3><br>
 <div class="c-carousel">
   <div class="c-carousel__arrow c-carousel__arrow--left"></div>
   <div class="c-carousel__arrow c-carousel__arrow--right"></div>
@@ -706,28 +707,28 @@
     <li>
    <a href="{% url 'regionalnewspaper' %}">   <img src="static/dist/images/newspaper_logos/karnataka.jpg" class="reg_news_img"></a>
     </li>
-    <!-- <li><img src="static/dist/images/newspaper_logos/TELANGANA.jpg" class="reg_news_img"></li> -->
-    <!-- <li><img src="static/dist/images/newspaper_logos/mp.jpg" class="reg_news_img"></li> -->
     <li><a href="{% url 'regionalnewspaper' %}"><img src="static/dist/images/newspaper_logos/JHARKHAND.jpg" class="reg_news_img"></a></li>
     <li><a href="{% url 'regionalnewspaper' %}"><img src="static/dist/images/newspaper_logos/up.jpg" class="reg_news_img"></a></li>
     <li><a href="{% url 'regionalnewspaper' %}"><img src="static/dist/images/newspaper_logos/GUJARAT.jpg" class="reg_news_img"></a></li>
     <li><a href="{% url 'regionalnewspaper' %}"><img src="static/dist/images/newspaper_logos/KERALA.jpg" class="reg_news_img"></a></li>
-    <!-- <li><img src="static/dist/images/newspaper_logos/PUNJAB.jpg" class="reg_news_img"></li> -->
     <li><a href="{% url 'regionalnewspaper' %}"><img src="static/dist/images/newspaper_logos/bengal.jpg" class="reg_news_img"></a></li>
   </ul>
-</div>
+</div> -->
 <!--Regional Newspapers sliders ends here--> 
 
 </div>
     </div>
     <div class="col-md-2">
-      <img src="static/dist/images/ads/ad2.jpg" style="width:100%;" class="newz_respnsv_img1">
+      <!-- <img src="static/dist/images/ads/ad2.jpg" style="width:100%;" class="newz_respnsv_img1"> -->
       <img src="static/dist/images/ads/d.jpg" style="width:100%;margin-top:3px;" class="newz_respnsv_img2">
       <img src="static/dist/images/ads/NEWS.jpg" style="width:100%;margin-top:3px;" class="newz_respnsv_img3">
     </div>
   </div>
 
 </div>
+<!--Newspapers Ends here-->
+<br>
+
 <!--Magazines-->
  <div class="container">
    <h2 class="heading-magzn"><strong>Magazines</strong></h2>
@@ -781,7 +782,7 @@
 
             <div class="gallery_product col-lg-2 col-md-2 col-sm-3 col-xs-6 filter spray">
                <div class="hovereffect">
-              <img class="img-responsive" src="static/dist/images/magazines/1.png" alt="">
+              <img class="img-responsive" src="static/dist/images/magazines/5.png" alt="">
               <div class="overlay">
                <a class="info" href="static/dist/magazines/kavimozhi kottayam/6. Jun 18 layout.pdf">READ</a>
              </div>
@@ -791,7 +792,7 @@
 
             <div class="gallery_product col-lg-2 col-md-2 col-sm-3 col-xs-6 filter irrigation">
                <div class="hovereffect">
-                <img class="img-responsive" src="static/dist/images/magazines/2.png" alt="">
+                <img class="img-responsive" src="static/dist/images/magazines/6.png" alt="">
               <div class="overlay">
                <a class="info" href="static/dist/magazines/kavimozhi kottayam/7. Jul 18 layout.pdf">READ</a>
              </div>
@@ -800,7 +801,7 @@
 
             <div class="gallery_product col-lg-2 col-md-2 col-sm-3 col-xs-6 filter spray">
                <div class="hovereffect">
-              <img class="img-responsive" src="static/dist/images/magazines/3.png" alt="">
+              <img class="img-responsive" src="static/dist/images/magazines/7.png" alt="">
               <div class="overlay">
                <a class="info" href="static/dist/magazines/Tab-Mag/TAB MAG1">READ</a>
              </div>
@@ -809,7 +810,7 @@
 
             <div class="gallery_product col-lg-2 col-md-2 col-sm-3 col-xs-6 filter irrigation">
                <div class="hovereffect">
-              <img class="img-responsive" src="static/dist/images/magazines/4.png" alt="">
+              <img class="img-responsive" src="static/dist/images/magazines/8.png" alt="">
               <div class="overlay">
                <a class="info" href="static/dist/magazines/The News/The_News_July_2018.pdf">READ</a>
              </div>
@@ -818,16 +819,16 @@
 
             <div class="gallery_product col-lg-2 col-md-2 col-sm-3 col-xs-6 filter irrigation">
                <div class="hovereffect">
-              <img class="img-responsive" src="static/dist/images/magazines/1.png" alt="">
+              <img class="img-responsive" src="static/dist/images/magazines/9.png" alt="">
               <div class="overlay">
                <a class="info" href="static/dist/magazines/kavimozhi kottayam/6. Jun 18 layout.pdf">READ</a>
              </div>
            </div>
             </div>
 
-            <div class="gallery_product col-lg-2 col-md-2 col-sm-3 col-xs-6 filter hdpe">
+<!--             <div class="gallery_product col-lg-2 col-md-2 col-sm-3 col-xs-6 filter hdpe">
                <div class="hovereffect">
-              <img class="img-responsive" src="static/dist/images/magazines/2.png" alt="">
+              <img class="img-responsive" src="static/dist/images/magazines/10.png" alt="">
               <div class="overlay">
                <a class="info" href="static/dist/magazines/kavimozhi kottayam/7. Jul 18 layout.pdf"">READ</a>
              </div>
@@ -836,13 +837,13 @@
 
             <div class="gallery_product col-lg-2 col-md-2 col-sm-3 col-xs-6 filter spray">
                <div class="hovereffect">
-              <img class="img-responsive" src="static/dist/images/magazines/3.png" alt="">
+              <img class="img-responsive" src="static/dist/images/magazines/11.png" alt="">
               <div class="overlay">
                <a class="info" href="static/dist/magazines/Tab-Mag/TAB MAG1">READ</a>
              </div>
            </div>
-            </div>
-
+            </div> -->
+<!-- 
             <div class="gallery_product col-lg-2 col-md-2 col-sm-3 col-xs-6 filter sprinkle">
                <div class="hovereffect">
               <img class="img-responsive" src="static/dist/images/magazines/4.png" alt="">
@@ -873,7 +874,7 @@
               <div class="overlay">
                <a class="info" href="static/dist/magazines/Tab-Mag/TAB MAG1.pdf">READ</a>
              </div>
-           </div>
+           </div> -->
             </div>
        </div>
     </div>
@@ -966,17 +967,17 @@
     <div class="ebooks_bg wow animated fadeInDown">
 <section>
   <div class="stage">
-    <div class="cbImage"><img src="https://grillenburgerbar.dk/music/img/grillen-30.jpeg" alt="Alt" /></div>
-    <div class="cbImage"><img src="https://grillenburgerbar.dk/music/img/grillen-29.jpeg" alt="Alt" /></div>
-    <div class="cbImage"><img src="https://grillenburgerbar.dk/music/img/grillen-28.jpeg" alt="Alt" /></div>
-    <div class="cbImage"><img src="https://grillenburgerbar.dk/music/img/grillen-29.jpeg" alt="Alt" /></div>
-    <div class="cbImage"><img src="https://grillenburgerbar.dk/music/img/grillen-27.jpeg" alt="Alt" /></div>
-    <div class="cbImage active"><img src="https://grillenburgerbar.dk/music/img/grillen-30.jpeg" alt="Alt" /></div>
-    <div class="cbImage"><img src="https://grillenburgerbar.dk/music/img/grillen-29.jpeg" alt="Alt" /></div>
-    <div class="cbImage"><img src="https://grillenburgerbar.dk/music/img/grillen-28.jpeg" alt="Alt" /></div>
-    <div class="cbImage"><img src="https://grillenburgerbar.dk/music/img/grillen-27.jpeg" alt="Alt" /></div>
-    <div class="cbImage"><img src="https://grillenburgerbar.dk/music/img/grillen-30.jpeg" alt="Alt" /></div>
-    <div class="cbImage"><img src="https://grillenburgerbar.dk/music/img/grillen-28.jpeg" alt="Alt" /></div>
+    <div class="cbImage"><img src='static/dist/images/ebooks/e-books.jpg' alt="Alt" /></div>
+    <div class="cbImage"><img src='static/dist/images/ebooks/e-books.jpg' alt="Alt" /></div>
+    <div class="cbImage"><img src='static/dist/images/ebooks/e-books.jpg' alt="Alt" /></div>
+    <div class="cbImage"><img src='static/dist/images/ebooks/e-books.jpg' alt="Alt" /></div>
+    <div class="cbImage"><img src='static/dist/images/ebooks/e-books.jpg' alt="Alt" /></div>
+    <div class="cbImage active"><img src='static/dist/images/ebooks/e-books.jpg' alt="Alt" /></div>
+    <div class="cbImage"><img src='static/dist/images/ebooks/e-books.jpg' alt="Alt" /></div>
+    <div class="cbImage"><img src='static/dist/images/ebooks/e-books.jpg' alt="Alt" /></div>
+    <div class="cbImage"><img src='static/dist/images/ebooks/e-books.jpg' alt="Alt" /></div>
+    <div class="cbImage"><img src='static/dist/images/ebooks/e-books.jpg' alt="Alt" /></div>
+    <div class="cbImage"><img src='static/dist/images/ebooks/e-books.jpg' alt="Alt" /></div>
     <div class="clear"></div>
   </div>
   <div class="clear"></div>
@@ -996,13 +997,7 @@
 
 </div>
 <br>
-<div class="container">
-<div class="row">
-    <div class="col-md-12">
-      <img src="{% static 'dist/images/ads/ad-4.jpg' %}" style="width:100%;" class="wow animated fadeInRight">
-    </div>
-</div>
-</div>
+
 <!--Ebooks ends here-->
 
 <br>

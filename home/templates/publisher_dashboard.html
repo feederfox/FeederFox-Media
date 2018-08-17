@@ -222,11 +222,34 @@
 
 
 
-    <div class="container">
+<div class="container">
 <p> <h3> Welcome {{ request.user.username }} </h3></p>
 <p> Please Click <a href=" {% url 'accounts:post' %} "> here </a> to Post </p>
 </div>
 
+<div class="container">
+<div id="menu" style="margin-left:-40px;margin-top:14px;">
+    <ul class="topUl">
+    <li class="ddList">
+        <a href="#" title="Home">Home</a>
+    </li>
+     <li class="ddList">
+        <a href="#" title="Contact">My Profile</a>
+    </li>
+    <li class="ddList">
+        <a href="#" title="Link2">Post</a>
+        <ul>
+            <li class="ddList2">
+                <a href="{% url 'accounts:post' %} " title="SubLink2-1">Upload Post</a>
+            </li>
+            <li class="ddList2">
+                <a href="#" title="SubLink2-2">View Post</a>
+            </li>
+        </ul>
+    </li>
+</ul>
+</div>
+</div>
 
 <!-- footer -->
 
