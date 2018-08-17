@@ -16,6 +16,9 @@
 <link rel="stylesheet" href="{% static 'dist/css/main.css' %}">
 <link rel="stylesheet" href="{% static 'dist/css/all-themes.css' %}" />
 
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/material-design-iconic-font/2.2.0/css/material-design-iconic-font.min.css">
 
 </head>
@@ -93,77 +96,85 @@
                     <li><a href="{% url 'accounts:add_advertisers' %}">Add Advertiser</a></li>     
                 </ul>
                  </li> 
-
+            
             <li> <a href="#" class="menu-toggle"> <span> Posts </span> </a>
                 <ul class="ml-menu">
                     <li><a href="{% url 'accounts:view_post' %}">View Posts</a></li>
                     <li><a href="#">Add Posts</a></li>     
                 </ul>
-                 </li>           
-            
+                 </li>      
     </div>
     <!-- #Menu --> 
 </aside>
 
 <!-- Right Sidebar -->
-
+<aside id="rightsidebar" class="right-sidebar">
+    
+</aside>
 
 <!-- Main Content -->
 <section class="content home">
     <div class="container-fluid">
         <div class="block-header">
             <div class="row">
-            </div>
-<div class="container">
-	
-
-            <div class="container">
-                <div class="col-sm-12">
-                <h4>Add Publishers ...</h4>
-                               <!--  <form method="POST" action=" {% url 'accounts:add_publishers' %} " class="form">
-                                {% csrf_token %}
-
-
-                      {% for field in form.visible_fields %}
-                                <div class="form-group form-float">
-                                    <div class="form-line">
-                                  {{ field.label_tag }}
-
-                                  {% if form.is_bound %}
-
-                                    {% if field.errors %}
-                                      {% render_field field class="form-control is-invalid" %}
-
-                                      {% for error in field.errors %}
-                                        <div class="invalid-feedback">
-                                          {{ error }}
-                                        </div>
-
-                                      {% endfor %}
-                                    {% else %}
-                                      {% render_field field class="form-control is-valid" %}
-                                    {% endif %}
-                                  {% else %}
-                                    {% render_field field class="form-control" %}
-                                  {% endif %}
-
-                            {% endfor %}      
-
-                                  
-                                </div>
-                                </div>
-                                 -->
-                                 <form  method="post" action="" class="form">
-                      
-                      
-                      {% csrf_token %}
-                      {{ form|crispy }}
-                      <button class="btn btn-raised waves-effect bg-red" type="submit"> Add Publishers </button>
+                <div class="col-lg-12 col-md-6 col-sm-7">
+                    <h2>Post's List</h2>                    
                     
-                    </form>
-                            </div>
-    	</div>
-	</div>
+                </div>            
+            </div>
+        </div>
+
+                        <div class="container">
+                    {% if messages %}
+                                    <ul class="messages">
+                                        {% for message in messages %}
+                                        <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+                                        {% endfor %}
+                                    </ul>
+                                    {% endif %}
+
+                    
+                    <table class="table table-bordered">
+                        <tr>
+                            <th>Sl no </th>
+                            <th>Publishing_House </th>
+                            <th>Publishing_Name  </th>
+                            <th> Number_of_Editions </th>
+                            <th>Sub_Editions  </th>
+                            <th>Place</th>
+                            <th> Languages </th>
+                            <th> Periodicity </th>
+                            <th>Uploading_By</th>
+                            <th>Uploader_Contact_Details</th>
+                            <th>Actions</th>
+                            
+                            
+                        </tr>
+                        {% for post in posts %}
+                        <tr>
+
+                            <td>{{ forloop.counter }}</td>
+                            <td> {{ post.Publishing_House }} </td>
+                            <td>{{ post.Publishing_Name }}</td>
+                            <td> {{ post.Number_of_Editions }} </td>
+                            <td> <i> {{ post.Sub_Editions }} </i></td>
+                            <td>{{ post.Place }}</td>
+                            <td>{{ post.Languages }} </td>
+                            <td> {{ post.Periodicity }} </td>
+                            <td> {{ post.Uploading_By }} </td>
+                            <td> {{ post.user}} </td>
+                            <td><a href="#" title="view/edit" data-rel="tooltip"> <span class="fa fa-pencil"></span></a>
+                                <a href=" {% url 'accounts:delete_post' post.id %}" title="delete" data-rel="tooltip"><span class="fa fa-trash-o"></span></a>
+                            </td>
+                            
+                        </tr>
+                        {% endfor %}
+                    </table>
+
+
+      </div>
+
+    </div>
 </section>
 
 <!-- Jquery Core Js --> 

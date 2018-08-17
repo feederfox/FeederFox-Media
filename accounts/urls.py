@@ -1,7 +1,8 @@
 
 from django.conf.urls import url,include
 from .views import (signup,publisher_list,customer_list,advertiser_list,post,add_publishers,edit_publishers,add_customers,customer_signup,
-    advertiser_signup,edit_customers,add_advertisers,edit_advertisers,delete_publisher,delete_customer,delete_advertiser,publisher_signup)
+    view_post,advertiser_signup,edit_customers,add_advertisers,edit_advertisers,delete_publisher,delete_customer,delete_advertiser,
+    publisher_signup,delete_post)
 from django.contrib.auth import views as auth_views
 
 
@@ -26,5 +27,7 @@ urlpatterns = [
     url(r'^(?P<pk>[\-\w]+)/edit_advertisers/',edit_advertisers,name='edit_advertisers'),
     url(r'^(?P<pk>[\-\w]+)/delete_advertiser/',delete_advertiser,name='delete_advertiser'),
     url(r'^post/',post,name='post'),
+    url(r'^view_post/',view_post,name='view_post'),
+    url(r'^(?P<pk>[\-\w]+)/delete_post/',delete_post,name='delete_post'),
 ]
 

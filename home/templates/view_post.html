@@ -222,6 +222,9 @@
 
 
 
+<div class="container">
+<p> <h3> Welcome {{ request.user.username }} </h3></p>
+</div>
 
 <div class="container">
 <div id="menu" style="margin-left:-40px;margin-top:14px;">
@@ -239,7 +242,7 @@
                 <a href="{% url 'accounts:post' %} " title="SubLink2-1">Upload Post</a>
             </li>
             <li class="ddList2">
-                <a href="{% url 'accounts:view_post' %}" title="SubLink2-2">View Post</a>
+                <a href="#" title="SubLink2-2">View Post</a>
             </li>
         </ul>
     </li>
@@ -247,14 +250,8 @@
 </div>
 </div>
 
-
-<div class="container">
-<p style="FONT-SIZE:25px; COLOR:#000000; LINE-HEIGHT:30px;">
-
-<p> <h3> Welcome {{ request.user.username }} </h3></p>
-
-
-                  {% if messages %}
+ <div class="container">
+                    {% if messages %}
                                     <ul class="messages">
                                         {% for message in messages %}
                                         <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
@@ -262,13 +259,41 @@
                                     </ul>
                                     {% endif %}
 
-<form  method="POST" action="" enctype="multipart/form-data" style="width:779px;padding-left: 302px;">
-  {% csrf_token %}
-  {{ form|crispy }}
-  <button class="primaryAction" type="submit">Upload</button>
-</form>
+                    
+                    <table class="table table-bordered">
+                        <tr>
+                            <th>Sl no </th>
+                            <th>Publishing_House </th>
+                            <th>Publishing_Name  </th>
+                            <th> Number_of_Editions </th>
+                            <th>Sub_Editions  </th>
+                            <th>Place</th>
+                            <th> Languages </th>
+                            <th> Periodicity </th>
+                            <th>Uploading_By</th>
+                            <th>Uploader_Contact_Details</th>
+                            
+                            
+                        </tr>
+                        {% for post in posts %}
+                        <tr>
 
-</div>  
+                            <td>{{ forloop.counter }}</td>
+                            <td> <i> {{ post.Publishing_House }} </i></td>
+                            <td>{{ post.Publishing_Name }}</td>
+                            <td> {{ post.Number_of_Editions }} </td>
+                            <td> <i> {{ post.Sub_Editions }} </i></td>
+                            <td>{{ post.Place }}</td>
+                            <td>{{ post.Languages }} </td>
+                            <td> {{ post.Periodicity }} </td>
+                            <td> {{ post.Uploading_By }} </td>
+                            <td> {{ post.user}} </td>
+                            
+                        </tr>
+                        {% endfor %}
+                    </table>
+
+      </div>
 
 
 <!-- footer -->

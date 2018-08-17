@@ -248,3 +248,21 @@ def post(request):
 
     form = PostForm()        
     return render(request,'post.html',{'form':form})    
+
+
+def view_post(request):
+    if request.user.is_superuser:
+        posts = Post.objects.all()
+        context = {'posts':posts}
+        return render(request,'post_list.html',context)
+
+    else :
+        posts = Post.objects.filter(user = request.user)
+        context = {'posts':posts}
+        return render(request,'view_post.html',context)
+
+
+def delete_post(request,pk):
+    post = Post.objects.get(pk=pk)
+    post.delete()
+    return redirect('accounts:view_post')   

@@ -62,7 +62,7 @@ class Post(models.Model):
     Languages = models.CharField(max_length=100)
     Periodicity = models.CharField(max_length=100,choices=PERIODICITY_CHOICES,default='Daily')
     Uploading_By = models.CharField(max_length=100,choices=UPLOADING_CHOICES,default='Single_File')
-    Uploader_Contact_Details = models.ForeignKey(User,on_delete=models.CASCADE)
+    user = models.ForeignKey(User,on_delete=models.CASCADE, related_name='user')
 
     def __str__(self):
         return str(self.Publishing_Name)
