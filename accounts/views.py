@@ -266,3 +266,9 @@ def delete_post(request,pk):
     post = Post.objects.get(pk=pk)
     post.delete()
     return redirect('accounts:view_post')   
+
+
+def pubprofile(request):
+    profile = Profile.objects.filter(user = request.user)
+    context = {'profile':profile}
+    return render(request,'publisherprofile.html',context)

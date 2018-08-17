@@ -226,7 +226,6 @@
 
 <div class="container">
 <p> <h3> Welcome {{ request.user.username }} </h3></p>
-<p> Please Click <a href=" {% url 'accounts:post' %} "> here </a> to Post </p>
 </div>
 
 <div class="container">
@@ -236,7 +235,7 @@
         <a href="#" title="Home">Home</a>
     </li>
      <li class="ddList">
-        <a href="#" title="Contact">My Profile</a>
+        <a href="{% url 'accounts:pubprofile' %} " title="Contact">My Profile</a>
     </li>
     <li class="ddList">
         <a href="#" title="Link2">Post</a>
@@ -245,7 +244,7 @@
                 <a href="{% url 'accounts:post' %} " title="SubLink2-1">Upload Post</a>
             </li>
             <li class="ddList2">
-                <a href="#" title="SubLink2-2">View Post</a>
+                <a href="{% url 'accounts:view_post' %} " title="SubLink2-2">View Post</a>
             </li>
         </ul>
     </li>

@@ -1,3 +1,5 @@
+
+{% if request.user.issuperuser %}
 {% load static %}
 {% load crispy_forms_tags %}
 {% load widget_tweaks %}
@@ -173,3 +175,5 @@
 <script src="{% static 'dist/js/index.js' %}"></script>
 </body>
 </html>
+
+{% endif %}

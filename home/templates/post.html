@@ -30,11 +30,10 @@
       </div>
       <div class="col-md-2 col-md-offset-4" >
         <div class="dropdown drop1">
-          <a href=" {% url 'accounts:logout' %} " <i class="fa fa-user"></i> Logout </a>
-          <li><a href=" {% url 'account_change_password' %} "  >Password Reset</a></li>
-
-            
+          <a href=" {% url 'accounts:logout' %} " <i class="fa fa-user"></i> Logout </a>            
           </div>
+        <a href=" {% url 'account_change_password' %} "  >Password Reset</a>
+
         </div>
         </div></div>
 </div>
@@ -226,13 +225,17 @@
 
 
 <div class="container">
+<p> <h3> Welcome {{ request.user.username }} </h3></p>
+</div>
+
+<div class="container">
 <div id="menu" style="margin-left:-40px;margin-top:14px;">
     <ul class="topUl">
     <li class="ddList">
         <a href="#" title="Home">Home</a>
     </li>
      <li class="ddList">
-        <a href="#" title="Contact">My Profile</a>
+        <a href="{% url 'accounts:pubprofile' %} " title="Contact">My Profile</a>
     </li>
     <li class="ddList">
         <a href="#" title="Link2">Post</a>
@@ -241,7 +244,7 @@
                 <a href="{% url 'accounts:post' %} " title="SubLink2-1">Upload Post</a>
             </li>
             <li class="ddList2">
-                <a href="{% url 'accounts:view_post' %}" title="SubLink2-2">View Post</a>
+                <a href="{% url 'accounts:view_post' %} " title="SubLink2-2">View Post</a>
             </li>
         </ul>
     </li>
@@ -249,12 +252,7 @@
 </div>
 </div>
 
-
 <div class="container">
-<p style="FONT-SIZE:25px; COLOR:#000000; LINE-HEIGHT:30px;">
-
-<p> <h3> Welcome {{ request.user.username }} </h3></p>
-
 
                   {% if messages %}
                                     <ul class="messages">
