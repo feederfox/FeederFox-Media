@@ -16,7 +16,13 @@ class RegionalNewsChannel(models.Model):
 	def __str__(self):
 		return str(self.name)
 
+class NewsPaper(models.Model):
+	name = models.CharField(max_length=100)
+	url = models.URLField(null=True)
+	image = models.ImageField(blank=True,null=True)
 
+	def __str__(self):
+		return str(self.name)
 
 class NationalNewsPaper(models.Model):
 	name = models.CharField(max_length=100)

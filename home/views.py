@@ -10,7 +10,7 @@ from django.http import HttpResponse
 from .forms import ContactForm
 from django.core.mail import EmailMessage
 from django.template.loader import get_template
-
+from contents.models import NewsPaper
 
 
 # Add the two views we have been talking about  all this time :)
@@ -76,8 +76,13 @@ def contact(request):
 
     return render(request,'contact.html',{'form':form})
 
-class HomePageView(TemplateView):
-    template_name = "index.html"
+def index(request):
+    newspaper = NewsPaper.objects.all()
+    context = {'newspapers':newspaper}
+    return render(request,'index.html',context)
+    
+# class HomePageView(TemplateView):
+#     template_name = "index.html"
 
 class AboutPageView(TemplateView):
     template_name = "about.html"

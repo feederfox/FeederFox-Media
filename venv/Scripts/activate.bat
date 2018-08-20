@@ -1,5 +1,5 @@
 @echo off
-set "VIRTUAL_ENV=G:\Feederfox\venv"
+set "VIRTUAL_ENV=G:\FeederFox-Media\venv"
 
 if defined _OLD_VIRTUAL_PROMPT (
     set "PROMPT=%_OLD_VIRTUAL_PROMPT%"

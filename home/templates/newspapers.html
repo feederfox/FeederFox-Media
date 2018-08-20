@@ -1,0 +1,32 @@
+
+{% load static %}
+
+{% for newspaper in newspapers %}
+    <div class="item">
+    	<div class="thumbnail">
+      <div class="hovereffect"><img src=' {% static "dist/images/national_newspapers/6.png" %}' class="img-responsive reg-img">
+         <div class="overlay">
+               <a class="info" href="{{ newspaper.url }} ">Read</a>
+        </div>
+      </div>
+      </div>
+    </div>
+    {% endfor %}
+
+ <!-- {% for obj in newspapers %}
+<div class="row">
+  <div class="col-sm-12">
+    <div class="thumbnail">
+         <img src=' {% static "dist/images/national_newspapers/6.png" %}' class='img-responsive' />
+      <div class="caption post-detail-item">
+        
+        <h3>{{ obj.name }}</a></h3>
+        
+        <p><a href="{{ obj.url }}" class="btn btn-primary" role="button">View</a></p>
+      </div>
+    </div>
+  </div>
+<hr/>
+</div>
+{% endfor %}
+ -->

@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import NationalNewsChannel,RegionalNewsChannel,Magazine,SocialChannel,Ebook,RegionalNewsPaper,NationalNewsPaper,Article
+from .models import NationalNewsChannel,RegionalNewsChannel,Magazine,SocialChannel,Ebook,RegionalNewsPaper,NationalNewsPaper,Article,NewsPaper
 
 admin.site.register(RegionalNewsChannel)
 admin.site.register(NationalNewsChannel)
@@ -9,3 +9,4 @@ admin.site.register(Ebook)
 admin.site.register(RegionalNewsPaper)
 admin.site.register(NationalNewsPaper)
 admin.site.register(Article)
+admin.site.register(NewsPaper)

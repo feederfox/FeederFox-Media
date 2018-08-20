@@ -3,10 +3,13 @@ from rest_framework import status
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from rest_framework.views import APIView
+from accounts.models import Profile
+from rest_framework.generics import ListCreateAPIView
+from rest_framework.permissions import IsAuthenticated,AllowAny
 from .models import Ebook,Magazine,SocialChannel,RegionalNewsChannel,NationalNewsChannel,NationalNewsPaper,RegionalNewsPaper,Article
 from .serializers import (EbookSerializer,MagazineSerializer,SocialChannelSerializer,
 							NationalNewsChannelSerializer,RegionalNewsChannelSerializer,NationalNewsPaperSerializer,
-							RegionalNewsPaperSerializer,ArticleSerializer)
+							RegionalNewsPaperSerializer,ArticleSerializer,SignupSerializer,UserSerializer)
 
 
 @api_view(['GET', 'POST'])
@@ -170,44 +173,20 @@ def news(request):
 	print(national.items())
 	a = national.copy()
 	a.update(regional)
-	#resp = dict(list(national.items() + regional.items()))
 	return Response(a)
-	# national=[]
-	# regional = []
-	# a = []
-	# for nat in National:
-	# 	national.append(nat)
-	# for reg in Regional:
-	# 	regional.append(reg)
-	# 	news = {'NationalNewsChannels':national[i],'RegionalNewsChannels':regional[i]}
-	# 	news.save()
-	# 	serializer = NewsChannelsSerializer(instance=news)
-	# 	return Response(serializer.data)
-# class Device(object):
+	
 
-#     def __init__(self, national, regional):
-#         self.national = national
-#         self.regional = regional
 
-# class DeviceView(APIView):
-# 	def get(self,request):
-# 		national = NationalNewsChannel.objects.all()
-# 		regional = RegionalNewsChannel.objects.all()
-#         # create a dict with required objects and pass it as instance of serializer
-# 		device = {'national': national, 'regional': regional}
-# 		serializer = NewsChannelsSerializer(instance=device)
-# 		return Response(serializer.data)    
-# @api_view(['GET', 'POST'])
-# def newschannels(request):
-# 	national = NationalNewsChannel.objects.all()
-# 	regional = RegionalNewsChannel.objects.all()
-# 	NationalSerializer = NationalNewsChannelSerializer(national)
-# 	RegionalSerializer = RegionalNewsChannelSerializer(regional)
-# 	serializer = NewsChannelsSerializer(data={
-# 		'NationalNewsChannel': NationalSerializer.data,
-# 		'RegionalNewsChannel': RegionalSerializer.data,
-# 	})
-# 	if serializer.is_valid():
-# 		return Response(serializer.validated_data)
-# 	else:
-# 		return Response(status = 500)
+class signup(ListCreateAPIView):
+	queryset = Profile.objects.all()
+	serializer_class = SignupSerializer
+
+	# def create(self,request,*args,**kwargs):
+	# 	serializer = SignupSerializer(data=request.data)
+	# 	if serializer.is_valid():
+	# 		serializer.save()
+	# def create(self, validated_data):
+	# 	user = super(SignupSerializer, self).create(validated_data)
+	# 	user.set_password(validated_data['password1'])
+	# 	user.save()
+	# 	return user     

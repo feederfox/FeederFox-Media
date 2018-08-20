@@ -4,7 +4,7 @@ from django.conf.urls import url
 from home import views
 
 urlpatterns = [
-    url(r'^$', views.HomePageView.as_view(), name='home'), # Notice the URL has been named
+    url(r'^$', views.index, name='home'), # Notice the URL has been named
     url(r'^about/$', views.AboutPageView.as_view(), name='about'),
     url(r'^faq/$', views.FaqPageView.as_view(), name='faq'),
     url(r'^contact/',views.contact,name='contact'),

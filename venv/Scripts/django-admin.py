@@ -1,4 +1,4 @@
-#!g:\feederfox\venv\scripts\python.exe
+#!g:\feederfox-media\venv\scripts\python.exe
 from django.core import management
 
 if __name__ == "__main__":

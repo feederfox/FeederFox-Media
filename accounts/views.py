@@ -6,6 +6,8 @@ from .models import Profile,Post
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
+from contents.models import NewsPaper
+
 
 def signup(request):
     if request.method == 'POST':
@@ -239,16 +241,34 @@ def delete_advertiser(request,pk):
 @login_required
 def post(request):
     if request.method=='POST':
-        form = PostForm(request.POST,request.FILES)
+        form = PostForm(request.POST,request.FILES) 
         if form.is_valid():
-            form.save()
-            Uploader_Contact_Details = request.user
-            print(Uploader_Contact_Details)
+            print(request.user)
+            post = form.save(commit=False)
+            print(post)
+            user = request.user
+            post.save()
+            name = form.cleaned_data.get('Publishing_Name')
+            image = form.cleaned_data.get('Add_PDF')
+            url = post.Add_PDF.url
+            newspap = NewsPaper.objects.filter(name=name)
+            print(newspap)
+            newspap.delete()
+            newspaper = NewsPaper(name=name,image=image,url=url)
+            newspaper.save()
+            print(post.Add_PDF.url)
+            print(user)
             messages.success(request,'Post has been Uploaded')
+
 
     form = PostForm()        
     return render(request,'post.html',{'form':form})    
 
+def newspapers(request):
+    newspapers = NewsPaper.objects.all()
+    print(newspapers)
+    context = {'newspapers':newspapers}
+    return render(request,'pdf.html',context)
 
 def view_post(request):
     if request.user.is_superuser:

@@ -49,8 +49,8 @@ class CustomerSignUpForm(UserCreationForm):
 class PostForm(forms.ModelForm):
 	class Meta:
 		model = Post
-		fields = ('Publishing_House','Publishing_Name','Add_Logo','Number_of_Editions','Sub_Editions','Place','Languages','Periodicity',
-			'Uploading_By','user')
+		fields = ('Publishing_House','Publishing_Name','Add_PDF','Type','Number_of_Editions','Sub_Editions','Place','Languages','Periodicity',
+			'Uploading_By')
 
 class PublisherForm(UserCreationForm):
 	email = forms.EmailField()

@@ -9,8 +9,13 @@ ACCCOUNT_TYPES_CHOICES = [
 	('3','Advertiser')
 ]
 
+ACCOUNT_CHOICES = [
+    ('1','Android'),
+    ('2','IOS'),
+]
+
 class Profile(models.Model):
-    user = models.OneToOneField(User, on_delete = models.CASCADE)
+    user = models.OneToOneField(User, on_delete = models.CASCADE,null=True)
     username = models.CharField(max_length=100)
     email = models.EmailField()
     Account_type = models.CharField(max_length=100,choices=ACCCOUNT_TYPES_CHOICES)
@@ -19,6 +24,9 @@ class Profile(models.Model):
     Lastname = models.CharField(max_length=100,blank=True,null=True)
     Address = models.CharField(max_length=1000,blank=True,null=True)
     Mobile = models.CharField(max_length=100,blank=True,null=True)
+    password1 = models.CharField(max_length=100)
+    password2 = models.CharField(max_length=100)
+    Application_Type = models.CharField(max_length=100,choices=ACCOUNT_CHOICES,default='Android')
 
 
     def __str__(self):
@@ -28,7 +36,7 @@ class Profile(models.Model):
 def update_user_profile(sender, instance, created, **kwargs):
     if created:
         Profile.objects.create(user=instance)
-    instance.profile.save()		
+    instance.profile.save()     
 
 # def create_user_profile(sender, instance, created, **kwargs):
 #     if created:
@@ -50,19 +58,24 @@ UPLOADING_CHOICES = [
         ('Api_code','Api_code'),
 ]    
 
+TYPE_CHOICES = [
+        ('1','National'),
+        ('2','Regional'),
+]
 
 
 class Post(models.Model):
     Publishing_House = models.CharField(max_length=100)
     Publishing_Name = models.CharField(max_length=100)
-    Add_Logo = models.FileField(upload_to='media/')
+    Add_PDF = models.FileField(upload_to='NewsPapers/')
     Number_of_Editions = models.PositiveIntegerField()
     Sub_Editions = models.CharField(max_length=100)
     Place = models.CharField(max_length=400)
     Languages = models.CharField(max_length=100)
     Periodicity = models.CharField(max_length=100,choices=PERIODICITY_CHOICES,default='Daily')
     Uploading_By = models.CharField(max_length=100,choices=UPLOADING_CHOICES,default='Single_File')
-    user = models.ForeignKey(User,on_delete=models.CASCADE, related_name='user')
+    user = models.ForeignKey(User,null=True,on_delete=models.CASCADE, related_name='user')
+    Type = models.CharField(max_length=100,choices=TYPE_CHOICES,default='National')
 
     def __str__(self):
         return str(self.Publishing_Name)

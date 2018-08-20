@@ -1,5 +1,7 @@
 from rest_framework import serializers
 from .models import Ebook,Magazine,SocialChannel,NationalNewsChannel,RegionalNewsChannel,NationalNewsPaper,RegionalNewsPaper,Article
+from accounts.models import Profile
+from django.contrib.auth.models import User
 
 class EbookSerializer(serializers.ModelSerializer):
 	class Meta:
@@ -42,3 +44,43 @@ class ArticleSerializer(serializers.ModelSerializer):
 	class Meta:
 		model = Article
 		fields = '__all__'		
+
+ACCCOUNT_CHOICES = [
+    ('1','Android'),
+    ('2','IOS'),
+]
+
+class SignupSerializer(serializers.ModelSerializer):
+	password1 = serializers.CharField()
+	password2 = serializers.CharField()
+	Application_Type = serializers.ChoiceField(choices=ACCCOUNT_CHOICES)
+
+
+	class Meta:
+		model = User
+		fields = ('username','email','password1','password2','Application_Type')
+
+	def create(self, validated_data):
+		user = super(SignupSerializer, self).create(validated_data)
+		user.set_password(validated_data['password1'])
+		user.save
+		return User.objects.create(**user)
+	# def create(self, validated_data):
+	# 	user = super(SignupSerializer, self).create(validated_data)
+	# 	user.set_password(validated_data['password1'])
+	# 	user.save()
+	# 	return user
+
+class UserSerializer(serializers.ModelSerializer):
+    password = serializers.CharField(write_only=True)
+    Application_Type = serializers.ChoiceField(choices=ACCCOUNT_CHOICES)
+
+    class Meta:
+        model = User
+        fields = ('username', 'email', 'password', 'Application_Type')
+
+    def create(self, validated_data):
+        user = super(UserSerializer, self).create(validated_data)
+        user.set_password(validated_data['password'])
+        user.save()
+        return user

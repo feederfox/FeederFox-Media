@@ -635,6 +635,24 @@
 </div>
 <br>
 <!--Newspapers-->
+
+
+
+<script type="text/javascript">
+  $(document).ready(function(){
+    $(".dropdown").hover(
+        function() {
+            $('.dropdown-menu', this).not('.in .dropdown-menu').stop(true,true).slideDown("400");
+            $(this).toggleClass('open');
+        },
+        function() {
+            $('.dropdown-menu', this).not('.in .dropdown-menu').stop(true,true).slideUp("400");
+            $(this).toggleClass('open');
+        }
+    );
+});
+</script>
+
 <div class="container">
   <h2 class="heading-news"><strong>NewsPapers</strong></h2>
 <!--National Newspapers starts here-->
@@ -644,71 +662,101 @@
    <h3 style="color:#fff;text-align: center;"></h3><br>
 <div class="wrapper">
   <div class="owl-carousel owl-theme">
-    <div class="item">
+    <!-- <div class="item">
       <div class="hovereffect"><img src="static/dist/images/national_newspapers/ec1.png" class="img-responsive reg-img">
          <div class="overlay">
-               <a class="info" href="www.feederfox.com/media/media/sejda-TXD.pdf">Read</a>
+               <a class="info" href="/media/media/sejda-TXD.pdf">Read</a>
         </div>
       </div>
-    </div>
-    <div class="item">
+    </div> -->
+    <!-- <div class="item">
       <div class="hovereffect"><img src="static/dist/images/national_newspapers/th1.png" class="img-responsive reg-img">
          <div class="overlay">
                <a class="info" href="static/dist/newspapers/0608 main.pdf">Read</a>
         </div>
-      </div>
-    </div><div class="item">
+      </div> 
+    </div> -->
+    <div class="item">
       <div class="hovereffect"><img src="static/dist/images/national_newspapers/8.png" class="img-responsive reg-img">
          <div class="overlay">
-               <a class="info" href="www.feederfox.com/media/media/3.pdf">Read</a>
+               <a class="info" href="/media/media/3.pdf">Read</a>
         </div>
       </div>
-    </div><div class="item">
+    </div>
+    <!-- <div class="item">
       <div class="hovereffect"><img src="static/dist/images//national_newspapers/9.png" class="img-responsive reg-img">
          <div class="overlay">
-               <a class="info" href="www.feederfox.com/media/media/12.pdf">Read</a>
+               <a class="info" href="/media/media/12.pdf">Read</a>
         </div>
       </div>
-    </div><div class="item">
+    </div> -->
+    <div class="item">
       <div class="hovereffect"><img src="static/dist/images/national_newspapers/10.png" class="img-responsive reg-img">
          <div class="overlay">
-               <a class="info" href="www.feederfox.com/media/media/13.pdf">Read</a>
+               <a class="info" href="/media/media/13.pdf">Read</a>
         </div>
       </div>
     </div><div class="item">
       <div class="hovereffect"><img src="static/dist/images/national_newspapers/6.png" class="img-responsive reg-img">
          <div class="overlay">
-               <a class="info" href="www.feederfox.com/media/media/final_pdf.pdf">Read</a>
+               <a class="info" href="/media/media/final_pdf.pdf">Read</a>
         </div>
       </div>
     </div><div class="item">
       <div class="hovereffect"><img src="static/dist/images/national_newspapers/11.png" class="img-responsive reg-img">
          <div class="overlay">
-               <a class="info" href="www.feederfox.com/media/media/Guwahati_1.pdf">Read</a>
+               <a class="info" href="/media/media/Guwahati_1.pdf">Read</a>
         </div>
       </div>
     </div><div class="item">
       <div class="hovereffect"><img src="static/dist/images/national_newspapers/13.png" class="img-responsive reg-img">
          <div class="overlay">
-               <a class="info" href="www.feederfox.com/media/media/sejda-F5C.pdf">Read</a>
+               <a class="info" href="/media/media/sejda-F5C.pdf">Read</a>
         </div>
       </div>
     </div>
     <div class="item">
       <div class="hovereffect"><img src="static/dist/images/national_newspapers/12.png" class="img-responsive reg-img">
          <div class="overlay">
-               <a class="info" href="www.feederfox.com/media/media/All_Colour_01_to_15_August-2018_Khabar_Sangrah_1.pdf">Read</a>
+               <a class="info" href="/media/media/All_Colour_01_to_15_August-2018_Khabar_Sangrah_1.pdf">Read</a>
         </div>
       </div>
     </div><div class="item">
       <div class="hovereffect"><img src="static/dist/images/national_newspapers/3.png" class="img-responsive reg-img">
          <div class="overlay">
-               <a class="info" href="www.feederfox.com/media/media/19__7_2018_PDF_FILE.pdf">Read</a>
+               <a class="info" href="/media/media/19__7_2018_PDF_FILE.pdf">Read</a>
         </div>
       </div>
     </div>
+    {% for newspaper in newspapers %}
+    <div class="item">
+      <div class="thumbnail">
+        {% if newspaper.name == 'Eastern Chronicle' or newspaper.name == 'eastern chronicle' or newspaper.name == 'Eastern' or newspaper.name == 'eastern' %}
+      <div class="hovereffect"><img src=' {% static "dist/images/newspaper_logos/EC.png" %}' class="img-responsive reg-img">     
+        {% elif newspaper.name == 'Manabhoomi' or newspaper.name == 'manabhoomi' %}
+      <div class="hovereffect"><img src='{% static "dist/images/newspaper_logos/manabhoomi.png" %}' class="img-responsive reg-img">
+      {% elif newspaper.name == 'The Hitavada' or newspaper.name == 'hitavada' or newspaper.name == 'the hitavada' or newspaper.name == 'The hitavada' %}
+      <div class="hovereffect"><img src='{% static "dist/images/newspaper_logos/hitavada.png" %}' class="img-responsive reg-img">           
+      {% elif newspaper.name == 'Saroha Bulletin' or newspaper.name == 'saroha bulletin' or newspaper.name == 'saroha' or newspaper.name == 'bulletin' %}       
+      <div class="hovereffect"><img src='{% static "dist/images/newspaper_logos/Saroha Bulletin.png" %}' class="img-responsive reg-img">   
+      {% elif newspaper.name == 'Janayugom' or newspaper.name == 'janayugom' or newspaper.name == 'jana' %}       
+      <div class="hovereffect"><img src='{% static "dist/images/newspaper_logos/Janayugom.png" %}' class="img-responsive reg-img"> 
+      {% elif newspaper.name == 'EESANJE' or newspaper.name == 'Eesanje' or newspaper.name == 'eesanje' %}       
+      <div class="hovereffect"><img src='{% static "dist/images/newspaper_logos/Eesanje.png" %}' class="img-responsive reg-img"> 
+        {% endif %}        
+         <div class="overlay">
+
+               <a class="info" href="{{ newspaper.url }} " target='_Blank'>Read</a>             
+        </div>
+      </div>
+      </div>
+    </div>
+    {% endfor %}
+
 </div>
 </div>
+
+
 <!--National Newspapers sliders Ends here-->
 
 <!--Regional Newspapers sliders starts here-->
@@ -807,7 +855,7 @@
                <div class="hovereffect">
                 <img class="img-responsive" src="static/dist/images/magazines/6.png" alt="">
               <div class="overlay">
-               <a class="info" href="www.feederfox.com/media/media/1.pdf">READ</a>
+               <a class="info" href="/media/media/1.pdf">READ</a>
              </div>
            </div>
             </div>

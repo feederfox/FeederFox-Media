@@ -1,8 +1,10 @@
 
+from django.conf import settings
+from django.conf.urls.static import static
 from django.conf.urls import url,include
 from .views import (signup,publisher_list,customer_list,advertiser_list,post,add_publishers,edit_publishers,add_customers,customer_signup,
     view_post,advertiser_signup,edit_customers,add_advertisers,edit_advertisers,delete_publisher,delete_customer,delete_advertiser,
-    publisher_signup,delete_post,pubprofile)
+    publisher_signup,delete_post,pubprofile,newspapers)
 from django.contrib.auth import views as auth_views
 
 
@@ -30,5 +32,11 @@ urlpatterns = [
     url(r'^view_post/',view_post,name='view_post'),
     url(r'^(?P<pk>[\-\w]+)/delete_post/',delete_post,name='delete_post'),
     url(r'^pubprofile/',pubprofile,name='pubprofile'),
+    url(r'^newspapers/', newspapers, name='newspapers'),
 ]
 
+
+
+if settings.DEBUG:
+    urlpatterns += static(settings.STATIC_URL, document_root = settings.STATIC_ROOT)
+    urlpatterns += static(settings.MEDIA_URL, document_root = settings.MEDIA_ROOT)
