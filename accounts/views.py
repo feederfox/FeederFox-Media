@@ -254,8 +254,14 @@ def post(request):
             newspap = NewsPaper.objects.filter(name=name)
             print(newspap)
             newspap.delete()
-            newspaper = NewsPaper(name=name,image=image,url=url)
-            newspaper.save()
+            # newspaper_attrs = {
+            #         'name' : name,
+            #         'image' : image,
+            #         'url' : url,
+            #             }
+            # newspaper = NewsPaper.objects.create(**newspaper_attrs)
+            #newspaper = NewsPaper(name=name,image=image,url=url)
+            newspaper = NewsPaper.objects.create(name=name,image=image,url=url)
             print(post.Add_PDF.url)
             print(user)
             messages.success(request,'Post has been Uploaded')
