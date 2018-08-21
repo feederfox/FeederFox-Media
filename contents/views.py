@@ -12,12 +12,96 @@ from .serializers import (EbookSerializer,MagazineSerializer,SocialChannelSerial
 							RegionalNewsPaperSerializer,ArticleSerializer,SignupSerializer,UserSerializer)
 
 
+# @api_view(['GET', 'POST'])
+# def ebook_list(request):
+#     if request.method == 'GET':
+#         ebook = Ebook.objects.all()
+#         serializer = EbookSerializer(ebook, many=True)
+#         return Response(serializer.data)
+
+#     elif request.method == 'POST':
+#         serializer = EbookSerializer(data=request.DATA)
+#         if serializer.is_valid():
+#             serializer.save()
+#             return Response(serializer.data, status=status.HTTP_201_CREATED)
+#         else:
+#             return Response(
+#                 serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
+# @api_view(['GET', 'POST'])
+# def magazine_list(request):
+#     if request.method == 'GET':
+#         magazine = Magazine.objects.all()
+#         serializer = MagazineSerializer(magazine, many=True)
+#         return Response(serializer.data)
+
+#     elif request.method == 'POST':
+#         serializer = MagazineSerializer(data=request.DATA)
+#         if serializer.is_valid():
+#             serializer.save()
+#             return Response(serializer.data, status=status.HTTP_201_CREATED)
+#         else:
+#             return Response(
+#                 serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
+# @api_view(['GET', 'POST'])
+# def socialchannels_list(request):
+#     if request.method == 'GET':
+#         socialchannel = SocialChannel.objects.all()
+#         serializer = SocialChannelSerializer(socialchannel, many=True)
+#         return Response(serializer.data)
+
+#     elif request.method == 'POST':
+#         serializer = SocialChannelSerializer(data=request.DATA)
+#         if serializer.is_valid():
+#             serializer.save()
+#             return Response(serializer.data, status=status.HTTP_201_CREATED)
+#         else:
+#             return Response(
+#                 serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+# @api_view(['GET', 'POST'])
+# def nationalchannels_list(request):
+#     if request.method == 'GET':
+#         nationalchannel = NationalNewsChannel.objects.all()
+#         serializer = NationalNewsChannelSerializer(nationalchannel, many=True)
+#         return Response(serializer.data)
+
+#     elif request.method == 'POST':
+#         serializer = NationalNewsChannelSerializer(data=request.DATA)
+#         if serializer.is_valid():
+#             serializer.save()
+#             return Response(serializer.data, status=status.HTTP_201_CREATED)
+#         else:
+#             return Response(
+#                 serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+# @api_view(['GET', 'POST'])
+# def regionalchannels_list(request):
+#     if request.method == 'GET':
+#         regionalchannel = RegionalNewsChannel.objects.all()
+#         serializer = RegionalNewsChannelSerializer(regionalchannel, many=True)
+#         return Response(serializer.data)
+
+#     elif request.method == 'POST':
+#         serializer = RegionalNewsChannelSerializer(data=request.DATA)
+#         if serializer.is_valid():
+#             serializer.save()
+#             return Response(serializer.data, status=status.HTTP_201_CREATED)
+#         else:
+#             return Response(
+#                 serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
 @api_view(['GET', 'POST'])
 def ebook_list(request):
     if request.method == 'GET':
         ebook = Ebook.objects.all()
         serializer = EbookSerializer(ebook, many=True)
-        return Response(serializer.data)
+        resp3 = serializer.data
+        ebook_list = {'E-Books':resp3}
+        return Response(ebook_list)
 
     elif request.method == 'POST':
         serializer = EbookSerializer(data=request.DATA)
@@ -34,7 +118,9 @@ def magazine_list(request):
     if request.method == 'GET':
         magazine = Magazine.objects.all()
         serializer = MagazineSerializer(magazine, many=True)
-        return Response(serializer.data)
+        resp3 = serializer.data
+        magazine_list = {'magazine':resp3}
+        return Response(magazine_list)
 
     elif request.method == 'POST':
         serializer = MagazineSerializer(data=request.DATA)
@@ -51,7 +137,9 @@ def socialchannels_list(request):
     if request.method == 'GET':
         socialchannel = SocialChannel.objects.all()
         serializer = SocialChannelSerializer(socialchannel, many=True)
-        return Response(serializer.data)
+        resp3 = serializer.data
+        socialchannels_list = {'SocialChannel':resp3}
+        return Response(socialchannels_list)
 
     elif request.method == 'POST':
         serializer = SocialChannelSerializer(data=request.DATA)
@@ -65,9 +153,13 @@ def socialchannels_list(request):
 @api_view(['GET', 'POST'])
 def nationalchannels_list(request):
     if request.method == 'GET':
+
         nationalchannel = NationalNewsChannel.objects.all()
         serializer = NationalNewsChannelSerializer(nationalchannel, many=True)
-        return Response(serializer.data)
+        resp3 = serializer.data
+        national = {'NewsChannels':resp3}
+
+        return Response(national)
 
     elif request.method == 'POST':
         serializer = NationalNewsChannelSerializer(data=request.DATA)
@@ -83,10 +175,51 @@ def regionalchannels_list(request):
     if request.method == 'GET':
         regionalchannel = RegionalNewsChannel.objects.all()
         serializer = RegionalNewsChannelSerializer(regionalchannel, many=True)
-        return Response(serializer.data)
+        resp3 = serializer.data
+        regionalchannels_list = {'regionalchannels':resp3}
+        return Response(regionalchannels_list)
 
     elif request.method == 'POST':
         serializer = RegionalNewsChannelSerializer(data=request.DATA)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        else:
+            return Response(
+                serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
+@api_view(['GET', 'POST'])
+def nationalpapers_list(request):
+    if request.method == 'GET':
+
+        nationalpaper = NationalNewsPaper.objects.all()
+        serializer = NationalNewsPaperSerializer(nationalpaper, many=True)
+        resp3 = serializer.data
+        national = {'NationalNewsPaper':resp3}
+
+        return Response(national)
+
+    elif request.method == 'POST':
+        serializer = NationalNewsPaperSerializer(data=request.DATA)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        else:
+            return Response(
+                serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+@api_view(['GET', 'POST'])
+def regionalpapers_list(request):
+    if request.method == 'GET':
+        regionalpaper = RegionalNewsPaper.objects.all()
+        serializer = RegionalNewsPaperSerializer(regionalpaper, many=True)
+        resp3 = serializer.data
+        regionalpapers_list = {'RegionalNewsPaper':resp3}
+        return Response(regionalpapers_list)
+
+    elif request.method == 'POST':
+        serializer = RegionalNewsPaperSerializer(data=request.DATA)
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data, status=status.HTTP_201_CREATED)
