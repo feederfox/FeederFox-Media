@@ -112,6 +112,24 @@ def ebook_list(request):
             return Response(
                 serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
+@api_view(['GET', 'POST'])
+def Articles(request):
+    if request.method == 'GET':
+        article = Article.objects.all()
+        serializer = ArticleSerializer(article, many=True)
+        resp3 = serializer.data
+        article_list = {'Articles':resp3}
+        return Response(article_list)
+
+    elif request.method == 'POST':
+        serializer = ArticleSerializer(data=request.DATA)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        else:
+            return Response(
+                serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
 
 @api_view(['GET', 'POST'])
 def magazine_list(request):
@@ -119,7 +137,7 @@ def magazine_list(request):
         magazine = Magazine.objects.all()
         serializer = MagazineSerializer(magazine, many=True)
         resp3 = serializer.data
-        magazine_list = {'magazine':resp3}
+        magazine_list = {'Magazines':resp3}
         return Response(magazine_list)
 
     elif request.method == 'POST':
@@ -138,7 +156,7 @@ def socialchannels_list(request):
         socialchannel = SocialChannel.objects.all()
         serializer = SocialChannelSerializer(socialchannel, many=True)
         resp3 = serializer.data
-        socialchannels_list = {'SocialChannel':resp3}
+        socialchannels_list = {'SocialChannels':resp3}
         return Response(socialchannels_list)
 
     elif request.method == 'POST':
@@ -157,7 +175,7 @@ def nationalchannels_list(request):
         nationalchannel = NationalNewsChannel.objects.all()
         serializer = NationalNewsChannelSerializer(nationalchannel, many=True)
         resp3 = serializer.data
-        national = {'NewsChannels':resp3}
+        national = {'NationalNewsChannels':resp3}
 
         return Response(national)
 
@@ -176,7 +194,7 @@ def regionalchannels_list(request):
         regionalchannel = RegionalNewsChannel.objects.all()
         serializer = RegionalNewsChannelSerializer(regionalchannel, many=True)
         resp3 = serializer.data
-        regionalchannels_list = {'regionalchannels':resp3}
+        regionalchannels_list = {'RegionalNewsChannels':resp3}
         return Response(regionalchannels_list)
 
     elif request.method == 'POST':
@@ -196,7 +214,7 @@ def nationalpapers_list(request):
         nationalpaper = NationalNewsPaper.objects.all()
         serializer = NationalNewsPaperSerializer(nationalpaper, many=True)
         resp3 = serializer.data
-        national = {'NationalNewsPaper':resp3}
+        national = {'NationalNewsPapers':resp3}
 
         return Response(national)
 
@@ -215,7 +233,7 @@ def regionalpapers_list(request):
         regionalpaper = RegionalNewsPaper.objects.all()
         serializer = RegionalNewsPaperSerializer(regionalpaper, many=True)
         resp3 = serializer.data
-        regionalpapers_list = {'RegionalNewsPaper':resp3}
+        regionalpapers_list = {'RegionalNewsPapers':resp3}
         return Response(regionalpapers_list)
 
     elif request.method == 'POST':

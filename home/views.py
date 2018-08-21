@@ -32,8 +32,11 @@ def dashboard(request):
     
     if request.user.is_superuser:
         return render(request,'admin_dashboard.html',{})
-    messages.error(request,'Please Login with Admin Credentials')    
-    return render (request,'publisher_dashboard.html',{})
+    messages.error(request,'Please Login with Admin Credentials')   
+    if request.user.profile.Account_type == 1: 
+        return render (request,'publisher_dashboard.html',{})
+   
+    return render(request,'customer_dashboard.html',{})
 
 def article1(request):
     return render(request,'article1.html',{})
