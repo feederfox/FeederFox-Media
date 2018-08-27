@@ -25,6 +25,7 @@ urlpatterns = [
     url(r'^accounts/',include('accounts.urls',namespace='accounts')),
     url(r'^account/',include('allauth.urls')),
     url(r'^content/', include('contents.urls',namespace='content')),
+    url(r'^rest-auth/', include('rest_auth.urls')),
 ]
 
 

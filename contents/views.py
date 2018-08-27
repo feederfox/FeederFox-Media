@@ -4,12 +4,17 @@ from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from accounts.models import Profile
-from rest_framework.generics import ListCreateAPIView
+from django.contrib.auth.models import User
+from rest_framework.generics import ListCreateAPIView,CreateAPIView
 from rest_framework.permissions import IsAuthenticated,AllowAny
+from django.http import HttpResponse
+from django.contrib.auth import authenticate,login
+
+from rest_framework.authtoken.models import Token
 from .models import Ebook,Magazine,SocialChannel,RegionalNewsChannel,NationalNewsChannel,NationalNewsPaper,RegionalNewsPaper,Article
 from .serializers import (EbookSerializer,MagazineSerializer,SocialChannelSerializer,
 							NationalNewsChannelSerializer,RegionalNewsChannelSerializer,NationalNewsPaperSerializer,
-							RegionalNewsPaperSerializer,ArticleSerializer,SignupSerializer,UserSerializer)
+							RegionalNewsPaperSerializer,ArticleSerializer,SignupSerializer,LoginSerializer)
 
 
 # @api_view(['GET', 'POST'])
@@ -46,21 +51,21 @@ from .serializers import (EbookSerializer,MagazineSerializer,SocialChannelSerial
 #                 serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
-# @api_view(['GET', 'POST'])
-# def socialchannels_list(request):
-#     if request.method == 'GET':
-#         socialchannel = SocialChannel.objects.all()
-#         serializer = SocialChannelSerializer(socialchannel, many=True)
-#         return Response(serializer.data)
+@api_view(['GET', 'POST'])
+def socialchannels_list(request):
+    if request.method == 'GET':
+        socialchannel = SocialChannel.objects.all()
+        serializer = SocialChannelSerializer(socialchannel, many=True)
+        return Response(serializer.data)
 
-#     elif request.method == 'POST':
-#         serializer = SocialChannelSerializer(data=request.DATA)
-#         if serializer.is_valid():
-#             serializer.save()
-#             return Response(serializer.data, status=status.HTTP_201_CREATED)
-#         else:
-#             return Response(
-#                 serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+    elif request.method == 'POST':
+        serializer = SocialChannelSerializer(data=request.DATA)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        else:
+            return Response(
+                serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 # @api_view(['GET', 'POST'])
 # def nationalchannels_list(request):
@@ -150,23 +155,23 @@ def magazine_list(request):
                 serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
-@api_view(['GET', 'POST'])
-def socialchannels_list(request):
-    if request.method == 'GET':
-        socialchannel = SocialChannel.objects.all()
-        serializer = SocialChannelSerializer(socialchannel, many=True)
-        resp3 = serializer.data
-        socialchannels_list = {'SocialChannels':resp3}
-        return Response(socialchannels_list)
+# @api_view(['GET', 'POST'])
+# def socialchannels_list(request):
+#     if request.method == 'GET':
+#         socialchannel = SocialChannel.objects.all()
+#         serializer = SocialChannelSerializer(socialchannel, many=True)
+#         resp3 = serializer.data
+#         socialchannels_list = {'SocialChannels':resp3}
+#         return Response(serializer.data)
 
-    elif request.method == 'POST':
-        serializer = SocialChannelSerializer(data=request.DATA)
-        if serializer.is_valid():
-            serializer.save()
-            return Response(serializer.data, status=status.HTTP_201_CREATED)
-        else:
-            return Response(
-                serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+#     elif request.method == 'POST':
+#         serializer = SocialChannelSerializer(data=request.DATA)
+#         if serializer.is_valid():
+#             serializer.save()
+#             return Response(serializer.data, status=status.HTTP_201_CREATED)
+#         else:
+#             return Response(
+#                 serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 @api_view(['GET', 'POST'])
 def nationalchannels_list(request):
@@ -329,15 +334,57 @@ def news(request):
 
 
 class signup(ListCreateAPIView):
-	queryset = Profile.objects.all()
-	serializer_class = SignupSerializer
+    queryset = Profile.objects.all()
+    serializer_class = SignupSerializer
 
-	# def create(self,request,*args,**kwargs):
-	# 	serializer = SignupSerializer(data=request.data)
-	# 	if serializer.is_valid():
-	# 		serializer.save()
-	# def create(self, validated_data):
-	# 	user = super(SignupSerializer, self).create(validated_data)
-	# 	user.set_password(validated_data['password1'])
-	# 	user.save()
-	# 	return user     
+class login(APIView):
+    serializer_class = LoginSerializer
+
+    def post(self, request, *args, **kwargs):
+        data = request.data
+
+        username = data.get('username', None)
+        password = data.get('password', None)
+
+        user = authenticate(username=username, password=password)
+
+        if user is not None:
+            if user.is_active:
+                #login(request, user)
+                return Response({'detail':" True" },status=status.HTTP_200_OK)
+            else:
+                return Response({'detail':" False " .format(username) },status=status.HTTP_404_NOT_FOUND)
+        else:
+            return Response({'detail':" False" },status=status.HTTP_404_NOT_FOUND)
+        # data = request.data
+        # serializer = LoginSerializer(data=data)
+        # if serializer.is_valid(raise_exception=True):
+        #     new_data = serializer.data
+        #     return Response(new_data,status = status.HTTP_200_OK)
+        # return Response(serializer.errors,status = status.HTTP_400_BAD_REQUEST)    
+
+# class UserCreateAPIView(ListCreateAPIView):
+#     #serializer_class = UserCreateSerializer
+
+#     @staticmethod
+#     def post(self,request, *args, **kwargs):
+
+#         username = request.POST.get('username')
+#         email = request.POST.get('email')
+#         password = request.POST.get('password')
+#         Application_type = request.POST.get('Application_type')
+
+#         user = User.objects.create_user(username,email,password)
+#         user.Application_type = Application_type
+#         user.save()
+
+#         token = Token.objects.create(user=user)
+
+#         return Response({'detail':" User has been Created with Token: " + token.key})
+
+
+def android(request):
+    andr_users = Profile.objects.filter(Application_type=1)
+    print(andr_users)
+    context = {'android':andr_users}
+    return render(request,'android_users.html',context)        

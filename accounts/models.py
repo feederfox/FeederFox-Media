@@ -26,7 +26,7 @@ class Profile(models.Model):
     Mobile = models.CharField(max_length=100,blank=True,null=True)
     password1 = models.CharField(max_length=100)
     password2 = models.CharField(max_length=100)
-    Application_Type = models.CharField(max_length=100,choices=ACCOUNT_CHOICES,default='Android')
+    Application_type = models.CharField(max_length=100,choices=ACCOUNT_CHOICES,null=True)
 
 
     def __str__(self):

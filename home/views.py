@@ -27,16 +27,16 @@ def admin(request):
 
 @login_required
 def dashboard(request):
-    a = User.objects.all()
-    p = Profile.objects.all()
     
     if request.user.is_superuser:
         return render(request,'admin_dashboard.html',{})
     messages.error(request,'Please Login with Admin Credentials')   
-    if request.user.profile.Account_type == 1: 
+    if request.user.profile.Account_type=='1': 
+        print(request.user.profile.Account_type)
         return render (request,'publisher_dashboard.html',{})
-   
-    return render(request,'customer_dashboard.html',{})
+    elif request.user.profile.Account_type=='3':
+        return render(request,'advertiser_dashboard.html',{})
+    return render(request,'customer_dashboard.html',{})    
 
 def article1(request):
     return render(request,'article1.html',{})

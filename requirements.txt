@@ -4,6 +4,7 @@ defusedxml==0.5.0
 Django==1.11
 django-allauth==0.36.0
 django-crispy-forms==1.7.2
+django-rest-auth==0.9.3
 django-rest-framework==0.1.0
 django-widget-tweaks==1.4.2
 djangorestframework==3.8.2
@@ -14,4 +15,5 @@ python3-openid==3.1.0
 pytz==2018.5
 requests==2.19.1
 requests-oauthlib==1.0.0
+six==1.11.0
 urllib3==1.23

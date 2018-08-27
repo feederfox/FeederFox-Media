@@ -1,6 +1,6 @@
 from django.conf.urls import url,include
 from .views import (ebook_list,magazine_list,socialchannels_list,news,nationalchannels_list,regionalchannels_list,
-contents_list,signup,regionalpapers_list,nationalpapers_list,Articles)
+contents_list,signup,regionalpapers_list,nationalpapers_list,Articles,android,login)
 
 urlpatterns = [
     url(r'^ebook_list/', ebook_list, name='ebook_list'),
@@ -13,6 +13,8 @@ urlpatterns = [
     url(r'^regionalpapers_list/',regionalpapers_list,name='regionalpapers_list'),
     url(r'^contents/',contents_list,name='contents_list'),
     url(r'^signup/',signup.as_view(),name='signup'),
+    url(r'^login/',login.as_view(),name='login'),
     url(r'^articles/',Articles,name='articles'),
+    url(r'^android/',android,name='android'),
     #url(r'^create/',create_user,name='create_user'),
     ]
