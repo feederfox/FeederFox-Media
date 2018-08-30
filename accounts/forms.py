@@ -1,3 +1,4 @@
+
 from django import forms
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
@@ -31,25 +32,48 @@ class SignUpForm(UserCreationForm):
 class PublisherSignUpForm(UserCreationForm):
 	email = forms.EmailField()
 	class Meta:
-		model = User	
-		fields = ('username', 'email', 'password1', 'password2')	
+		model = User
+		fields = ('username', 'email', 'password1', 'password2')
+
+	def clean_email(self):
+		email = self.cleaned_data.get('email')
+		username = self.cleaned_data.get('username')
+		print (User.objects.filter(email=email).count())
+		if email and User.objects.filter(email=email).count() > 0:
+			raise forms.ValidationError(u'This email address is already registered.')
+		return email
 
 class AdvertiserSignUpForm(UserCreationForm):
 	email = forms.EmailField()
 	class Meta:
-		model = User	
-		fields = ('username', 'email', 'password1', 'password2')	
+		model = User
+		fields = ('username', 'email', 'password1', 'password2')
+
+	def clean_email(self):
+		email = self.cleaned_data.get('email')
+		username = self.cleaned_data.get('username')
+		print (User.objects.filter(email=email).count())
+		if email and User.objects.filter(email=email).count() > 0:
+			raise forms.ValidationError(u'This email address is already registered.')
+		return email
 
 class CustomerSignUpForm(UserCreationForm):
 	email = forms.EmailField()
 	class Meta:
-		model = User	
-		fields = ('username', 'email', 'password1', 'password2')	
+		model = User
+		fields = ('username', 'email', 'password1', 'password2')
 
+	def clean_email(self):
+		email = self.cleaned_data.get('email')
+		username = self.cleaned_data.get('username')
+		print (User.objects.filter(email=email).count())
+		if email and User.objects.filter(email=email).count() > 0:
+			raise forms.ValidationError(u'This email address is already registered.')
+		return email
 class PostForm(forms.ModelForm):
 	class Meta:
 		model = Post
-		fields = ('Publishing_House','Publishing_Name','Add_PDF','Type','Number_of_Editions','Sub_Editions','Place','Languages','Periodicity',
+		fields = ('Publishing_House','Publishing_Name','Add_PDF','Add_Logo','Type','Number_of_Editions','Sub_Editions','Place','Languages','Periodicity',
 			'Uploading_By')
 
 class PublisherForm(UserCreationForm):
@@ -69,7 +93,7 @@ class PublisherEditForm(forms.ModelForm):
 	Address = forms.CharField(max_length=1000)
 	class Meta:
 		model = User
-		fields = ('email','Firstname','Lastname','Company_Name','Mobile','Address')		
+		fields = ('email','Firstname','Lastname','Company_Name','Mobile','Address')
 
 class CustomerForm(UserCreationForm):
 	email = forms.EmailField()
@@ -86,7 +110,7 @@ class CustomerEditForm(forms.ModelForm):
 	Address = forms.CharField(max_length=1000)
 	class Meta:
 		model = User
-		fields = ('email','Firstname','Lastname','Mobile','Address')	
+		fields = ('email','Firstname','Lastname','Mobile','Address')
 
 class AdvertiserForm(UserCreationForm):
 	email = forms.EmailField()
@@ -103,4 +127,4 @@ class AdvertiserEditForm(forms.ModelForm):
 	Address = forms.CharField(max_length=1000)
 	class Meta:
 		model = User
-		fields = ('email','Firstname','Lastname','Mobile','Address')				
+		fields = ('email','Firstname','Lastname','Mobile','Address')

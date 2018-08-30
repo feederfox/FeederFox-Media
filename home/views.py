@@ -1,3 +1,6 @@
+import os
+from django.conf import settings
+
 from django.contrib.auth import login, authenticate
 
 from django.shortcuts import render, redirect
@@ -15,28 +18,28 @@ from contents.models import NewsPaper
 
 # Add the two views we have been talking about  all this time :)
 def regionalnewspaper(request):
-    return render(request,'regionalnewspaper.html',{})                
+    return render(request,'regionalnewspaper.html',{})
 
 def admin(request):
     if request.user.is_authenticated:
         if request.user.is_superuser:
             return render(request,'admin_dashboard.html',{})
-        messages.error(request,'Please Login with Admin Credentials')    
-    return redirect('accounts:admin_login')        
-    
+        messages.error(request,'Please Login with Admin Credentials')
+    return redirect('accounts:admin_login')
+
 
 @login_required
 def dashboard(request):
-    
+
     if request.user.is_superuser:
         return render(request,'admin_dashboard.html',{})
-    messages.error(request,'Please Login with Admin Credentials')   
-    if request.user.profile.Account_type=='1': 
+    messages.error(request,'Please Login with Admin Credentials')
+    if request.user.profile.Account_type=='1':
         print(request.user.profile.Account_type)
         return render (request,'publisher_dashboard.html',{})
-    elif request.user.profile.Account_type=='3':
-        return render(request,'advertiser_dashboard.html',{})
-    return render(request,'customer_dashboard.html',{})    
+    elif request.user.profile.Account_type=='2':
+        return render(request,'customer_dashboard.html',{})
+    return render(request,'advertiser_dashboard.html',{})
 
 def article1(request):
     return render(request,'article1.html',{})
@@ -48,7 +51,7 @@ def article3(request):
     return render(request,'article3.html',{})
 
 def article4(request):
-    return render(request,'article4.html',{})                
+    return render(request,'article4.html',{})
 
 def contact(request):
     form = ContactForm()
@@ -71,7 +74,7 @@ def contact(request):
                 "New contact form submission",
                 content,
                 "feederfox.com" +'',
-                ['sameer.feederfox@gmail.com'],
+                ['contactus.feederfox@gmail.com'],
                 headers = {'Reply-To': Email }
             )
             email.send()
@@ -83,7 +86,7 @@ def index(request):
     newspaper = NewsPaper.objects.all()
     context = {'newspapers':newspaper}
     return render(request,'index.html',context)
-    
+
 # class HomePageView(TemplateView):
 #     template_name = "index.html"
 
@@ -95,5 +98,4 @@ class FaqPageView(TemplateView):
 
 class PrivacyPageView(TemplateView):
     template_name = "privacy.html"
-
 

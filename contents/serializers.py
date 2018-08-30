@@ -1,9 +1,12 @@
 from rest_framework import serializers
-from .models import Ebook,Magazine,SocialChannel,NationalNewsChannel,RegionalNewsChannel,NationalNewsPaper,RegionalNewsPaper,Article
+from .models import Ebook,Magazine,SocialChannel,NationalNewsChannel,RegionalNewsChannel,NationalNewsPaper,RegionalNewsPaper,Article,NewsPaper
 from accounts.models import Profile
 from django.contrib.auth.models import User
 from django.db.models.signals import post_save
 from django.dispatch import receiver
+from rest_framework.response import Response
+from rest_framework.exceptions import ValidationError
+
 
 
 class EbookSerializer(serializers.ModelSerializer):
@@ -32,6 +35,11 @@ class RegionalNewsChannelSerializer(serializers.ModelSerializer):
 		model = RegionalNewsChannel
 		fields = '__all__'
 
+class NewsPaperSerializer(serializers.ModelSerializer):
+	class Meta:
+		model = NewsPaper
+		fields = '__all__'
+
 class NationalNewsPaperSerializer(serializers.ModelSerializer):
 	class Meta:
 		model = NationalNewsPaper
@@ -40,13 +48,13 @@ class NationalNewsPaperSerializer(serializers.ModelSerializer):
 class RegionalNewsPaperSerializer(serializers.ModelSerializer):
 	class Meta:
 		model = RegionalNewsPaper
-		fields = '__all__'		
+		fields = '__all__'
 
 
 class ArticleSerializer(serializers.ModelSerializer):
 	class Meta:
 		model = Article
-		fields = '__all__'		
+		fields = '__all__'
 
 ACCCOUNT_CHOICES = [
     ('1','Android'),
@@ -54,7 +62,7 @@ ACCCOUNT_CHOICES = [
 ]
 
 class SignupSerializer(serializers.ModelSerializer):
-
+	username = serializers.CharField()
 	Application_type = serializers.ChoiceField(choices=ACCCOUNT_CHOICES)
 
 
@@ -63,51 +71,48 @@ class SignupSerializer(serializers.ModelSerializer):
 		fields = ('username','email','password','Application_type')
 		extra_kwargs = {"password":{"write_only":True}}
 
-	def create(self, validated_data, *args, **kwargs):
-		# username = request.POST.get('username')
-		# email = request.POST.get('email')
-		# password = request.POST.get('password')
-		# Application_type = request.POST.get('Application_type')
-		# user = User.objects.create_user(username,email,password)
-		# user.Application_type = Application_type
-		# user.save()
+	# def create(self, request, *args, **kwargs):
+	# 	serializer = self.get_serializer(data=request.data)
+ #        serializer.is_valid(raise_exception=True)
+ #        self.perform_create(serializer)
 
+	def create(self, validated_data, *args, **kwargs):
 		email = validated_data['email']
 		username = validated_data['username']
 		password = (validated_data['password'])
 		Application_type = validated_data['Application_type']
+		u = User.objects.filter(username=username)
+		if u:
+			raise ValidationError({'detail':False})
+		e = User.objects.filter(email=email)
+		if e:
+		    raise ValidationError({'detail':False})
 		user = User(
 				username = username,
 				email = email,
 				password = password
-			)   
+			)
 		user.set_password(password)
-		
+
 		user.save()
 		user.Application_type = Application_type
 		user.Account_type = 2
-		#user.profile = Profile.objects.create(user=user.profile.user)
 		user.profile.username = user.username
 		user.profile.email = user.email
 		user.profile.Application_type = user.Application_type
 		user.profile.Account_type = user.Account_type
 
 		user.profile.save()
+		#headers = self.get_success_headers(validated_data)
+		#return validated_data
 
-		print(user)
-		print(user.profile.user)
-		print(user.profile.Account_type)
-		print(user.profile.Application_type)
-		print(user.profile.username)
-		print(user.password)
-		print(user.profile.email)
-		return validated_data
-
+		if user:
+			return validated_data
 	# @receiver(post_save, sender=User)
 	# def update_user_profile(sender, instance, created, **kwargs):
 	# 	if created:
 	# 		Profile.objects.create(user=instance)
-	# 	instance.profile.save()     
+	# 	instance.profile.save()
 
 	# def create(self, validated_data):
 	# 	user = super(SignupSerializer, self).create(validated_data)
@@ -123,10 +128,10 @@ class SignupSerializer(serializers.ModelSerializer):
 class LoginSerializer(serializers.ModelSerializer):
 	class Meta:
 		model = User
-		fields = ('username','password')
+		fields = ('email','password')
 
 	def validate(self, data):
-		return data	
+		return data
 
 # class UserSerializer(serializers.ModelSerializer):
 #     password = serializers.CharField(write_only=True)
@@ -162,7 +167,7 @@ class LoginSerializer(serializers.ModelSerializer):
 # 		user_obj = User(
 # 				username = username,
 # 				email = email,
-# 			)	
+# 			)
 # 		user_obj.set_password(password)
 # 		user_obj.save()
 # 		return validated_data
@@ -171,4 +176,4 @@ class LoginSerializer(serializers.ModelSerializer):
 # 		model = UserSerializer
 # 		fields = ('username','email','password','Application_Type')
 # 		extra_kwargs = {"password":{"write_only":True}}
-# 	
+#

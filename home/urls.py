@@ -1,4 +1,3 @@
-# djangotemplates/example/urls.py
 
 from django.conf.urls import url
 from home import views
@@ -17,5 +16,4 @@ urlpatterns = [
     url(r'^article4/',views.article4,name='article4'),
     url(r'^regionalnewspaper/',views.regionalnewspaper,name='regionalnewspaper'),
 
-    #url(r'^post/',views.post,name='post')
 ]

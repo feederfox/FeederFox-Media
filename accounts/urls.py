@@ -1,4 +1,5 @@
 
+
 from django.conf import settings
 from django.conf.urls.static import static
 from django.conf.urls import url,include
@@ -9,7 +10,7 @@ from django.contrib.auth import views as auth_views
 
 
 urlpatterns = [
-    url(r'^signup/', signup, name='signup'), 
+    url(r'^signup/', signup, name='signup'),
     url(r'^publishersignup/',publisher_signup,name='pubsignup'),
     url(r'^advertisersignup/',advertiser_signup,name='advsignup'),
     url(r'^customersignup/',customer_signup,name='cussignup'),
@@ -20,7 +21,7 @@ urlpatterns = [
     url(r'^add_publishers/',add_publishers,name='add_publishers'),
     url(r'^(?P<pk>[\-\w]+)/edit_publishers/',edit_publishers,name='edit_publishers'),
     url(r'^(?P<pk>[\-\w]+)/delete_publisher/',delete_publisher,name='delete_publisher'),
-    url(r'^customer_list/',customer_list,name='customer_list'),    
+    url(r'^customer_list/',customer_list,name='customer_list'),
     url(r'^add_customers/',add_customers,name='add_customers'),
     url(r'^(?P<pk>[\-\w]+)/edit_customers/',edit_customers,name='edit_customers'),
     url(r'^(?P<pk>[\-\w]+)/delete_customer/',delete_customer,name='delete_customer'),
@@ -39,4 +40,3 @@ urlpatterns = [
 
 if settings.DEBUG:
     urlpatterns += static(settings.STATIC_URL, document_root = settings.STATIC_ROOT)
-    urlpatterns += static(settings.MEDIA_URL, document_root = settings.MEDIA_ROOT)

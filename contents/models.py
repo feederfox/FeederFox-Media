@@ -8,7 +8,7 @@ class NationalNewsChannel(models.Model):
 	def __str__(self):
 		return str(self.name)
 
-class RegionalNewsChannel(models.Model):			
+class RegionalNewsChannel(models.Model):
 	name = models.CharField(max_length=100)
 	url = models.URLField()
 	image = models.ImageField(blank=True,null=True)
@@ -64,7 +64,7 @@ class Ebook(models.Model):
 	image = models.ImageField(upload_to='Ebook/',blank=True,null=True)
 
 	def __str__(self):
-		return str(self.name)		
+		return str(self.name)
 
 
 class Article(models.Model):
@@ -73,4 +73,4 @@ class Article(models.Model):
 	image = models.ImageField(upload_to='Articles/',blank=True,null=True)
 
 	def __str__(self):
-		return str(self.name)		
+		return str(self.name)
