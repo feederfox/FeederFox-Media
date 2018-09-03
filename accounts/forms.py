@@ -2,7 +2,7 @@
 from django import forms
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
-from .models import Profile,Post
+from .models import Profile,Post,Magazines
 
 ACCCOUNT_TYPES_CHOICES = [
 	('1','Publisher'),
@@ -128,3 +128,8 @@ class AdvertiserEditForm(forms.ModelForm):
 	class Meta:
 		model = User
 		fields = ('email','Firstname','Lastname','Mobile','Address')
+
+class MagazineForm(forms.ModelForm):
+	class Meta:
+		model = Magazines
+		fields = ('Publishing_House','Magazine_Name','Add_Thumbnail','Add_Magazine','Language','Category','Periodicity','Place')

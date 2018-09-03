@@ -256,7 +256,7 @@
 <div class="container">
 <div class="row">
     <div class="col-md-12">
-      <img src="static/dist/images/ads/lets rebuild kodagu.jpg" style="width:1129px;height:300px;">
+      <img src="static/dist/images/ads/kodagu.jpg" style="width:1129px;height:300px;">
 
       <div class="contact pull-right" style=" top: -74px;position: relative;left: -55px;font-size: 18px;">* For any enquiries Please<br/><a href="{% url 'contact' %}" style="color:red;"> click here!</a></div>
 
@@ -664,171 +664,10 @@
 <div class="wrapper">
   <div class="owl-carousel owl-theme">
     {% for newspaper in newspapers %}
-    {% if newspaper.name == 'Eastern Chronicle' or newspaper.name == 'eastern chronicle' or newspaper.name == 'Eastern' or newspaper.name == 'eastern' %}
     <div class="item">
-      <div class="hovereffect"><img src='{% static "dist/images/newspaper_logos/EC.jpg" %}' class="img-responsive reg-img">
+      <div class="hovereffect"><img src='{{ newspaper.image.url }}' class="img-responsive reg-img">
          <div class="overlay">
-               <a class="info"  href="{{ newspaper.url }}" target="_blank">Read</a>
-        </div>
-      </div>
-    </div>
-    {% elif newspaper.name == 'Manabhoomi' or newspaper.name == 'manabhoomi' %}
-    <div class="item">
-      <div class="hovereffect"><img src='{% static "dist/images/newspaper_logos/manabhoomi.png" %}' class="img-responsive reg-img">
-         <div class="overlay">
-               <a class="info"  href="{{ newspaper.url }}" target="_blank">Read</a>
-        </div>
-      </div>
-    </div>
-    {% elif newspaper.name == 'The Hitavada' or newspaper.name == 'hitavada' or newspaper.name == 'the hitavada' or newspaper.name == 'The hitavada' %}
-    <div class="item">
-      <div class="hovereffect"><img src='{% static "dist/images/newspaper_logos/hitavada.png" %}' class="img-responsive reg-img">
-         <div class="overlay">
-               <a class="info"  href="{{ newspaper.url }}" target="_blank">Read</a>
-        </div>
-      </div>
-    </div>
-    {% elif newspaper.name == 'Saroha Bulletin' or newspaper.name == 'saroha bulletin' or newspaper.name == 'saroha' or newspaper.name == 'bulletin' %}
-    <div class="item">
-      <div class="hovereffect"><img src='{% static "dist/images/newspaper_logos/Saroha Bulletin.png" %}' class="img-responsive reg-img">
-         <div class="overlay">
-               <a class="info"  href="{{ newspaper.url }}" target="_blank">Read</a>
-        </div>
-      </div>
-    </div>
-    {% elif newspaper.name == 'Janayugom' or newspaper.name == 'janayugom' or newspaper.name == 'jana' %}
-    <div class="item">
-      <div class="hovereffect"><img src='{% static "dist/images/newspaper_logos/Janayugom.png" %}' class="img-responsive reg-img">
-         <div class="overlay">
-               <a class="info"  href="{{ newspaper.url }}" target="_blank">Read</a>
-        </div>
-      </div>
-    </div>
-    {% elif newspaper.name == 'EESANJE' or newspaper.name == 'Eesanje' or newspaper.name == 'eesanje' %}
-    <div class="item">
-      <div class="hovereffect"><img src='{% static "dist/images/newspaper_logos/Eesanje.png" %}' class="img-responsive reg-img">
-         <div class="overlay">
-               <a class="info"  href="{{ newspaper.url }}" target="_blank">Read</a>
-        </div>
-      </div>
-    </div>
-    {% elif newspaper.name == 'Ranchi Express' or newspaper.name == 'ranchi express' or newspaper.name == 'Ranchi' or newspaper.name == 'ranchiexpress' or newspaper.name == 'Ranchi express' %}
-    <div class="item">
-      <div class="hovereffect"><img src='{% static "dist/images/newspaper_logos/Ranchi_Express.png" %}' class="img-responsive reg-img">
-         <div class="overlay">
-               <a class="info"  href="{{ newspaper.url }}" target="_blank">Read</a>
-        </div>
-      </div>
-    </div>
-    {% elif newspaper.name == 'Aadab' or newspaper.name == 'aadab' or newspaper.name == 'Aabad' %}
-    <div class="item">
-      <div class="hovereffect"><img src='{% static "dist/images/newspaper_logos/Aadab_Main.jpg" %}' class="img-responsive reg-img">
-         <div class="overlay">
-               <a class="info"  href="{{ newspaper.url }}" target="_blank">Read</a>
-        </div>
-      </div>
-    </div>
-     {% elif newspaper.name == 'Karmashakthi' or newspaper.name == 'karmashakthi' or newspaper.name == 'Karmashakti' or newspaper.name == 'karmashakti' %}
-    <div class="item">
-      <div class="hovereffect"><img src='{% static "dist/images/newspaper_logos/karmashakthi.png" %}' class="img-responsive reg-img">
-         <div class="overlay">
-               <a class="info"  href="{{ newspaper.url }}" target="_blank">Read</a>
-        </div>
-      </div>
-    </div>
-    {% elif newspaper.name == 'Morning India' or newspaper.name == 'morning India' or newspaper.name == 'Morning india' or newspaper.name == 'morningindia' or newspaper.name == 'Morningindia' %}
-    <div class="item">
-      <div class="hovereffect"><img src='{% static "dist/images/newspaper_logos/Morning_India.png" %}' class="img-responsive reg-img">
-         <div class="overlay">
-               <a class="info"  href="{{ newspaper.url }}" target="_blank">Read</a>
-        </div>
-      </div>
-    </div>
-    {% elif newspaper.name == 'Utkal Mail' or newspaper.name == 'Utkal mail' or newspaper.name == 'utkal mail' or newspaper.name == 'utkalmail' or newspaper.name == 'Utkal' %}
-    <div class="item">
-      <div class="hovereffect"><img src='{% static "dist/images/newspaper_logos/utkalmail.png" %}' class="img-responsive reg-img">
-         <div class="overlay">
-               <a class="info"  href="{{ newspaper.url }}" target="_blank">Read</a>
-        </div>
-      </div>
-    </div>
-    {% elif newspaper.name == 'The Avenue Mail' or newspaper.name == 'Avenue Mail' or newspaper.name == 'Avenuemail' or newspaper.name == 'avenuemail' or newspaper.name == 'The avenue' or newspaper.name == 'Avenue' %}
-    <div class="item">
-      <div class="hovereffect"><img src='{% static "dist/images/newspaper_logos/Avenue_Mail.png" %}' class="img-responsive reg-img">
-         <div class="overlay">
-               <a class="info"  href="{{ newspaper.url }}" target="_blank">Read</a>
-        </div>
-      </div>
-    </div>
-    {% elif newspaper.name == 'Swetapatr' or newspaper.name == 'Sweta patra' or newspaper.name == 'Shwetpatra' or newspaper.name == 'shwetpatra' or newspaper.name == 'ShwetPatra' %}
-    <div class="item">
-      <div class="hovereffect"><img src='{% static "dist/images/newspaper_logos/swetapatr.png" %}' class="img-responsive reg-img">
-         <div class="overlay">
-               <a class="info"  href="{{ newspaper.url }}" target="_blank">Read</a>
-        </div>
-      </div>
-    </div>
-    {% elif newspaper.name == 'Awaami' or newspaper.name == 'Awami' or newspaper.name == 'awaami' or newspaper.name == 'awami' %}
-    <div class="item">
-      <div class="hovereffect"><img src='{% static "dist/images/newspaper_logos/awami.png" %}' class="img-responsive reg-img">
-         <div class="overlay">
-               <a class="info"  href="{{ newspaper.url }}" target="_blank">Read</a>
-        </div>
-      </div>
-    </div>
-    {% elif newspaper.name == 'Taasir' or newspaper.name == 'taasir' or newspaper.name == 'Tasir' or newspaper.name == 'tasir' %}
-    <div class="item">
-      <div class="hovereffect"><img src='{% static "dist/images/newspaper_logos/Taasir.png" %}' class="img-responsive reg-img">
-         <div class="overlay">
-               <a class="info"  href="{{ newspaper.url }}" target="_blank">Read</a>
-        </div>
-      </div>
-    </div>
-    {% elif newspaper.name == 'Sanmarg' or newspaper.name == 'sanmarg' or newspaper.name == 'Sanmar' or newspaper.name == 'sanmar' %}
-    <div class="item">
-      <div class="hovereffect"><img src='{% static "dist/images/newspaper_logos/sanmarg.png" %}' class="img-responsive reg-img">
-         <div class="overlay">
-               <a class="info"  href="{{ newspaper.url }}" target="_blank">Read</a>
-        </div>
-      </div>
-    </div>
-    {% elif newspaper.name == 'N.H.times' or newspaper.name == 'N.H.Times' or newspaper.name == 'n.h.times' or newspaper.name == 'nhtimes' or newspaper.name == 'NHTimes' or newspaper.name == 'NHTIMES' %}
-    <div class="item">
-      <div class="hovereffect"><img src='{% static "dist/images/newspaper_logos/NHTimes.png" %}' class="img-responsive reg-img">
-         <div class="overlay">
-               <a class="info"  href="{{ newspaper.url }}" target="_blank">Read</a>
-        </div>
-      </div>
-    </div>
-    {% elif newspaper.name == 'Uttarer Sara Din' or newspaper.name == 'Uttarer SaraDin' or newspaper.name == 'Uttarer Saradin' or newspaper.name == 'uttarersaradin' or newspaper.name == 'Uttarer saradin' or newspaper.name == 'Uttarer' %}
-    <div class="item">
-      <div class="hovereffect"><img src='{% static "dist/images/newspaper_logos/UttarerSaraDin.png" %}' class="img-responsive reg-img">
-         <div class="overlay">
-               <a class="info"  href="{{ newspaper.url }}" target="_blank">Read</a>
-        </div>
-      </div>
-    </div>
-    {% elif newspaper.name == 'NewAge' or newspaper.name == 'New Age' or newspaper.name == 'Newage' or newspaper.name == 'newage' or newspaper.name == 'New' %}
-    <div class="item">
-      <div class="hovereffect"><img src='{% static "dist/images/newspaper_logos/NewAge.png" %}' class="img-responsive reg-img">
-         <div class="overlay">
-               <a class="info"  href="{{ newspaper.url }}" target="_blank">Read</a>
-        </div>
-      </div>
-    </div>
-    {% elif newspaper.name == 'Metro Times' or newspaper.name == 'MetroTimes' or newspaper.name == 'Metrotimes' or newspaper.name == 'metrotimes' or newspaper.name == 'Metro' %}
-    <div class="item">
-      <div class="hovereffect"><img src='{% static "dist/images/newspaper_logos/MetroTimes.png" %}' class="img-responsive reg-img">
-         <div class="overlay">
-               <a class="info"  href="{{ newspaper.url }}" target="_blank">Read</a>
-        </div>
-      </div>
-    </div>
-     {% endif %}
-     <div class="item">
-      <div class="hovereffect"><img src='{% static "dist/images/newspaper_logos/Palanpur_Samachar.png" %}' class="img-responsive reg-img">
-         <div class="overlay">
-               <a class="info"  href="{{ newspaper.url }}" target="_blank">Read</a>
+               <a class="info"  href="{% url 'accounts:pdf' newspaper.id %}" target="_blank">Read</a>
         </div>
       </div>
     </div>
@@ -871,8 +710,32 @@
 <!--Newspapers Ends here-->
 <br>
 
+<div class="container">
+  <h2 class="heading-news"><strong>Magazines</strong></h2>
+<!--National Newspapers starts here-->
+  <div class="row">
+    <div class="col-md-12">
+      <div class="nws-bg wow animated fadeInLeft">
+   <h3 style="color:#fff;text-align: center;"></h3><br>
+<div class="wrapper">
+  <div class="owl-carousel owl-theme">
+    {% for magazine in magazines %}
+    <div class="item">
+      <div class="hovereffect"><img src='{{ magazine.image.url }} ' class="img-responsive reg-img">
+         <div class="overlay">
+               <a class="info"  href="{{ magazine.url }}" target="_blank">Read</a>
+        </div>
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+</div>
+</div>
+</div>
+</div>
+</div>
 <!--Magazines-->
- <div class="container">
+ <!-- <div class="container">
    <h2 class="heading-magzn"><strong>Magazines</strong></h2>
   <div class="bg-overlay wow animated fadeInLeft">
       <div class="row">
@@ -884,7 +747,7 @@
             <button class="btn btn-default filter-button btn-send" data-filter="irrigation">Business</button>
         </div>
         <br/>
-
+ -->
             <!--<div class="gallery_product col-lg-2 col-md-2 col-sm-2 col-xs-6 filter hdpe">
              <div class="hovereffect">
               <img class="img-responsive" src="static/dist/images/magazines/1.png" alt="">
@@ -894,7 +757,7 @@
            </div>
             </div>
 -->
-
+<!-- 
             <div class="gallery_product col-lg-2 col-md-2 col-sm-2 col-xs-6 filter sprinkle">
                <div class="hovereffect">
               <img class="img-responsive" src="static/dist/images/magazines/2.png" alt="">
@@ -993,7 +856,7 @@
                <a class="info" href="/media/Magazine/Safeer_300818.pdf">READ</a>
              </div>
            </div>
-            </div>
+            </div> -->
 
         <!--    <div class="gallery_product col-lg-2 col-md-2 col-sm-3 col-xs-6 filter irrigation">
                <div class="hovereffect">
@@ -1054,9 +917,9 @@
              </div>
            </div>
             </div> -->
-       </div>
+       <<!-- /div>
     </div>
-  </div>
+  </div> -->
 <!--End of Magazines-->
 
 <br>

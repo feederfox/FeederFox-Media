@@ -5,7 +5,7 @@ from django.conf.urls.static import static
 from django.conf.urls import url,include
 from .views import (signup,publisher_list,customer_list,advertiser_list,post,add_publishers,edit_publishers,add_customers,customer_signup,
     view_post,advertiser_signup,edit_customers,add_advertisers,edit_advertisers,delete_publisher,delete_customer,delete_advertiser,
-    publisher_signup,delete_post,pubprofile,newspapers)
+    publisher_signup,delete_post,pubprofile,newspapers,magazine,pdf)
 from django.contrib.auth import views as auth_views
 
 
@@ -34,6 +34,9 @@ urlpatterns = [
     url(r'^(?P<pk>[\-\w]+)/delete_post/',delete_post,name='delete_post'),
     url(r'^pubprofile/',pubprofile,name='pubprofile'),
     url(r'^newspapers/', newspapers, name='newspapers'),
+    url(r'^upload_magazine/',magazine,name='upload_magazine'),
+    url(r'^(?P<pk>[\-\w]+)/pdf/',pdf,name='pdf'),
+
 ]
 
 

@@ -243,10 +243,13 @@
         <a href="#" title="reset_pswd">Reset Password</a>
     </li>
     <li class="ddList">
-        <a href="#" title="Link2">Post</a>
+        <a href="#" title="">Post</a>
         <ul>
             <li class="ddList2">
-                <a href="{% url 'accounts:post' %}" title="SubLink2-1">Upload Post</a>
+                <a href="{% url 'accounts:post' %}" title="SubLink2-1">Upload News Paper</a>
+            </li>
+            <li class="ddList2">
+                <a href="{% url 'accounts:upload_magazine' %}" title="SubLink2-1">Upload Magazine</a>
             </li>
             <li class="ddList2">
                 <a href="{% url 'accounts:view_post' %}" title="SubLink2-2">View Post</a>

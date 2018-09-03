@@ -69,6 +69,13 @@ TYPE_CHOICES = [
 ]
 
 
+CATEGORY_CHOICES = [
+        ('1','Entertainment'),
+        ('2','Sports'),
+        ('3','Health'),
+        ('4','Business'),
+]
+
 class Post(models.Model):
     Publishing_House = models.CharField(max_length=100)
     Publishing_Name = models.CharField(max_length=100)
@@ -93,3 +100,17 @@ class NewsPap(models.Model):
 
     def __str__(self):
         return str(self.name)
+
+class Magazines(models.Model):
+    Publishing_House = models.CharField(max_length=100)
+    Magazine_Name = models.CharField(max_length=100)
+    Add_Thumbnail = models.FileField(upload_to='Magazine_Thumbnails/')
+    Add_Magazine = models.FileField(upload_to='Magazines/')
+    Language = models.CharField(max_length=100)
+    Category = models.CharField(max_length=100,choices=CATEGORY_CHOICES)
+    user = models.ForeignKey(User,null=True,on_delete=models.CASCADE)
+    Periodicity = models.CharField(max_length=100,choices=PERIODICITY_CHOICES)
+    Place = models.CharField(max_length=400)
+
+    def __str__(self):
+        return str(self.Magazine_Name)

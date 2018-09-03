@@ -13,7 +13,7 @@ from django.http import HttpResponse
 from .forms import ContactForm
 from django.core.mail import EmailMessage
 from django.template.loader import get_template
-from contents.models import NewsPaper
+from contents.models import NewsPaper,Magazine
 
 
 # Add the two views we have been talking about  all this time :)
@@ -84,7 +84,9 @@ def contact(request):
 
 def index(request):
     newspaper = NewsPaper.objects.all()
-    context = {'newspapers':newspaper}
+    magazine = Magazine.objects.all()
+    print(magazine)
+    context = {'newspapers':newspaper,'magazines':magazine}
     return render(request,'index.html',context)
 
 # class HomePageView(TemplateView):

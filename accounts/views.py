@@ -2,13 +2,13 @@ import os
 from django.conf import settings
 from django.contrib.auth import login, authenticate
 from django.shortcuts import render, redirect,HttpResponse
-from .forms import ( SignUpForm,PostForm,PublisherForm,PublisherEditForm,CustomerEditForm,CustomerForm,
+from .forms import ( SignUpForm,PostForm,PublisherForm,PublisherEditForm,CustomerEditForm,CustomerForm,MagazineForm,
                         AdvertiserForm,AdvertiserEditForm,PublisherSignUpForm,AdvertiserSignUpForm,CustomerSignUpForm)
 from .models import Profile,Post,NewsPap
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
-from contents.models import NewsPaper
+from contents.models import NewsPaper,Magazine
 
 
 def signup(request):
@@ -280,6 +280,15 @@ def newspapers(request):
     context = {'newspapers':newspapers}
     return render(request,'pdf.html',context)
 
+def pdf(request,pk):
+    newspapers = NewsPaper.objects.get(pk=pk)
+    name = newspapers.name
+    url = newspapers.url
+    print(name)
+    print(url)
+    context = {'name':name,'url':url}
+    return render(request,'pdf.html',context)
+
 def view_post(request):
     if request.user.is_superuser:
         posts = Post.objects.all()
@@ -302,3 +311,31 @@ def pubprofile(request):
     profile = Profile.objects.filter(user = request.user)
     context = {'profile':profile}
     return render(request,'publisherprofile.html',context)
+
+
+@login_required
+def magazine(request):
+    if request.method=='POST':
+        form = MagazineForm(request.POST,request.FILES)
+        if form.is_valid():
+            print(request.user)
+            magazine = form.save(commit=False)
+            print(magazine)
+            user = request.user
+            magazine.save()
+            name = form.cleaned_data.get('Magazine_Name')
+            image = magazine.Add_Thumbnail
+            print(image)
+            url = magazine.Add_Magazine.url
+            print(url)
+            language = form.cleaned_data.get('Language')
+            category = form.cleaned_data.get('Category')
+            magaz = Magazine.objects.filter(name=name)
+            print(magaz)
+            magaz.delete()
+            mag = Magazine.objects.create(name=name,image=image,url=url,language=language,category=category)
+            messages.success(request,'Magazine has been Uploaded')
+
+
+    form = MagazineForm()
+    return render(request,'upload_magazine.html',{'form':form})    
