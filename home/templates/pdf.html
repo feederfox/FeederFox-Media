@@ -274,7 +274,7 @@
 
 <script src="//mozilla.github.io/pdf.js/build/pdf.js"></script>
 
-<h1 style="margin-top: 70px;">{{ name }} </h1>
+<h1 style="margin-top: 70px;">{{ name }},{{ edition }} edition </h1>
 
 
 <script src="//mozilla.github.io/pdf.js/build/pdf.js"></script>
@@ -286,10 +286,10 @@
   <span>Page: <span id="page_num"></span> / <span id="page_count"></span></span>
 </div>
 
-<canvas id="the-canvas"></canvas>
+<!-- <canvas id="the-canvas"></canvas> -->
 
-<canvas id="the-canvas" style="width: 1410px;
-    margin-top: 10px;"></canvas>
+<canvas id="the-canvas" style="width: 1485px;
+    margin-top: 10px; margin-left: -26px"></canvas>
 
 
 
@@ -308,7 +308,7 @@ var pdfDoc = null,
     pageNum = 1,
     pageRendering = false,
     pageNumPending = null,
-    scale = 1.25,
+    scale = 2.8,
     canvas = document.getElementById('the-canvas'),
     ctx = canvas.getContext('2d');
 

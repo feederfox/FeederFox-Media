@@ -1,6 +1,7 @@
 from django.conf.urls import url,include
-from .views import (ebook_list,magazine_list,socialchannels_list,news,nationalchannels_list,regionalchannels_list,
-contents_list,signup,regionalpapers_list,nationalpapers_list,Articles,android,login,newspapers_list)
+from .views import (ebook_list,magazine_list,socialchannels_list,news,nationalchannels_list,regionalchannels_list,article,view_articles,my_papers,
+contents_list,signup,regionalpapers_list,nationalpapers_list,Articles,android,login,newspapers_list,pub_details,view_pub_details,my_magazines,
+load_mainedition,load_subedition,upload,edition,addmainedition,addsubedition,addstate,publisherdetailedit,deletepapers,deletemagazines)
 
 urlpatterns = [
     url(r'^ebook_list/', ebook_list, name='ebook_list'),
@@ -13,10 +14,24 @@ urlpatterns = [
     url(r'^regionalpapers_list/',regionalpapers_list,name='regionalpapers_list'),
     url(r'^contents/',contents_list,name='contents_list'),
     url(r'^signup/',signup.as_view(),name='signup'),
-    url(r'^articles/',Articles,name='articles'),
-
     url(r'^login/',login.as_view(),name='login'),
     url(r'^articles/',Articles,name='articles'),
+    url(r'^add/',pub_details,name = 'add'),
     url(r'^android/',android,name='android'),
+    url(r'^article_upload/',article,name='Article_Upload'),
+    url(r'^view_articles/',view_articles,name='view_articles'),
+    url(r'^view_publisher_details/',view_pub_details,name='view_pub_details'),
+    url(r'^mypapers/',my_papers,name='my_papers'),
+    url(r'^mymagazines/',my_magazines,name='my_magazines'),
+    url(r'^ajax/load-mainedition/',load_mainedition,name='ajax-load-mainedition'),
+    url(r'^(?P<pk>[\-\w]+)/upload/',upload,name='upload'),
+    url(r'^ajax/load-subedition/',load_subedition,name='ajax-load-subedition'),
+    url(r'^(?P<pk>[\-\w]+)/edition/',edition,name='edition'),
+    url(r'^addmainedition/',addmainedition,name='addmainedition'),
+    url(r'^addsubedition/',addsubedition,name='addsubedition'),
+    url(r'^addstate/',addstate,name='addstate'),
+    url(r'^(?P<pk>[\-\w]+)/publisherdetailedit/',publisherdetailedit,name='publisherdetailedit'),
+    url(r'^(?P<pk>[\-\w]+)/deletepapers/',deletepapers,name='deletepapers'),
+    url(r'^(?P<pk>[\-\w]+)/deletemagazines/',deletemagazines,name='deletemagazines'),
     #url(r'^create/',create_user,name='create_user'),
     ]

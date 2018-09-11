@@ -1,4 +1,5 @@
-import os
+import os,zlib,sys
+import PyPDF2
 from django.conf import settings
 from django.contrib.auth import login, authenticate
 from django.shortcuts import render, redirect,HttpResponse
@@ -258,9 +259,24 @@ def post(request):
         if form.is_valid():
             print(request.user)
             post = form.save(commit=False)
-            print(post)
-            user = request.user
+            post.user = request.user
             post.save()
+            user = request.user
+            print(post.user)
+            print(post.State)
+            # pdf = post.Add_PDF
+            # print(sys.getsizeof(pdf))
+            # writer = PyPDF2.PdfFileWriter()
+
+            # for pdf in pdf:
+            #     reader = PyPDF2.PdfFileReader(pdf)
+            #     for i in xrange(reader.numPages):
+            #         page = reader.getPage(i)
+            #         page.compressContentStreams()
+            #         writer.addPage(page)
+            # compressed_pdf = zlib.compress(pdf,9)
+            # print(sys.getsizeof(pdf))
+            #compressed_pdf = os.system("ps2pdf -dPDFSETTINGS=/ebook %s reduc/%s" % (pdf,pdf))
             name = form.cleaned_data.get('Publishing_Name')
             image = post.Add_Logo
             url = post.Add_PDF.url
@@ -284,9 +300,10 @@ def pdf(request,pk):
     newspapers = NewsPaper.objects.get(pk=pk)
     name = newspapers.name
     url = newspapers.url
+    edition = newspapers.subedition
     print(name)
     print(url)
-    context = {'name':name,'url':url}
+    context = {'name':name,'url':url,'edition':edition}
     return render(request,'pdf.html',context)
 
 def view_post(request):
@@ -322,7 +339,10 @@ def magazine(request):
             magazine = form.save(commit=False)
             print(magazine)
             user = request.user
+            magazine.user = user
             magazine.save()
+            print(magazine.user)
+            print(magazine.Category)
             name = form.cleaned_data.get('Magazine_Name')
             image = magazine.Add_Thumbnail
             print(image)
@@ -339,3 +359,4 @@ def magazine(request):
 
     form = MagazineForm()
     return render(request,'upload_magazine.html',{'form':form})    
+

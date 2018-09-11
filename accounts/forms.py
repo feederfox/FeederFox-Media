@@ -3,6 +3,7 @@ from django import forms
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
 from .models import Profile,Post,Magazines
+from contents.models import State
 
 ACCCOUNT_TYPES_CHOICES = [
 	('1','Publisher'),
@@ -71,9 +72,11 @@ class CustomerSignUpForm(UserCreationForm):
 			raise forms.ValidationError(u'This email address is already registered.')
 		return email
 class PostForm(forms.ModelForm):
+	# State = forms.ModelChoiceField(queryset=State.objects.all(),empty_label="Select State")
+
 	class Meta:
 		model = Post
-		fields = ('Publishing_House','Publishing_Name','Add_PDF','Add_Logo','Type','Number_of_Editions','Sub_Editions','Place','Languages','Periodicity',
+		fields = ('Publishing_House','Publishing_Name','Add_PDF','Add_Logo','Type','Number_of_Editions','Sub_Editions','State','Languages','Periodicity',
 			'Uploading_By')
 
 class PublisherForm(UserCreationForm):

@@ -33,7 +33,6 @@ urlpatterns = [
     url(r'^view_post/',view_post,name='view_post'),
     url(r'^(?P<pk>[\-\w]+)/delete_post/',delete_post,name='delete_post'),
     url(r'^pubprofile/',pubprofile,name='pubprofile'),
-    url(r'^newspapers/', newspapers, name='newspapers'),
     url(r'^upload_magazine/',magazine,name='upload_magazine'),
     url(r'^(?P<pk>[\-\w]+)/pdf/',pdf,name='pdf'),
 

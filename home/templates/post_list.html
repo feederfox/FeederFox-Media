@@ -141,7 +141,7 @@
                             <th>Publishing_Name  </th>
                             <th> Number_of_Editions </th>
                             <th>Sub_Editions  </th>
-                            <th>Place</th>
+                            <th>State</th>
                             <th> Languages </th>
                             <th> Periodicity </th>
                             <th>Uploading_By</th>
@@ -158,11 +158,11 @@
                             <td>{{ post.Publishing_Name }}</td>
                             <td> {{ post.Number_of_Editions }} </td>
                             <td> <i> {{ post.Sub_Editions }} </i></td>
-                            <td>{{ post.Place }}</td>
+                            <td>{{ post.State }}</td>
                             <td>{{ post.Languages }} </td>
                             <td> {{ post.Periodicity }} </td>
                             <td> {{ post.Uploading_By }} </td>
-                            <td> {{ post.user}} </td>
+                            <td> {{ post.user.username }} </td>
                             <td><a href="#" title="view/edit" data-rel="tooltip"> <span class="fa fa-pencil"></span></a>
                                 <a href=" {% url 'accounts:delete_post' post.id %}" title="delete" data-rel="tooltip"><span class="fa fa-trash-o"></span></a>
                             </td>

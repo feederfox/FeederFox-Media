@@ -2,6 +2,7 @@ from django.db import models
 from django.contrib.auth.models import User
 from django.db.models.signals import post_save
 from django.dispatch import receiver
+from contents.models import State,PublisherDetail,Sub_Edition
 
 ACCCOUNT_TYPES_CHOICES = [
     ('1','Publisher'),
@@ -82,8 +83,10 @@ class Post(models.Model):
     Add_PDF = models.FileField(upload_to='NewsPapers/',null=True)
     Add_Logo = models.FileField(upload_to='Logos/',null=True)
     Number_of_Editions = models.PositiveIntegerField()
-    Sub_Editions = models.CharField(max_length=100)
-    Place = models.CharField(max_length=400)
+    Main_Edition = models.CharField(max_length=100,blank=True,null=True)
+    Sub_Editions = models.ForeignKey(Sub_Edition,on_delete=models.SET_NULL,blank=True,null=True)
+    Sub_Edition = models.CharField(max_length=100)
+    State = models.ForeignKey(State,on_delete=models.CASCADE,null=True)
     Languages = models.CharField(max_length=100)
     Periodicity = models.CharField(max_length=100,choices=PERIODICITY_CHOICES,default='Daily')
     Uploading_By = models.CharField(max_length=100,choices=UPLOADING_CHOICES,default='Single_File')

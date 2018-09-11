@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render,redirect
 from rest_framework import status
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
@@ -7,14 +7,20 @@ from accounts.models import Profile
 from django.contrib.auth.models import User
 from rest_framework.generics import ListCreateAPIView,CreateAPIView
 from rest_framework.permissions import IsAuthenticated,AllowAny
-from django.http import HttpResponse
+from django.http import HttpResponse,Http404
 from django.contrib.auth import authenticate,login
-
+from django.contrib import messages
+import datetime
+from pdf2image import convert_from_path
+from django.conf import settings
+from pylovepdf.ilovepdf import ILovePdf
+import zlib,os,sys,PyPDF2
 from rest_framework.authtoken.models import Token
-from .models import Ebook,Magazine,SocialChannel,RegionalNewsChannel,NationalNewsChannel,NationalNewsPaper,RegionalNewsPaper,Article,NewsPaper
-from .serializers import (EbookSerializer,MagazineSerializer,SocialChannelSerializer,
-                            NationalNewsChannelSerializer,RegionalNewsChannelSerializer,NationalNewsPaperSerializer,
-                            RegionalNewsPaperSerializer,ArticleSerializer,SignupSerializer,LoginSerializer,NewsPaperSerializer)
+from .forms import PublisherDetailsForm,ArticleForm,UploadContentForm,MainEditionForm,EditionForm,StateForm,PublisherDetailEditForm
+from .models import (Ebook,Magazine,SocialChannel,RegionalNewsChannel,NationalNewsChannel,NationalNewsPaper,
+                RegionalNewsPaper,Article,NewsPaper,PublisherDetail,Article,Main_Edition,Edition,Sub_Edition,State)
+from .serializers import (EbookSerializer,MagazineSerializer,SocialChannelSerializer,NationalNewsChannelSerializer,RegionalNewsChannelSerializer,
+    NationalNewsPaperSerializer,RegionalNewsPaperSerializer,ArticleSerializer,SignupSerializer,LoginSerializer,NewsPaperSerializer)
 
 
 
@@ -282,11 +288,17 @@ class signup(APIView):
     serializer_class = SignupSerializer
     def post(self,request, *args, **kwargs):
         data = request.data
+        email = data['email']
+        print(email)
+        username = data['username']
+        print(username)
         serializer = SignupSerializer(data=data)
         if serializer.is_valid():
             serializer.save()
+            print(serializer)
             return Response({"detail": "True"})
-        return Response({'detail':'False'})
+
+        return Response({'detail':'Email already in use'},status=status.HTTP_200_OK)
 
 class login(APIView):
     serializer_class = LoginSerializer
@@ -297,7 +309,11 @@ class login(APIView):
         email = data.get('email', None)
         password = data.get('password', None)
         print(email)
-        username = User.objects.get(email=email).username
+        try:
+            username = User.objects.get(email=email).username
+            print(username)
+        except Exception as e:
+            return Response({'detail':"User not found" },status=status.HTTP_200_OK)
         print(username)
         if username:
             user = authenticate(username=username, password=password)
@@ -306,12 +322,12 @@ class login(APIView):
             if user is not None:
                 if user.is_active:
                     #login(request, user)
-                    return Response({'detail':" True" },status=status.HTTP_200_OK)
+                    return Response({'detail':"True" },status=status.HTTP_200_OK)
                 else:
-                    return Response({'detail':" False "},status=status.HTTP_404_NOT_FOUND)
+                    return Response({'detail':"False "},status=status.HTTP_200_OK)
             else:
-                return Response({'detail':" False" },status=status.HTTP_404_NOT_FOUND)
-        return Response({'detail':" False" },status=status.HTTP_404_NOT_FOUND)
+                return Response({'detail':"False" },status=status.HTTP_200_OK)
+        return Response({'detail':" False" },status=status.HTTP_200_OK)
         # data = request.data
         # serializer = LoginSerializer(data=data)
         # if serializer.is_valid(raise_exception=True):
@@ -344,3 +360,236 @@ def android(request):
     print(andr_users)
     context = {'android':andr_users}
     return render(request,'android_users.html',context)
+
+def pub_details(request):    
+    if request.method == 'POST':
+        form = PublisherDetailsForm(request.POST, request.FILES)
+        if form.is_valid():
+            a = form.save(commit=False)
+            a.user=request.user
+            print(a.user)
+            a.save()
+            form.save_m2m()
+            messages.success(request,'Successfully Added')      
+    form = PublisherDetailsForm()
+    mainedition = Main_Edition.objects.all()
+    subedition = Edition.objects.all()
+    state = State.objects.all()
+    context = {'form':form,'mainedition':mainedition,'subedition':subedition,'state':state}  
+    return render(request,'publisher_details.html',context)        
+
+def article(request):
+    if request.method=='POST':
+        form = ArticleForm(request.POST,request.FILES)
+        if form.is_valid():
+            article=form.save(commit=False)
+            article.save()
+    form = ArticleForm()
+    context = {'form':form} 
+    return render(request,'article_upload.html',context)       
+
+
+def view_articles(request):
+    art = Article.objects.all()
+    context = {'articles':art}
+    return render(request,'view_articles.html',context)    
+
+def view_pub_details(request):
+    pub_details = PublisherDetail.objects.all() 
+    context = {'details':pub_details}
+    return render(request,'publisher_details_list.html',context)   
+
+def my_papers(request):
+    papers = PublisherDetail.objects.filter(Type=1,user=request.user)
+    print(request.user)
+    context = {'papers':papers}
+    return render(request,'mypapers.html',context)
+
+def my_magazines(request):
+    magazine = PublisherDetail.objects.filter(Type=2,user=request.user)
+    print(request.user)
+    context = {'magazines':magazine}
+    return render(request,'mymagazines.html',context)    
+
+def load_mainedition(request):
+    State_id = request.GET.get('State')
+    mainedition = Main_Edition.objects.filter(State_id=State_id)
+    return render(request, 'main_edition_dropdownlist.html', {'maineditions': mainedition})   
+
+def load_subedition(request):
+    State_id = request.GET.get('State')
+    subedition = Edition.objects.filter(State_id=State_id)
+    return render(request, 'subedition_dropdownlist.html', {'subeditions': subedition})         
+
+
+def upload(request,pk):
+    a = PublisherDetail.objects.get(pk=pk)
+    d = [i for i in a.Sub_Edition.all() ]   
+    length = len(a.Sub_Edition.all())
+    n = a.Name
+    # s = Sub_Edition.objects.all()
+    # print(s)
+    # s.delete()
+    # print(s)
+    for x in range(0,length):
+        #e.delete()
+        e = Sub_Edition.objects.create(Edition=d[x],Name=n)
+        t = Sub_Edition.objects.filter(Name=n,Edition=d[x])
+        print(t)
+        for u in Sub_Edition.objects.filter(Name=n,Edition=d[x]).values_list("id", flat=True).distinct():
+            pass
+        Sub_Edition.objects.filter(pk__in=Sub_Edition.objects.filter(Name=n,Edition=d[x]).values_list('id',flat=True)[1:]).delete()
+        print(n)
+    print(n)
+    y = Sub_Edition.objects.filter(Name=n).distinct()
+    print(y)    
+        
+    if request.method=='POST':
+        form = UploadContentForm(request.POST,request.FILES)
+        print('HI')
+        if form.is_valid():
+            print('IS')
+            b=form.save(commit=False)
+            b.Publishing_House = a.Name
+            b.Publishing_Name = a.Name
+            b.Add_Logo = a.Add_Logo
+            b.State = a.State
+            b.Languages = a.Language
+            b.user = request.user
+            b.Main_Edition = a.Main_Edition
+            b.Sub_Edition = form.cleaned_data.get('Sub_Editions')
+            print(form.cleaned_data.get('Sub_Editions'))
+            print(b.Add_PDF)
+            pdf1 = b.Add_PDF
+            print(pdf1)
+            # ilovepdf = ILovePdf('project_public_896a1a0eff68b3d3da5e27710febc890_klzpac598631384d2f6025175094ce5ec1f76', verify_ssl=True)
+            # task = ilovepdf.new_task('compress')
+            # task.add_file('C:\karmashakthi.pdf')
+            # task.set_output_folder('C:\FeederFox-Media')
+            # task.execute()
+            # task.download()
+            # task.delete_current_task()
+            #pdf = open((os.path.join(settings.BASE_DIR,'media','NewsPapers','Awami_270818.pdf')))
+            #pdf = open(pdf1,'rb')
+            #print(pdf)
+            #compressed_pdf = os.system("ps2pdf -dPDFSETTINGS=/ebook %s reduc/%s" % (pdf1,pdf1))
+            # pages = convert_from_path(pdf, 500)
+            # for page in pages:
+            #     page.save('out.jpg', 'JPEG')
+            # writer = PyPDF2.PdfFileWriter()
+            # reader = PyPDF2.PdfFileReader(pdf)
+            # for i in range(reader.numPages):
+            #     page = reader.getPage(i)
+            #     page.compressContentStreams()
+            #     writer.addPage(page)
+
+            # with open((os.path.join(settings.BASE_DIR,'media','NewsPapers',pdf1_compress)),'wb') as f:
+            #     writer.write(f)    
+            # compressed_pdf = zlib.compress(pdf1)
+            # print(sys.getsizeof(compressed_pdf))
+            # compress_ratio = (float(len(pdf)) - float(len(compressed_pdf))) / float(len(pdf))
+            b.save()
+            name = b.Publishing_Name
+            image = b.Add_Logo
+            url = b.Add_PDF.url
+            mainedition = b.Main_Edition
+            subedition = b.Sub_Edition
+            user = request.user
+            uploaded_at = datetime.datetime.now().strftime("%d-%m-%y %H-%M-%S")
+            newspap = NewsPaper.objects.filter(name=name,subedition=subedition)
+            newspap.delete()
+            newspaper = NewsPaper.objects.create(name=name,image=image,url=url,mainedition=mainedition,
+                                    subedition=subedition,user=user,Uploaded_at=uploaded_at)
+            print(newspaper)
+
+            messages.success(request,'Successfully Uploaded')
+            form = UploadContentForm()
+            c = Sub_Edition.objects.all()
+            c.delete()
+
+
+    form = UploadContentForm()
+    return render(request,'upload_content.html',{'form':form})    
+
+def edition(request,pk):
+    content = PublisherDetail.objects.get(pk=pk)
+    name = content.Name
+    #url = content.url
+    image = content.Add_Logo.url
+    mainedition = content.Main_Edition
+    sub = content.Sub_Edition.all()
+    language = content.Language
+    print(language)
+    print(sub)
+    print(mainedition)
+    newspaper = NewsPaper.objects.filter(name=name)
+    print(newspaper)
+    sub1=[]
+    for n in newspaper:
+        sub1.append(n.subedition)
+    print(sub1)
+    context = {'name':name,'image':image,'mainedition':mainedition,'sub':sub,'newspaper':newspaper,'language':language}
+    return render(request,'edition.html',context)    
+
+
+def addmainedition(request):
+    if request.method=='POST':
+        form = MainEditionForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('content:add')
+
+    form = MainEditionForm()
+    return render(request,'addmainedition.html',{'form':form})
+
+def addsubedition(request):
+    if request.method=='POST':
+        form = EditionForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('content:add')
+
+    form = EditionForm()
+    return render(request,'addsubedition.html',{'form':form})                        
+
+
+def addstate(request):
+    if request.method=='POST':
+        form = StateForm(request.POST,request.FILES)
+        if form.is_valid():
+            form.save()
+            return redirect('content:add')
+
+    form = StateForm()
+    return render(request,'addstate.html',{'form':form})            
+
+def publisherdetailedit(request,pk):
+    pub = PublisherDetail.objects.get(pk=pk)  
+    print(pub)
+    print(pub.Type)
+    pub_form = PublisherDetailEditForm(instance=pub)
+    if request.method=='POST':
+        form = PublisherDetailEditForm(request.POST,request.FILES, instance=pub)
+        if form.is_valid():
+            pub = form.save()
+            pub.save()
+            print(pub.Type)
+            if pub.Type=='1':
+                return redirect('content:my_papers')
+            else:
+                return redirect('content:my_magazines')    
+
+    form = PublisherDetailEditForm()
+    return render(request,'publisherdetail_editform.html',{'form':pub_form})
+
+def deletepapers(request,pk):
+    paper = PublisherDetail.objects.filter(Type=1,user=request.user).get(pk=pk)
+    print(paper)
+    paper.delete()
+    return redirect('content:my_papers')
+
+def deletemagazines(request,pk):
+    magazine = PublisherDetail.objects.filter(Type=2,user=request.user).get(pk=pk)
+    print(magazine)
+    magazine.delete()
+    return redirect('content:my_magazines')    

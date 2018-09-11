@@ -1,0 +1,4 @@
+<option value="">---------</option>
+{% for subedition in subeditions %}
+<option value="{{ subedition.pk }}">{{ subedition.Name }}</option>
+{% endfor %}

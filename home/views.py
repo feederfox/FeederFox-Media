@@ -2,7 +2,7 @@ import os
 from django.conf import settings
 
 from django.contrib.auth import login, authenticate
-
+import datetime
 from django.shortcuts import render, redirect
 from django.views.generic import TemplateView  # Import TemplateView
 from django.contrib import messages
@@ -13,7 +13,7 @@ from django.http import HttpResponse
 from .forms import ContactForm
 from django.core.mail import EmailMessage
 from django.template.loader import get_template
-from contents.models import NewsPaper,Magazine
+from contents.models import NewsPaper,Magazine,PublisherDetail
 
 
 # Add the two views we have been talking about  all this time :)
@@ -84,9 +84,16 @@ def contact(request):
 
 def index(request):
     newspaper = NewsPaper.objects.all()
+    nam = []
+    for i in newspaper:
+        nam.append(i)
+    name = nam
     magazine = Magazine.objects.all()
-    print(magazine)
-    context = {'newspapers':newspaper,'magazines':magazine}
+    pub = PublisherDetail.objects.all()
+    pubdetails = PublisherDetail.objects.filter(Name__in=name)
+    print(pubdetails)
+    print(datetime.datetime.now().strftime("%d-%m-%y %H-%M-%S"))
+    context = {'newspapers':newspaper,'magazines':magazine,'pubdetails':pubdetails}
     return render(request,'index.html',context)
 
 # class HomePageView(TemplateView):

@@ -238,13 +238,30 @@
         <a href="#" title="Home">Home</a>
     </li>
      <li class="ddList">
-        <a href="#" title="Contact">My Profile</a>
+        <a href="#" title="">My Profile</a>
+        <ul>
+        <li class="ddList2">
+                <a href="{% url 'content:my_papers' %} " title="">My Papers</a>
+            </li>
+        <li class="ddList2">
+                <a href="{% url 'content:my_magazines' %}" title="">My Magazines</a>
+            </li>    
+        <li class="ddList2">
+                <a href="{% url 'content:add' %}" title="">Add New</a>
+            </li>    
+        <li class="ddList2">
+                <a href="#" title="">Contact Details</a>
+            </li>
+        <li class="ddList2">
+                <a href="#" title="">Uploader Details</a>
+            </li>        
     </li>
+    </ul>
     <li class="ddList">
         <a href="#" title="reset_pswd">Reset Password</a>
     </li>
     <li class="ddList">
-        <a href="#" title="">Post</a>
+        <a href="#" title="">Upload</a>
         <ul>
             <li class="ddList2">
                 <a href="{% url 'accounts:post' %}" title="SubLink2-1">Upload News Paper</a>

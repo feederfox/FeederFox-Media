@@ -1,0 +1,4 @@
+<option value="">---------</option>
+{% for mainedition in maineditions %}
+<option value="{{ mainedition.pk }}">{{ mainedition.Name }}</option>
+{% endfor %}

@@ -1,13 +1,19 @@
-from rest_framework import serializers
+from rest_framework import serializers,exceptions
 from .models import Ebook,Magazine,SocialChannel,NationalNewsChannel,RegionalNewsChannel,NationalNewsPaper,RegionalNewsPaper,Article,NewsPaper
 from accounts.models import Profile
 from django.contrib.auth.models import User
 from django.db.models.signals import post_save
+from rest_framework import status
 from django.dispatch import receiver
 from rest_framework.response import Response
 from rest_framework.exceptions import ValidationError
 
 
+class UserException(exceptions.ValidationError):
+	status_code = status.HTTP_200_OK
+
+class EmailException(exceptions.ValidationError):
+	status_code = status.HTTP_200_OK
 
 class EbookSerializer(serializers.ModelSerializer):
 	class Meta:
@@ -83,17 +89,16 @@ class SignupSerializer(serializers.ModelSerializer):
 		Application_type = validated_data['Application_type']
 		u = User.objects.filter(username=username)
 		if u:
-			raise ValidationError({'detail':False})
+			raise UserException({'detail':'Username is already in use'})
 		e = User.objects.filter(email=email)
 		if e:
-		    raise ValidationError({'detail':False})
+		    raise EmailException({'detail':'Email already in use'})
 		user = User(
 				username = username,
 				email = email,
 				password = password
 			)
 		user.set_password(password)
-
 		user.save()
 		user.Application_type = Application_type
 		user.Account_type = 2
@@ -101,7 +106,6 @@ class SignupSerializer(serializers.ModelSerializer):
 		user.profile.email = user.email
 		user.profile.Application_type = user.Application_type
 		user.profile.Account_type = user.Account_type
-
 		user.profile.save()
 		#headers = self.get_success_headers(validated_data)
 		#return validated_data
