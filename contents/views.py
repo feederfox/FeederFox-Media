@@ -13,15 +13,20 @@ from django.contrib import messages
 import datetime
 from pdf2image import convert_from_path
 from django.conf import settings
+from django.http import HttpResponseRedirect
+from django.contrib.auth.decorators import login_required
 from pylovepdf.ilovepdf import ILovePdf
+from .fusioncharts import FusionCharts
 import zlib,os,sys,PyPDF2
 from rest_framework.authtoken.models import Token
-from .forms import PublisherDetailsForm,ArticleForm,UploadContentForm,MainEditionForm,EditionForm,StateForm,PublisherDetailEditForm
-from .models import (Ebook,Magazine,SocialChannel,RegionalNewsChannel,NationalNewsChannel,NationalNewsPaper,
-                RegionalNewsPaper,Article,NewsPaper,PublisherDetail,Article,Main_Edition,Edition,Sub_Edition,State)
+from .forms import (PublisherDetailsForm,ArticleForm,UploadContentForm,MainEditionForm,EditionForm,StateForm,PublisherDetailEditForm,
+                    PoliticalForumForm,ArticleUploadForm,PollingForm)
+from .models import (Ebook,Magazine,SocialChannel,RegionalNewsChannel,NationalNewsChannel,NationalNewsPaper,Dummy,Article_upload,ArticleReview,
+                RegionalNewsPaper,Article,NewsPaper,PublisherDetail,Article,Main_Edition,Edition,Sub_Edition,State,PoliticalForum,Polling,Vote,
+                PoliticalSurvey)
 from .serializers import (EbookSerializer,MagazineSerializer,SocialChannelSerializer,NationalNewsChannelSerializer,RegionalNewsChannelSerializer,
-    NationalNewsPaperSerializer,RegionalNewsPaperSerializer,ArticleSerializer,SignupSerializer,LoginSerializer,NewsPaperSerializer)
-
+    NationalNewsPaperSerializer,RegionalNewsPaperSerializer,ArticleSerializer,SignupSerializer,LoginSerializer,NewsPaperSerializer,DummySerializer)
+from .models import Revenue
 
 
 
@@ -36,6 +41,25 @@ def socialchannels_list(request):
 
     elif request.method == 'POST':
         serializer = SocialChannelSerializer(data=request.DATA)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        else:
+            return Response(
+                serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+@api_view(['GET', 'POST'])
+def dummy_list(request):
+    if request.method == 'GET':
+        ebook = Dummy.objects.all()
+        print(ebook)
+        serializer = DummySerializer(ebook, many=True)
+        resp3 = serializer.data
+        ebook_list = {'E-Books':resp3}
+        return Response(ebook_list)
+
+    elif request.method == 'POST':
+        serializer = DummySerializer(data=request.DATA)
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data, status=status.HTTP_201_CREATED)
@@ -198,6 +222,17 @@ def newspapers_list(request):
             return Response(
                 serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
+
+@api_view(['GET','POST'])
+def article_list(request):
+    context = {
+            "request":request
+            }
+    article = Article.objects.all()
+    articleserializer = ArticleSerializer(article,many=True)
+    resp3 = articleserializer.data
+    a = {'Articles':resp3}
+    return Response(a)
 
 @api_view(['GET', 'POST'])
 def contents_list(request):
@@ -378,21 +413,29 @@ def pub_details(request):
     context = {'form':form,'mainedition':mainedition,'subedition':subedition,'state':state}  
     return render(request,'publisher_details.html',context)        
 
+@login_required(login_url='/accounts/login/')
 def article(request):
-    if request.method=='POST':
-        form = ArticleForm(request.POST,request.FILES)
-        if form.is_valid():
-            article=form.save(commit=False)
-            article.save()
-    form = ArticleForm()
-    context = {'form':form} 
-    return render(request,'article_upload.html',context)       
+    if request.user.is_authenticated:
+        if request.method=='POST':
+            form = ArticleUploadForm(request.POST,request.FILES)
+            if form.is_valid():
+                article=form.save(commit=False)
+                article.save()
+                messages.success(request,'Article has been Uploaded Successfully')
+        form = ArticleUploadForm()
+        context = {'form':form} 
+        return render(request,'article_upload.html',context)  
+    return redirect('accounts:login')         
 
 
-def view_articles(request):
-    art = Article.objects.all()
+def view_articles(request,pk):
+    art = Article.objects.get(pk=pk)
+    title = art.title
+    description = art.description
+    image = art.image
     context = {'articles':art}
-    return render(request,'view_articles.html',context)    
+    return render(request,'article1.html',locals())    
+
 
 def view_pub_details(request):
     pub_details = PublisherDetail.objects.all() 
@@ -593,3 +636,156 @@ def deletemagazines(request,pk):
     print(magazine)
     magazine.delete()
     return redirect('content:my_magazines')    
+
+def political(request):
+    if request.method=='POST':
+        form = PoliticalForumForm(request.POST,request.FILES)
+        if form.is_valid:
+            form.save()
+            messages.success(request,'Successfully Updated')
+
+    form = PoliticalForumForm()
+    return render(request,'political.html',{'form':form})
+
+def politicalmodal(request,pk):
+    political = PoliticalForum.objects.get(pk=pk)
+    name = political.Name
+    synopsis = political.Synopsis
+    image = political.Image.url
+    Educational_Qualification = political.Educational_Qualification
+    Family_History = political.Family_History
+    projects_taken = political.Projects_Taken
+    video_link = political.video_link
+    poll = Polling.objects.get(Name=name)
+    dataSource = {}
+    dataSource['chart'] = { 
+        "caption": "FeederFox-Media",
+            "xAxisName": "Month",
+            "yAxisName": "Percentage",
+            "numberPrefix": "%",
+            "theme": "candy"
+        }
+
+
+    dataSource['data'] = []
+    
+    
+    data = {}
+    data['label'] = str(poll.Month)
+    data['value'] = (poll.Upvote/(poll.Upvote+poll.DownVote))*100
+    dataSource['data'].append(data)
+
+    column2D = FusionCharts("column2D", "ex1" , "400", "350", "chart-1", "json", dataSource)
+
+    context = {'name':name,'synopsis':synopsis,'image':image,'Educational_Qualification':Educational_Qualification,'video_link':video_link,
+            'Family_History':Family_History,'projects_taken':projects_taken,'poll':poll,'output':column2D.render()}
+    return render (request,'modalview.html',context)
+
+
+@login_required(login_url='/accounts/login/')
+def upvote(request,pk):
+    poll = Polling.objects.get(pk=pk)
+    vote = Vote.objects.all()
+    vo = Vote.objects.filter(user=request.user,Poll_Question=poll.Poll_Question)
+    print(vo)
+    if not vo:
+        user = request.user
+        v = Vote.objects.create(user=user,Poll_Question=poll.Poll_Question)
+        v.save()
+        poll.Upvote += 1
+        poll.save()
+        messages.success(request,'Your Response has been Saved')
+        return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
+    messages.error(request,'We have already received your response for this Question')
+    return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
+
+@login_required(login_url='/accounts/login/')
+def downvote(request,pk):
+    poll = Polling.objects.get(pk=pk)
+    vote = Vote.objects.all()
+    vo = Vote.objects.filter(user=request.user,Poll_Question=poll.Poll_Question)
+    print(vo)
+    if not vo:
+        user = request.user
+        v = Vote.objects.create(user=user,Poll_Question=poll.Poll_Question)
+        v.save()    
+        poll.DownVote += 1
+        poll.save()
+        messages.success(request,'Your Response has been Saved')
+        return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
+    messages.error(request,'We have already received your response for this Question')
+    return HttpResponseRedirect(request.META.get('HTTP_REFERER'))  
+
+def politicalsurvey(request,pk):
+    pol_name = PoliticalForum.objects.get(pk=pk)
+    name = pol_name.Name
+    print(name)
+    a = PoliticalSurvey.objects.all()
+    print(a)
+    for i in a:
+        print(i)
+        print(i.Poll_Question)
+    return HttpResponse('success')      
+
+def chart(request):
+    # Chart data is passed to the `dataSource` parameter, as dict, in the form of key-value pairs.
+    dataSource = {}
+    dataSource['chart'] = { 
+        "caption": "Monthly revenue for last year",
+            "subCaption": "FeederFox-Media's SuperMart",
+            "xAxisName": "Month",
+            "yAxisName": "Revenues (In USD)",
+            "numberPrefix": "$",
+            "theme": "zune"
+        }
+
+    # The data for the chart should be in an array where each element of the array is a JSON object
+    # having the `label` and `value` as key value pair.
+
+    dataSource['data'] = []
+    
+    # Iterate through the data in `Revenue` model and insert in to the `dataSource['data']` list.
+    for poll in Polling.objects.all():
+        data = {}
+        val = {}
+        data['label'] = poll.Month
+        data['value'] = poll.Upvote/(poll.Upvote+poll.DownVote)
+        print(data)
+        dataSource['data'].append(data)
+        print(dataSource)
+
+
+    # The data for the chart should be in an array where each element of the array is a JSON object
+    # having the `label` and `value` as key value pair.
+
+
+    # Create an object for the Column 2D chart using the FusionCharts class constructor                      
+    column2D = FusionCharts("column2D", "ex1" , "700", "450", "chart-1", "json", dataSource)
+    return render(request, 'modalview.html', {'output': column2D.render()}) 
+
+def review(request):
+    review = ArticleReview.objects.all()
+    print(review)
+    return render(request,'review_view.html',{'review':review})
+
+
+def politicianarticle(request):
+    if request.method=='POST':
+        form = PoliticainArticleForm(request.POST,request.FILES)
+        if form.is_valid():
+            form.save()
+            messages.success('Successfully Uploaded')
+            form = PoliticainArticleForm()    
+
+    form = PoliticainArticleForm()
+    return render(request,'politicianarticleupload.html',{'form':form})        
+
+def polling(request):
+    if request.method=='POST':
+        form = PollingForm(request.POST)
+        if form.is_valid():
+            form.save()
+            messages.success(request,'Successfully Uploaded')
+
+    form = PollingForm()
+    return render(request,'polling.html',{'form':form})        

@@ -297,7 +297,6 @@
                             <th>Name </th>
                             <th>Language  </th>
                             <th> State </th>
-                            <th> Type </th>
                             <th>Main Edition</th>
                             <th>Sub Editions</th>
                             <th>Actions</th>
@@ -312,7 +311,6 @@
                             <td> {{ details.Name }} </td>
                             <td>{{ details.Language }}</td>
                             <td> {{ details.State }} </td>
-                            <td> {% if details.Type == '1' %} Paper {% else %} Magazine {% endif %} </td>
                             <td>{{ details.Main_Edition }} </td>
                             <td> {% for d in details.Sub_Edition.all %}  {{ d }}, {% endfor %}</td>
                             <td><a href="{% url 'content:publisherdetailedit' details.id %} " title="view/edit" data-rel="tooltip"> <span class="fa fa-pencil"></span></a>

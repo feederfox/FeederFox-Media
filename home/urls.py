@@ -15,5 +15,16 @@ urlpatterns = [
     url(r'^article3/',views.article3,name='article3'),
     url(r'^article4/',views.article4,name='article4'),
     url(r'^regionalnewspaper/',views.regionalnewspaper,name='regionalnewspaper'),
+    url(r'^video1/',views.video1,name='video1'),
+    url(r'^video2/',views.video2,name='video2'),
+    url(r'^video3/',views.video3,name='video3'),
+    url(r'^video4/',views.video4,name='video4'),
+    url(r'^video5/',views.video5,name='video5'),
+    url(r'^video6/',views.video6,name='video6'),
+    url(r'^video7/',views.video7,name='video7'),
+    url(r'^publisherpage/',views.publisherpage,name='publisherpage'),
+    url(r'^customerpage/',views.customerpage,name='customerpage'),
+    url(r'^advertiserpage/',views.advertiserpage,name='advertiserpage'),
+
 
 ]

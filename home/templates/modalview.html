@@ -1,0 +1,65 @@
+{% extends 'base.html' %} <!-- Add this for inheritance -->
+{% block pagecontent %}
+{% load static %}
+
+<div class="row">
+            <div  class="col-md-4">
+              <div class="card">
+  <img src="{{ image }} " alt="Avatar" style="width:250px;height:250px;">
+
+    <h4><b>{{ name }} </b></h4>
+  </div>
+</div>
+
+<div class="col-md-8" style="margin-left:400px;margin-top: -300px ">
+
+  <!-- <img src="{% static 'dist/images/logos/modi.jpg' %}" alt="Denim Jeans" style="width:100px;height:100px;"> -->
+  <h5><b>Name</b>:{{ name }} </h5><br/>
+  <h5><b>Projects Taken</b>:</h5><br/>
+  <h5><b>Education Qualification</b>: {{ Educational_Qualification }} </h5><br/>
+  <h5><b>Family History</b>:{{ Family_History }} </h5><br/>
+</div>
+
+</div>
+
+<h3>Video Player</h3>
+<iframe width="560" height="315" src="{{ video_link }} " frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+<br/>
+
+<div class="row">
+            <div  class="col-md-12">
+              <h3> Synopsis</h3>
+              <p >{{ synopsis }} </p>
+</div>
+</div>
+</div>
+
+<br><br><br>
+<div style="margin-left: 20px">
+  <div class="row">
+   <div class="col-md-12">
+    <p class="politcs-ques"><strong>Survey of {{ name }} </strong></p>
+    <a href="{% url 'content:politicalsurvey' poll.id %} "><button class="btn btn-default" style="background-color: #8E5959;">Take Survey</button></a>
+  </div>
+  </div>
+  <!-- <div class="row">
+   <div class="col-md-2">
+    <a href="{% url 'content:upvote' poll.id %} " data-toggle="tooltip" title="Yes"><i class="fa fa-thumbs-up fa-4x" aria-hidden="true" style="color:green;"></i></a>
+    <a href="{% url 'content:downvote' poll.id %} " data-toggle="tooltip" title="No"><i class="fa fa-thumbs-down fa-4x" aria-hidden="true" style="color:orange;"></i></a>
+  </div>
+  </div> -->
+  </div>
+
+<br><br><br>
+
+
+  <div style="margin-left: 20px" id="chart-1" >{{ output|safe }}</div>
+
+        <div class="modal-footer">
+          <a href="{% url 'home' %}"><button type="button" class="btn btn-default" data-dismiss="modal">Close</button></a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

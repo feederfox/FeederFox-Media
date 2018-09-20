@@ -3,13 +3,13 @@ import PyPDF2
 from django.conf import settings
 from django.contrib.auth import login, authenticate
 from django.shortcuts import render, redirect,HttpResponse
-from .forms import ( SignUpForm,PostForm,PublisherForm,PublisherEditForm,CustomerEditForm,CustomerForm,MagazineForm,
+from .forms import ( SignUpForm,PostForm,PublisherForm,PublisherEditForm,CustomerEditForm,CustomerForm,MagazineForm,PoliticianSignUpForm,
                         AdvertiserForm,AdvertiserEditForm,PublisherSignUpForm,AdvertiserSignUpForm,CustomerSignUpForm)
 from .models import Profile,Post,NewsPap
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
-from contents.models import NewsPaper,Magazine
+from contents.models import NewsPaper,Magazine,Article_upload,Article
 
 
 def signup(request):
@@ -102,6 +102,28 @@ def advertiser_signup(request):
     else:
         form = AdvertiserSignUpForm()
     return render (request, 'account/advertisersignup.html', {'form':form})
+
+def politician_signup(request):
+    if request.method=='POST':
+        form = PoliticianSignUpForm(request.POST)
+        if form.is_valid():
+            user = form.save()
+            user.refresh_from_db()
+            user.profile.Account_type = 4
+            user.profile.username = form.cleaned_data.get('username')
+            user.profile.email = form.cleaned_data.get('email')
+            print(user.profile.Account_type)
+            # u = User.objects.filter(email=user.profile.email)
+            # if u is not None:
+            user.save()
+            raw_password = form.cleaned_data.get('password1')
+            user = authenticate(username=user.username, password=raw_password)
+            login(request, user)
+            return redirect('accounts:login')
+    else:
+        form = PublisherSignUpForm()
+    return render (request, 'account/publishersignup.html', {'form':form})
+
 
 
 def publisher_list(request):
@@ -360,3 +382,30 @@ def magazine(request):
     form = MagazineForm()
     return render(request,'upload_magazine.html',{'form':form})    
 
+
+def articlesuploaded(request):
+    if request.user.is_superuser:
+        art = Article_upload.objects.all()
+        context = {'articles':art}
+        return render(request,'articlesuploaded.html',context)
+
+
+def uploadarticlestowebsite(request,pk):
+    art = Article_upload.objects.get(pk=pk)
+    article = Article.objects.all()
+    title = art.title
+    description = art.description
+    image = art.image
+    a = Article.objects.create(title=title,image=image,description=description)
+    a.save()
+    article = Article.objects.all()
+    messages.success(request,'Article has Successfully Uploaded to Website')
+    return redirect('accounts:articlesuploaded')        
+
+def deletearticle(request,pk):
+    if request.user.is_superuser:
+        art = Article_upload.objects.get(pk=pk)
+        art.delete()
+        messages.success(request,'Successfully Deleted')
+        return redirect('accounts:articlesuploaded')
+    

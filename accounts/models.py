@@ -7,7 +7,8 @@ from contents.models import State,PublisherDetail,Sub_Edition
 ACCCOUNT_TYPES_CHOICES = [
     ('1','Publisher'),
     ('2','Customer'),
-    ('3','Advertiser')
+    ('3','Advertiser'),
+    ('4','Politician')
 ]
 
 ACCOUNT_CHOICES = [

@@ -1,10 +1,11 @@
 from django.conf.urls import url,include
-from .views import (ebook_list,magazine_list,socialchannels_list,news,nationalchannels_list,regionalchannels_list,article,view_articles,my_papers,
-contents_list,signup,regionalpapers_list,nationalpapers_list,Articles,android,login,newspapers_list,pub_details,view_pub_details,my_magazines,
-load_mainedition,load_subedition,upload,edition,addmainedition,addsubedition,addstate,publisherdetailedit,deletepapers,deletemagazines)
+from .views import (magazine_list,socialchannels_list,news,nationalchannels_list,regionalchannels_list,article,view_articles,my_papers,dummy_list,
+contents_list,signup,regionalpapers_list,nationalpapers_list,Articles,android,login,newspapers_list,pub_details,view_pub_details,my_magazines,article_list,
+load_mainedition,load_subedition,upload,edition,addmainedition,addsubedition,addstate,publisherdetailedit,deletepapers,deletemagazines,political,
+politicalmodal,chart,review,politicianarticle,polling,upvote,downvote,politicalsurvey)
 
 urlpatterns = [
-    url(r'^ebook_list/', ebook_list, name='ebook_list'),
+    #url(r'^ebook_list/', ebook_list, name='ebook_list'),
     url(r'^magazine_list/',magazine_list,name='magazine_list'),
     url(r'^socialchannels_list',socialchannels_list,name='socialchannels_list'),
     url(r'^newschannels',news,name='newschannels'),
@@ -19,7 +20,7 @@ urlpatterns = [
     url(r'^add/',pub_details,name = 'add'),
     url(r'^android/',android,name='android'),
     url(r'^article_upload/',article,name='Article_Upload'),
-    url(r'^view_articles/',view_articles,name='view_articles'),
+    url(r'^(?P<pk>[\-\w]+)/view_articles/',view_articles,name='view_articles'),
     url(r'^view_publisher_details/',view_pub_details,name='view_pub_details'),
     url(r'^mypapers/',my_papers,name='my_papers'),
     url(r'^mymagazines/',my_magazines,name='my_magazines'),
@@ -33,5 +34,16 @@ urlpatterns = [
     url(r'^(?P<pk>[\-\w]+)/publisherdetailedit/',publisherdetailedit,name='publisherdetailedit'),
     url(r'^(?P<pk>[\-\w]+)/deletepapers/',deletepapers,name='deletepapers'),
     url(r'^(?P<pk>[\-\w]+)/deletemagazines/',deletemagazines,name='deletemagazines'),
+    url(r'^political/',political,name='political'),
+    url(r'^dummy_list/',dummy_list,name='dummy_list'),
+    url(r'^article_list/',article_list,name='article_list'),
+    url(r'^(?P<pk>[\-\w]+)/politicalmodal/',politicalmodal,name='politicalmodal'),
+    url(r'^chart/',chart,name='chart'),
+    url(r'^review/',review,name='review'),
+    url(r'^politicianarticle/',politicianarticle,name='politicianarticle'),
+    url(r'^polling/',polling,name='polling'),
+    url(r'^(?P<pk>[\-\w]+)/upvote/',upvote,name='upvote'),
+    url(r'^(?P<pk>[\-\w]+)/downvote/',downvote,name='downvote'),
+    url(r'^(?P<pk>[\-\w]+)/politicalsurvey/',politicalsurvey,name='politicalsurvey'),
     #url(r'^create/',create_user,name='create_user'),
     ]

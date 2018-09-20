@@ -320,9 +320,6 @@
               <option value="{{ state.pk }}">{{ state.name }}</option>
               {% endfor %}
 
-
-                  <!-- <option value="" selected>Select State</option> <option value="1">Telangana</option> <option value="2">Karnataka</option> <option value="3">Jammu and Kashmir</option> <option value="4">Maharashtra</option> <option value="5">Kerala</option> <option value="6">Jharkhand</option> <option value="7">Madhya Pradesh</option> <option value="8">Punjab</option> <option value="9">Rajasthan</option> <option value="10">Tripura</option> -->
-
 </select> 
               <h4 style="text-align: right;"> To Add State Please Click<a href="{% url 'content:addstate' %}"> here</a> </h4>
 </div> </div> <div id="div_id_Main_Edition" class="form-group"> <label for="id_Main_Edition" class="col-form-label ">
@@ -332,8 +329,6 @@
               {% for mainedition in mainedition %}
               <option value="{{ mainedition.pk }}">{{ mainedition.Name }}</option>
               {% endfor %}
-              <!--  <option value="" selected>---------</option> <option value="1">Hyderabad</option> <option value="2">Warangal</option> <option value="3">Karimnagar</option> <option value="4">Bangalore</option> <option value="5">Mysore</option> <option value="6">Mumbai</option> <option value="7">Pune</option> <option value="8">Jammu</option> <option value="9">Kashmir</option> <option value="10">Kochi</option> <option value="11">Thiruvanantapuram</option> <option value="12">Thrissur</option> <option value="13">Ranchi</option> <option value="14">Jamshedpur</option> <option value="15">Indore</option> <option value="16">Bhopal</option> <option value="17">Gwalior</option> <option value="18">Amritsar</option> <option value="19">Jalandhar</option> <option value="20">Ludhiana</option> <option value="21">Jaipur</option> <option value="22">Udaipur</option> <option value="23">Jodhpur</option> -->
-
 </select>
 <h4 style="text-align: right;"> To Add Main Edition Please Click<a href="{% url 'content:addmainedition' %}"> here</a> </h4>
  </div> </div> <div id="div_id_Sub_Edition" class="form-group"> <label for="id_Sub_Edition" class="col-form-label ">

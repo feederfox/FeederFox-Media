@@ -8,7 +8,8 @@ from contents.models import State
 ACCCOUNT_TYPES_CHOICES = [
 	('1','Publisher'),
 	('2','Customer'),
-	('3','Advertiser')
+	('3','Advertiser'),
+	('4','Politician'),
 ]
 
 PUBLISHER_CHOICES = [
@@ -71,6 +72,22 @@ class CustomerSignUpForm(UserCreationForm):
 		if email and User.objects.filter(email=email).count() > 0:
 			raise forms.ValidationError(u'This email address is already registered.')
 		return email
+
+class PoliticianSignUpForm(UserCreationForm):
+	email = forms.EmailField()
+	class Meta:
+		model = User
+		fields = ('username', 'email', 'password1', 'password2')
+
+	def clean_email(self):
+		email = self.cleaned_data.get('email')
+		username = self.cleaned_data.get('username')
+		print (User.objects.filter(email=email).count())
+		if email and User.objects.filter(email=email).count() > 0:
+			raise forms.ValidationError(u'This email address is already registered.')
+		return email
+
+
 class PostForm(forms.ModelForm):
 	# State = forms.ModelChoiceField(queryset=State.objects.all(),empty_label="Select State")
 

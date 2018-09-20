@@ -265,6 +265,7 @@
 
 <form class="login" method="POST" action="" style="width:779px;padding-left: 302px;">
   {% csrf_token %}
+  <input type="hidden" name="next" value="{{ next }}">
   {{ form|crispy }}
   
   <a class="button secondaryAction" href=" {% url 'account_reset_password' %} "> Forgot Password</a>

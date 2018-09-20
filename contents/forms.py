@@ -1,5 +1,5 @@
 from django import forms
-from .models import PublisherDetail,Article,State,Main_Edition,Edition,State
+from .models import PublisherDetail,Article,State,Main_Edition,Edition,State,PoliticalForum,Article_upload,PoliticianArticle,Polling
 from accounts.models import Post
 
 class PublisherDetailsForm(forms.ModelForm):
@@ -96,3 +96,28 @@ class StateForm(forms.ModelForm):
 	class Meta:
 		model = State
 		fields = '__all__'		
+
+class PoliticalForumForm(forms.ModelForm):
+	Synopsis = forms.CharField(widget=forms.Textarea)
+	Projects_Taken = forms.CharField(widget=forms.Textarea)
+	class Meta:
+		model = PoliticalForum
+		fields = '__all__'
+		exclude = ('vote_score','num_vote_up','num_vote_down',)		
+
+class ArticleUploadForm(forms.ModelForm):
+	description = forms.CharField(widget=forms.Textarea)
+	class Meta:
+		model = Article_upload
+		fields = ('__all__')		
+
+
+class PoliticainArticleForm(forms.ModelForm):
+	class Meta:
+		model = PoliticianArticle
+		fields = '__all__'		
+
+class PollingForm(forms.ModelForm):
+	class Meta:
+		model = Polling
+		fields = ('Name','Month','Poll_Question')		

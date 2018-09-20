@@ -1,5 +1,5 @@
 from rest_framework import serializers,exceptions
-from .models import Ebook,Magazine,SocialChannel,NationalNewsChannel,RegionalNewsChannel,NationalNewsPaper,RegionalNewsPaper,Article,NewsPaper
+from .models import Ebook,Magazine,SocialChannel,NationalNewsChannel,RegionalNewsChannel,NationalNewsPaper,RegionalNewsPaper,Article,NewsPaper,Dummy
 from accounts.models import Profile
 from django.contrib.auth.models import User
 from django.db.models.signals import post_save
@@ -34,6 +34,12 @@ class NationalNewsChannelSerializer(serializers.ModelSerializer):
 	class Meta:
 		model = NationalNewsChannel
 		fields = '__all__'
+
+class DummySerializer(serializers.ModelSerializer):
+	class Meta:
+		model = Dummy
+		fields = '__all__'
+
 
 
 class RegionalNewsChannelSerializer(serializers.ModelSerializer):

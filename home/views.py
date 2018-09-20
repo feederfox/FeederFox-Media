@@ -13,7 +13,7 @@ from django.http import HttpResponse
 from .forms import ContactForm
 from django.core.mail import EmailMessage
 from django.template.loader import get_template
-from contents.models import NewsPaper,Magazine,PublisherDetail
+from contents.models import NewsPaper,Magazine,PublisherDetail,PoliticalForum,Article
 
 
 # Add the two views we have been talking about  all this time :)
@@ -39,7 +39,9 @@ def dashboard(request):
         return render (request,'publisher_dashboard.html',{})
     elif request.user.profile.Account_type=='2':
         return render(request,'customer_dashboard.html',{})
-    return render(request,'advertiser_dashboard.html',{})
+    elif request.user.profile.Account_type=='3':    
+        return render(request,'advertiser_dashboard.html',{})
+    return render(request,'politiciandashboard.html',{})    
 
 def article1(request):
     return render(request,'article1.html',{})
@@ -84,16 +86,20 @@ def contact(request):
 
 def index(request):
     newspaper = NewsPaper.objects.all()
+    print(newspaper)
     nam = []
     for i in newspaper:
         nam.append(i)
+    print(nam)    
     name = nam
+    print(name)
     magazine = Magazine.objects.all()
     pub = PublisherDetail.objects.all()
+    political = PoliticalForum.objects.all()
     pubdetails = PublisherDetail.objects.filter(Name__in=name)
-    print(pubdetails)
-    print(datetime.datetime.now().strftime("%d-%m-%y %H-%M-%S"))
-    context = {'newspapers':newspaper,'magazines':magazine,'pubdetails':pubdetails}
+    articles = Article.objects.all()
+    print(political)
+    context = {'newspapers':newspaper,'magazines':magazine,'pubdetails':pubdetails,'articles':articles,'political':political}
     return render(request,'index.html',context)
 
 # class HomePageView(TemplateView):
@@ -108,3 +114,34 @@ class FaqPageView(TemplateView):
 class PrivacyPageView(TemplateView):
     template_name = "privacy.html"
 
+
+def publisherpage(request):
+    return render(request,'publisher_page.html',{})
+
+def customerpage(request):
+    return render(request,'customer_page.html',{})
+
+def advertiserpage(request):
+    return render(request,'advertiser_page.html',{})
+
+def video1(request):
+    return render(request,'video1.html',{})
+
+def video2(request):
+    return render(request,'video2.html',{})
+
+def video3(request):
+    return render(request,'video3.html',{})
+
+def video4(request):
+    return render(request,'video4.html',{})
+
+def video5(request):
+    return render(request,'video5.html',{})
+
+def video6(request):
+    return render(request,'video6.html',{})
+
+
+def video7(request):
+    return render(request,'video7.html',{})

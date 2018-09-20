@@ -1,5 +1,6 @@
 {% extends 'base.html' %}
 {% load static %}
+{% load render_table from django_tables2 %}
 {% block pagecontent %}
 <div class="bg-header">
   <div class="container">
@@ -237,71 +238,9 @@
 </nav><!-- end navbar navbar-default w3_megamenu -->
 <div class="container">
 <!-- Contact Us Page Starts here -->
-<h3>More than 1 lakh stranded Indians in foreign 
-countries were brought back, says VK Singh</h3>
+<h3> {{ title }} </h3>
 
- 
-<h4>REJIMON K</h4>
-
-<pre style="FONT-SIZE:13px; COLOR:#000000; LINE-HEIGHT:20px; FONT-FAMILY:Arial,Helvetica,sans-serif"> 
-More than 1 lakh Indians stranded in foreign countries where brought back the Indian government between April 2014 to December 2017, the Minister of State in the Ministry of External Affairs, said in the parliament.
-
-“As per information available in the Ministry, the number of Indians who were stranded in foreign countries and have been rescued and brought back during the period April 2014 to December 2017 by the Indian Government from countries affected by war, internal strife and natural disasters, is 1,01,336,” the Minister of State in the Ministry of External Affairs Gen Retd. VK Singh, told in the Parliament as a reply for a query raised by parliamentarian Anurag Singh Thakur.
-
-According to VK Singh, the figure also includes repatriation of Indian nationals from abroad for various other reasons including those caught in situations, impacted by economic slowdown in the Gulf region and facing difficulty due to employment related issues.
-
-“The Government of India has accorded the highest priority to ensure the safety and well-being of Indian nationals abroad,” the minister added.
-
-Meanwhile, the data tabled in the parliament reveals that 45,843 Indians were brought back from Saudi Arabia during the period. Saudi tops the list maximum number of Indians being brought back to India.
-
-According to the data, the Indians who returned or brought back were from Delhi, Uttar Pradesh, Andhra Pradesh, Karnataka, Tamil Nadu, Maharashtra, Bihar, Kerala, Gujarat, Punjab, West Bengal, and Telangana.
-
-In Saudi Arabia, as part of the country’s Vision 2030 reforms announced in 2016, the government decided to take drastic action to reduce the number of unemployed citizens, particularly in the private sector. In the third quarter of 2016, Saudi Arabia had an unemployment rate of 12.1 per cent, marking a four-year high according to Forbes Magazine. Vision 2030 lays out the Kingdom’s ambitions to reduce this rate to 7 per cent.
-
-During 2016 and 2017, scores of migrant workers, particularly the Indian and Bangladeshi workers who were running small retail shops in Saudi cities, lost their jobs.
-
-And in January 2018, the Saudi Minister of Labour issued a directive identifying the 12 categories of retail work that would only be allowed to employ Saudi citizens as of September 2018. The restricted jobs include the sale of building materials, furniture and confectionery, as well as auto parts, cars and motorcycles.
-
-“Due to the oil price dip since 2014 and upped nationalisation process in Saudi might have led to such a kind of situation,” Arul Antony, a migrant rights activist with National Domestic Workers Movement in Chennai, said.
-
-An Indian social worker in the Saudi capital of Riyadh said that there is no surprise in the data and the number would be high if we consider the 2018 statistics too.
-
-“At least 500 migrants are losing their jobs every week. Many are returning home as their positions are nationalised,” said the social worker who asked to remain anonymous.
-
-According to data from the General Statistics Authority of Saudi Arabia, the Kingdom saw more than 277,000 foreign workers leave their jobs in the fourth quarter of 2017.
-
-The data also reveals that during the same period, the number of Saudis in employment increased by more than 100,000 from 3.063 million to 3.163 million.
-
-The second largest number of Indians who were brought back to India were from Kuwait. 12,753 were brought back by the Indian government from Kuwait.
-
-Hit by oil price dip, Kuwait has also intensified its nationalisation process. Additionally, Kuwait government has increased many taxes for the migrant workers and are also planning to introduce a tax on migrant workers’ remittances.
-
-Those who were brought back from Kuwait were from Andhra Pradesh and Telangana.
-
-After Kuwait, Oman stands with 5,948 Indians being brought back followed by United Arab Emirates with 4,832 Indians being brought back.
-
-This year in January, Oman also made a nationalisation process announcement by temporarily banning (for six months) the issue of expatriate residency visas for people working in 87 job roles in 10 different areas of employment, including IT, insurance, accounts and finance, sales and marketing, and the media.
-
-Recently, Oman also took the decision to tackle rising unemployment amongst its citizens.
-
-According to a senior official at the Ministry of Manpower in Oman, the government set a target to create 25,000 jobs for Omani nationals in private sector between January and June; he says they have already exceeded that target by an extra 3,000 jobs.
-
-The parliament data also reveals that from Qatar during the period, 2,636 were brought back.
-
-From Yemen, 5034 Indians were brought. The Yemen crisis arose after rebels took over the government. Indian government deployed Indian Navy and rescued stranded Indians and even citizens from other countries.
-
-Those who were brought back from Yemen were from Uttar Pradesh, Goa, West Bengal, Punjab, Haryana, Kerala, Telangana and Bihar.
-
-According to Bheem Reddy, a migrant rights activist in India, the Gulf is no longer a dream land for Indians.
-
-“If we review the data tabled in the parliament, it reveals that more people were brought back from six Gulf countries. It clearly establishes that, due to the economy and political conditions, Gulf is no longer a dream land for Indians,” Reddy said.
-
-Meanwhile, the Organisation for Economic Co-operation and Development (OECD)  International Migration Outlook 2018 published recently by the rich nations’ grouping shows that Indians ranked fourth globally among people who migrated to OECD countries in 2016.
-
-The number of Indians migrating to rich countries belonging to the Organisation for Economic Co-operation and Development (OECD) has more than doubled since the turn of the century and they are headed for newer destinations, new data released by OECD shows.
-
-China topped the list with more than half a million migrants, followed by Romania and Syria. India occupied fourth place with 271,503 migrants to OECD countries in 2016 compared with 113,082 in 2000.
-</pre>
+<h5 style="FONT-SIZE:13px; COLOR:#000000; LINE-HEIGHT:20px; FONT-FAMILY:Arial,Helvetica,sans-serif" > {{ description|linebreaks }}  </h5>
 </div>
 <br><br>
 

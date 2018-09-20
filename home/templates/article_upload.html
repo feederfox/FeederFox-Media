@@ -1,229 +1,233 @@
-
 {% extends 'base.html' %} <!-- Add this for inheritance -->
-{%  load static %}
+{% load static %}
 {% load crispy_forms_tags %}
-<!DOCTYPE html>
-<html lang="en">
+<!doctype html>
+<html>
 <head>
-    <meta charset="UTF-8">
-    <title>{% block title %}Registration {% endblock %}</title>
+  <head>
+
+    <title>
+       {% block title %}FeederFox{% endblock %}
+    </title>
+
+
+</head>
 </head>
 <body>
 {% block pagecontent %}
  <!--header starts here -->
-<div class="bg-header">
-  <div class="container">
-   <div class="row">
-       <div class="col-md-6">
-        <div id="weather-frame" class="container">
-          <div id="upper-detail">
-            <div id="city-name"></div>
-          </div>
-          <div id="lower-detail">
-            <div class="row">
-              <div id="temp" class="col-xs-6">
-              </div>
-            </div>
-          </div>
-        </div>
-        <a href="{% url 'home' %}"><img src="{% static 'dist/images/logos/logo.png' %}" class="img-responsive header_img"></a>
-      </div>
+ <header class="header-two-bars">
 
-      <div class="col-md-2 col-md-offset-4" >
-        <div class="dropdown drop1">
-          <p style="font-size:16px;color:#fff;"> Welcome {{ request.user.username }} </p>
-        </div>
-      </div>
+  <div class="header-first-bar">
 
+    <div class="header-limiter">
 
+      <h1><a href="#"><img src="{% static 'dist/images/logos/logo.png' %}" class="img-responsive header_img"></a></h1>
 
+      <nav style="margin-top:10px;margin-left:650px;">
+        <a href="{% url 'publisherpage' %}">Publisher</a>
+        <a href="{% url 'customerpage' %}">Customer</a>
+        <a href="{% url 'advertiserpage' %}">Advertiser</a>
+      </nav>
+
+      <a href="{% url 'accounts:login' %}" class="logout-button" style="margin-top:10px;">Login</a>
     </div>
+
   </div>
-</div>
- <!-- header ends here -->
 
-<!-- bse scrolling bar starts here -->
-<div class="runtext-container">
-<div class="main-runtext">
-<marquee direction="" onmouseover="this.stop();" onmouseout="this.start();">
+</header>
+<!-- header ends here -->
 
-<div class="holder">
 
-     <div class="text-container">
-   &nbsp; &nbsp; <img src=""> &nbsp; <a data-fancybox-group="gallery" class="fancybox" title="Feederfox">BSE updates coming soon!!! Please come back again for live updates!! </a>
+<nav class="navbar navbar-inverse">
+  <div class="container">
+    <div class="navbar-header">
+      <button class="navbar-toggle" type="button" data-toggle="collapse" data-target=".js-navbar-collapse">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
     </div>
 
-     <div class="text-container">
-   &nbsp; &nbsp; <img src=""> &nbsp; <a data-fancybox-group="gallery" class="fancybox"  title="Feederfox">BSE updates coming soon!!! Please come back again for live updates!! </a>
-    </div>
+    <div class="collapse navbar-collapse js-navbar-collapse">
+      <ul class="nav navbar-nav">
+        <li class="dropdown">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Home <span class="caret"></span></a>
+          <ul class="dropdown-menu" role="menu">
+            <li><a href="#">NewsChannels</a></li>
+            <li><a href="#">Newspapers</a></li>
+            <li><a href="#">Magazines</a></li>
+            <li><a href="#">Social Channels</a></li>
+          </ul>
+        </li>
 
-     <div class="text-container">
-   &nbsp; &nbsp; <img src=""> &nbsp; <a data-fancybox-group="gallery" class="fancybox"  title="Feederfox">BSE updates coming soon!!! Please come back again for live updates!! </a>
-    </div>
-
-     <div class="text-container">
-   &nbsp; &nbsp; <img src=""> &nbsp; <a data-fancybox-group="gallery" class="fancybox" title="Feederfox">BSE updates coming soon!!! Please come back again for live updates!! </a>
-    </div>
-
-     <div class="text-container">
-   &nbsp; &nbsp; <img src=""> &nbsp; <a data-fancybox-group="gallery" class="fancybox"  title="Feederfox">BSE updates coming soon!!! Please come back again for live updates!! </a>
-    </div>
-
-     <div class="text-container">
-   &nbsp; &nbsp; <img src=""> &nbsp; <a data-fancybox-group="gallery" class="fancybox"  title="Feederfox">BSE updates coming soon!!! Please come back again for live updates!! </a>
-    </div>
-
-     <div class="text-container">
-   &nbsp; &nbsp; <img src=""> &nbsp; <a data-fancybox-group="gallery" class="fancybox"  title="Feederfox">BSE updates coming soon!!! Please come back again for live updates!! </a>
-    </div>
-
-     <div class="text-container">
-   &nbsp; &nbsp; <img src=""> &nbsp; <a data-fancybox-group="gallery" class="fancybox" title="Feederfox">BSE updates coming soon!!! Please come back again for live updates!! </a>
-    </div>
-
-</div>
-
-</marquee>
-</div>
-</div>
- <!-- bse scrolling bar ends here -->
-
- <!-- navigation bar -->
- <nav class="navbar navbar-default w3_megamenu" role="navigation">
-  <div class="navbar-header">
-    <button type="button" data-toggle="collapse" data-target="#defaultmenu" class="navbar-toggle"><span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span></button><a href="#" class="navbar-brand"><i class="fa fa-home"></i></a>
-  </div><!-- end navbar-header -->
-
-  <div id="defaultmenu" class="navbar-collapse collapse">
-    <ul class="nav navbar-nav">
-     <li class="dropdown"><a href="#" data-toggle="dropdown" class="dropdown-toggle">Home <b class="caret"></b></a>
-        <ul class="dropdown-menu" role="menu">
-
-          <li><a href="">NewsChannels</a></li>
-          <li><a href="">Newspapers</a></li>
-          <li><a href="">Magazines</a></li>
-          <li><a href="">Social Channels</a></li>
-        </ul>
-      </li>
-      <!-- Mega Menu -->
-        <li class="dropdown w3_megamenu-fw"><a href="#" data-toggle="dropdown" class="dropdown-toggle">Political Forum<b class="caret"></b></a>
-          <ul class="dropdown-menu fullwidth">
-            <li class="w3_megamenu-content withdesc">
-              <div class="row">
-                <div class="col-sm-6">
-                  <ul>
-                    <li><a data-description="" href="">
-                      <div class="card elevation-2dp box">
-                          <div class="row">
-                          <div class="col-md-5"></div>
-                          <div class="col-md-3">
-                          <img src="{% static 'dist/images/modi.jpg' %}" alt="" style="margin-left:-8px;height:130px;">
-                        </div>
-                        </div>
-
-
-                        <div class="supporting-text">
-                          <p> Narendra Damodardas Modi (Gujarati: [ˈnəɾeːnd̪rə d̪aːmoːd̪əɾˈd̪aːs ˈmoːd̪iː] (About this sound listen); born 17 September 1950) is an Indian politician serving as the 14th and current Prime Minister of India since 2014. He was the Chief Minister of Gujarat from 2001 to 2014, and is the Member of Parliament for Varanasi. Modi, a member of the Bharatiya Janata Party (BJP), is a Hindu nationalist and member of the right-wing Rashtriya Swayamsevak Sangh (RSS).</p>
-                        </div>
-                      </div>
-                    </a></li>
-                  </ul>
-                </div>
-                <div class="col-sm-6">
-                  <ul>
-                   <li><a data-description="" href="">
-                       <div class="card elevation-2dp box">
-                        <div class="row">
-                          <div class="col-md-5"></div>
-                          <div class="col-md-3">
-                          <img src="{% static 'dist/images/rahul_gandhi.jpg' %}" alt="" style="margin-left:-8px;height:130px;">
-                        </div>
-                        </div>
-                        <div class="supporting-text">
-                          <p> Rahul Gandhi About this sound pronunciation (help·info) [ˈraːɦʊl ˈɡaːnd̪ʱiː] (born 19 June 1970) is an Indian politician. The son of Sonia and Rajiv Gandhi, he is the President of the Indian National Congress and serves such additional offices as the Chairperson of the Indian Youth Congress and the National Students Union of India.</p>
-                        </div>
-                      </div>
-                    </a></li>
-                  </ul>
+        <li class="dropdown mega-dropdown">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown">Political Forum <span class="caret"></span></a>
+          <ul class="dropdown-menu mega-dropdown-menu">
+            <li class="col-sm-3">
+              <ul>
+                <li class="dropdown-header">Politicians</li>
+                <div id="menCollection" class="carousel slide" data-ride="carousel">
+                  <div class="carousel-inner">
+                    <div class="item active">
+                      <a href="#"><img src="{% static 'dist/images/new-images/Rahul_Gandhi.jpg' %}" class="img-responsive" alt="product 1"></a>
+                    </div><!-- End Item -->
+                    <div class="item">
+                      <a href="#"><img src="{% static 'dist/images/new-images/Narendra-Modi.jpg' %}" class="img-responsive" alt="product 2"></a>
+                    </div><!-- End Item -->
+                    <div class="item">
+                      <a href="#"><img src="{% static 'dist/images/new-images/siddh.jpeg' %}" class="img-responsive" alt="product 3"></a>
+                    </div><!-- End Item -->
+                  </div><!-- End Carousel Inner -->
+                  <!-- Controls -->
+                  <a class="left carousel-control" href="#menCollection" role="button" data-slide="prev">
+                    <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+                    <span class="sr-only">Previous</span>
+                  </a>
+                  <a class="right carousel-control" href="#menCollection" role="button" data-slide="next">
+                    <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+                    <span class="sr-only">Next</span>
+                  </a>
+                </div><!-- /.carousel -->
+                <li class="divider"></li>
+                <li><a href="#">View all Politicians <span class="glyphicon glyphicon-chevron-right pull-right"></span></a></li>
+              </ul>
+            </li>
+            <li class="col-sm-3">
+              <div class="card card-4">
+                <div class="row">
+                  <div class="col-md-12">
+                    <img src="{% static 'dist/images/new-images/siddh.jpeg' %}" class="img-responsive img-rounded" alt="" style="height:160px;">
+                    <br>
+                    <p class="politics-para">Siddaramaiah is an Indian politician and was the 22nd Chief Minister of Karnataka from 2013 to 2018. He is a member of Congress working committee. On 13 May 2013 he was sworn in as the Chief Minister of Karnataka. Source : Wikipedia</p>
+                  </div>
                 </div>
               </div>
             </li>
-            <li class="w3_megamenu-content withdesc">
-              <div class="row">
-                <div class="col-sm-6" style="margin-top:-50px;">
-                  <ul>
-                    <li><a data-description="" href="">
-                      <div class="card elevation-2dp box">
-                        <div class="row">
-                          <div class="col-md-5"></div>
-                          <div class="col-md-3">
-                          <img src="{% static 'dist/images/kumarswamy.jpg' %}" alt="" style="margin-left:-8px;height:130px;">
-                        </div>
-                        </div>
-                        <div class="supporting-text">
-                          <p> Haradanahalli Devegowda Kumaraswamy (born 16 December 1959)[4] is an Indian politician and current Chief Minister of Karnataka. He is the President of Karnataka State Janata Dal (Secular) and son of former Prime Minister of India H. D. Deve Gowda.[5] During his 2006 cheif ministerial period Karnataka state recorded all time high GDP growth and he was called people's CM</p>
-                        </div>
-                      </div>
-                    </a></li>
-                  </ul>
+            <li class="col-sm-3">
+              <div class="card card-4">
+                <div class="row">
+                  <div class="col-md-12">
+                    <img src="{% static 'dist/images/new-images/Rahul_Gandhi.jpg' %}" class="img-responsive img-rounded" alt="" style="height:160px;">
+                    <br>
+                    <p class="politics-para">The son of Sonia and Rajiv Gandhi, he is the President of the Indian National Congress and serves such additional offices as the Chairperson of the Indian Youth Congress and the National Students Union of India. A member of the Indian Parliament. Source : Wikipedia</p>
+                  </div>
                 </div>
-
-                <div class="col-sm-6" style="margin-top:-50px;">
-                  <ul>
-                   <li><a data-description="" href="">
-                       <div class="card elevation-2dp box">
-                        <div class="row">
-                          <div class="col-md-5"></div>
-                          <div class="col-md-3">
-                          <img src="{% static 'dist/images/Nitish_Kumar2.jpg' %}" alt="" style="margin-left:-8px;height:130px;">
-                        </div>
-                        </div>
-                        <div class="supporting-text">
-                          <p> The Chief Minister of Bihar is the chief executive of the Indian state of Bihar. As per the Constitution of India, the Governor of Bihar is the state's de jure head, but de facto executive authority rests with the chief minister. </p>
-                        </div>
-                      </div>
-                    </a></li>
-                  </ul>
+              </div>
+            </li>
+            <li class="col-sm-3">
+              <div class="card card-4">
+                <div class="row">
+                  <div class="col-md-12">
+                    <img src="{% static 'dist/images/new-images/Narendra-Modi.jpg' %}" class="img-responsive img-rounded" alt="" style="height:160px;">
+                    <br>
+                    <p class="politics-para">Narendra Damodardas Modi is an Indian politician serving as the 14th and, since 2014, the current Prime Minister of India. He was the Chief Minister of Gujarat from 2001 to 2014. Source : Wikipedia</p>
+                  </div>
                 </div>
               </div>
             </li>
           </ul>
         </li>
-        <li class="dropdown"><a href="#" data-toggle="dropdown" class="dropdown-toggle">NewsFeeds <b class="caret"></b></a>
-        <ul class="dropdown-menu" role="menu">
 
-          <li><a href="">Headlines/Breaking News</a></li>
-          <li><a href="">Educational</a></li>
-          <li><a href="">Entertainment</a></li>
-          <li><a href="">Business</a></li>
-          <li><a href="">Sports</a></li>
-          <li><a href="">Lifestyle</a></li>
-          <li><a href="">Social</a></li>
-          <li><a href="">World/International</a></li>
-          <li><a href="">Global</a></li>
-        </ul>
-      </li>
-        <li class="dropdown"><a href="#" data-toggle="dropdown" class="dropdown-toggle">Article/Blog <b class="caret"></b></a>
-        <ul class="dropdown-menu" role="menu">
+        <li class="dropdown">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">NewsFeeds <span class="caret"></span></a>
+          <ul class="dropdown-menu" role="menu">
+            <li><a href="#">Headlines/Breaking News</a></li>
+            <li><a href="#">Educational</a></li>
+            <li><a href="#">Entertainment</a></li>
+            <li><a href="#">Business</a></li>
+            <li><a href="#">Sports</a></li>
+            <li><a href="#">Lifestyle</a></li>
+            <li><a href="#">Social</a></li>
+            <li><a href="#">World/International</a></li>
+            <li><a href="#">Global</a></li>
+          </ul>
+        </li>
+        <li class="dropdown">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Article/Blog <span class="caret"></span></a>
+          <ul class="dropdown-menu" role="menu">
+            <li><a href="#">Business/Economic</a></li>
+            <li><a href="#">Write Article</a></li>
+            <li><a href="#">E-books</a></li>
+          </ul>
+        </li>
+        <li class="dropdown">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Business <span class="caret"></span></a>
+          <ul class="dropdown-menu" role="menu">
+            <li><a href="#">Consulting</a></li>
+          </ul>
+        </li>
+      </ul>
+  <!--     <ul class="nav navbar-nav navbar-right">
+        <li class="dropdown">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">My account <span class="caret"></span></a>
+          <ul class="dropdown-menu" role="menu">
+            <li><a href="#">Action</a></li>
+            <li><a href="#">Another action</a></li>
+            <li><a href="#">Something else here</a></li>
+            <li class="divider"></li>
+            <li><a href="#">Separated link</a></li>
+          </ul>
+        </li>
+      </ul> -->
+    </div><!-- /.nav-collapse -->
+  </div>
+</nav>
 
-          <li><a href="">Business/Economic</a></li>
-          <li><a href="">Write Article</a></li>
-          <li><a href="">E-books</a></li>
-        </ul>
-      </li>
 
-      <li class="dropdown"><a href="#" data-toggle="dropdown" class="dropdown-toggle">Business <b class="caret"></b></a>
-        <ul class="dropdown-menu" role="menu">
 
-          <li><a href="">Consulting</a></li>
-        </ul><!-- end dropdown-menu -->
-      </li><!-- end standard drop down -->
-      <!-- end dropdown w3_megamenu-fw -->
-    </ul><!-- end nav navbar-nav -->
-  </div><!-- end #navbar-collapse-1 -->
+<!-- bse scrolling bar starts here -->
+<div class="runtext-container">
+  <div class="main-runtext">
+    <marquee direction="" onmouseover="this.stop();" onmouseout="this.start();">
 
-</nav><!-- end navbar navbar-default w3_megamenu -->
+      <div class="holder">
 
+       <div class="text-container">
+         &nbsp; &nbsp; <img src=""> &nbsp; <a data-fancybox-group="gallery" class="fancybox" " title="Feederfox">Breaking News!!   Rahul Gandhi&#39;s &#39;proof&#39; about Jaitley-Mallya meet stretches credulity; Congress
+chief forgets UPA-era collusion</a>
+       </div>
+
+       <div class="text-container">
+         &nbsp; &nbsp; <img src=""> &nbsp; <a data-fancybox-group="gallery" class="fancybox"  title="Feederfox">Congress chief Rahul Gandhi&#39;s RSS-Muslim Brotherhood analogy insults
+country&#39;s heritage, shows how party has regressed </a>
+       </div>
+
+       <div class="text-container">
+         &nbsp; &nbsp; <img src=""> &nbsp; <a data-fancybox-group="gallery" class="fancybox"  title="Feederfox">Pakistan Supreme Court allows Hafiz Saeed&#39;s organisations Jamaat-ud-Dawa
+and FIF to continue their activities</a>
+       </div>
+
+       <div class="text-container">
+         &nbsp; &nbsp; <img src=""> &nbsp; <a data-fancybox-group="gallery" class="fancybox" title="Feederfox">West Bengal govt identifies seven bridges in Kolkata as &#39;most vulnerable&#39;;
+restriction on goods-carrying vehicles to be imposed </a>
+       </div>
+
+       <div class="text-container">
+         &nbsp; &nbsp; <img src=""> &nbsp; <a data-fancybox-group="gallery" class="fancybox"  title="Feederfox">ICC Women&#39;s Championship: Tanya Bhatia, Mansi Joshi impress as India beat
+Sri Lanka in second ODI to clinch series </a>
+       </div>
+
+       <div class="text-container">
+         &nbsp; &nbsp; <img src=""> &nbsp; <a data-fancybox-group="gallery" class="fancybox"  title="Feederfox">Amit Shah tells Karnataka BJP to &#39;sincerely&#39; play role of Opposition as Congress
+infighting casts cloud on coalition govt</a>
+       </div>
+
+       <!--<div class="text-container">-->
+       <!--  &nbsp; &nbsp; <img src=""> &nbsp; <a data-fancybox-group="gallery" class="fancybox"  title="Feederfox">BSE updates coming soon!!! Please come back again for live updates!! </a>-->
+       <!--</div>-->
+
+       <!--<div class="text-container">-->
+       <!--  &nbsp; &nbsp; <img src=""> &nbsp; <a data-fancybox-group="gallery" class="fancybox" title="Feederfox">BSE updates coming soon!!! Please come back again for live updates!! </a>-->
+       <!--</div>-->
+
+     </div>
+
+   </marquee>
+ </div>
+</div>
+<!-- bse scrolling bar ends here -->
 
 <div class="container">
 </div>
@@ -280,14 +284,9 @@
 </div>
 </div>
 <div class="col-md-9">
-  <h3>Upload Article's</h3>
-</div>
-</div>
-</div>
+  <h3 style="text-align: center;">Upload Article's</h3>
 
-<div class="container">
-
-                  {% if messages %}
+             {% if messages %}
                                     <ul class="messages">
                                         {% for message in messages %}
                                         <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
@@ -299,8 +298,31 @@
   {% csrf_token %}
   {% csrf_token %}
   {{ form|crispy }}
+
+  <textarea type="text" class="ckeditor" name="message"></textarea>
+
+  <table style="width:100%">
+ <tr>
+   <th>Name:</th>
+   <td>Bill Gates</td>
+ </tr>
+ <tr>
+   <th rowspan="2">Telephone:</th>
+   <td>55577854</td>
+ </tr>
+ <tr>
+   <td>55577855</td>
+ </tr>
+</table>
   <button class="primaryAction" type="submit">Upload</button>
 </form>
+</div>
+</div>
+</div>
+
+<div class="container">
+
+       
 
 </div>  
 

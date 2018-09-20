@@ -1,0 +1,57 @@
+<section class="content home">
+    <div class="container-fluid">
+        <div class="block-header">
+            <div class="row">
+                <div class="col-lg-12 col-md-6 col-sm-7">
+                    <h2>advertiser's List</h2>                    
+                    
+                </div>            
+            </div>
+        </div>
+
+                        <div class="container">
+                    {% if messages %}
+                                    <ul class="messages">
+                                        {% for message in messages %}
+                                        <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+                                        {% endfor %}
+                                    </ul>
+                                    {% endif %}
+
+                    
+                    <table class="table table-bordered">
+                        <tr>
+                            <th>Sl no </th>
+                            <th> Name </th>
+                            <th>Upvote  </th>
+                            <th>Downvote</th>
+                            <th>Vote_Score</th>
+                           <th>num_vote_up</th>
+                           <th>Num_vote_down</th>
+                           <th>Actions</th>
+                            
+                            
+                        </tr>
+                        {% for advertiser in review %}
+                        <tr>
+
+                            <td>{{ forloop.counter }}</td>
+                            <td>{{ advertiser.user }} </td>
+                            <td>{{ advertiser.upvote }}</td>
+                            <td>{{ advertiser.downvote }} </td>
+                            <td>{{ advertiser.vote_score }} </td>
+                            <td>{{ advertiser.num_vote_up }} </td>
+                            <td>{{ advertiser.num_vote_down }} </td>
+                            <td><a href=" {% url 'accounts:edit_advertisers' advertiser.id %}" title="view/edit" data-rel="tooltip"> <span class="fa fa-pencil"></span></a>
+                                <a href=" {% url 'accounts:delete_advertiser' advertiser.id %}" title="delete" data-rel="tooltip"><span class="fa fa-trash-o"></span></a>
+                            </td>
+                            
+                            
+                        </tr>
+                        {% endfor %}
+                    </table>
+
+      </div>
+
+    </div>
+</section>
