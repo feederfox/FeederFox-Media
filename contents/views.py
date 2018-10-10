@@ -23,20 +23,21 @@ import matplotlib.pyplot as plt
 from matplotlib.backends.backend_agg import FigureCanvasAgg
 import zlib,os,sys,PyPDF2
 from rest_framework.authtoken.models import Token
+from collections import Counter
 from .forms import (PublisherDetailsForm,ArticleForm,UploadContentForm,MainEditionForm,EditionForm,StateForm,
     PublisherDetailEditForm,ArticleUploadForm,PoliticalForumForm,PollingForm,PoliticainArticleForm,UploadMagazineForm,
     NewsChannelForm,EbookUploadForm,PoliticalCommentSystemForm)
 from .models import (Ebook,Magazine,SocialChannel,RegionalNewsChannel,NationalNewsChannel,NationalNewsPaper,Dummy,
     Article_upload,ArticleReview,RegionalNewsPaper,Article,NewsPaper,PublisherDetail,Article,Main_Edition,Edition,
     Sub_Edition,State,PoliticalForum,Polling,Vote,PoliticalSurvey,PoliticianArticle,NewsChannel,EbookUpload,
-    Article_upload,Vote1,NewsPaperAdmin)
+    Article_upload,Vote1,NewsPaperAdmin,PoliticalCommentSystem)
 from .serializers import (EbookSerializer,MagazineSerializer,SocialChannelSerializer,NationalNewsChannelSerializer,
     RegionalNewsChannelSerializer,NationalNewsPaperSerializer,RegionalNewsPaperSerializer,ArticleSerializer,
     SignupSerializer,LoginSerializer,NewsPaperSerializer,DummySerializer,PublisherDetailSerializer,
     NewsChannelSerializer,PublisherListSerializer,PoliticalForumSerializer,PoliticalPositionSerializer,
     EbookUpdatedSerializer,ArticleuploadSerializer,NewsPaperEditionSerializer,PollingSerializer,
     PoliticianArticleSerializer,PoliticalSurveySerializer,PoliticalVotingSerializer,PoliticalForumAPISerializer,
-    profileUploadSerializer,SignupAPISerializer)
+    profileUploadSerializer,SignupAPISerializer,PoliticalCommentSerializer)
 from .models import Revenue
 from django.core.urlresolvers import reverse
 
@@ -767,10 +768,10 @@ class loginapi(APIView):
         print(Mobile)
         d = {'email':email,'username':username,'Mobile':"",'Profile_Picture':"",'Social_login':Social_login}       
         if a.Mobile:
-            d = {'email':email,'username':username,'Mobile':Mobile,'Profile_Picture':"",'Social_login':Social_login} 
+            d = {'email':email,'username':username,'Mobile':str(Mobile),'Profile_Picture':"",'Social_login':Social_login} 
             if a.Profile_Picture:
                 Profile_Picture = a.Profile_Picture
-                d = {'email':email,'username':username,'Mobile':Mobile,'Profile_Picture':Profile_Picture.url,
+                d = {'email':email,'username':username,'Mobile':str(Mobile),'Profile_Picture':Profile_Picture.url,
                 'Social_login':Social_login}
 
 
@@ -1045,7 +1046,21 @@ def politicalmodal(request,pk):
     video_link = political.video_link
     poll = Polling.objects.get(Name=name)
     polart = PoliticianArticle.objects.filter(Name=name)
-    print(polart)
+    polcomment = PoliticalCommentSystem.objects.filter(name=name)
+    rating = []
+    for p in polcomment:
+        r = int(p.ratings)
+        rating.append(r)
+    if rating:    
+        avg_rating = (sum(rating)/len(rating))
+    else:
+        avg_rating = 0    
+    rating_count = Counter(rating)
+    rc_5 = rating_count[5]
+    rc_4 = rating_count[4]
+    rc_3 = rating_count[3]
+    rc_2 = rating_count[2]
+    rc_1 = rating_count[1]
     dataSource = {}
     dataSource = {  
         "chart": {
@@ -1135,9 +1150,10 @@ def politicalmodal(request,pk):
 
 
     
-    context = {'name':name,'synopsis':synopsis,'image':image,'Educational_Qualification':Educational_Qualification,'video_link':video_link,
-        'Family_History':Family_History,'projects_taken':projects_taken,'poll':poll,'output':column2D.render(),'polart':polart,
-                'out':chartObj.render()}
+    context = {'name':name,'synopsis':synopsis,'image':image,'Educational_Qualification':Educational_Qualification,
+    'video_link':video_link,'Family_History':Family_History,'projects_taken':projects_taken,'poll':poll,
+    'output':column2D.render(),'polart':polart,'out':chartObj.render(),'polcomment':polcomment,'avg_rating':avg_rating,
+    'rating_count':rating_count,'rc_5':rc_5,'rc_4':rc_4,'rc_3':rc_3,'rc_2':rc_2,'rc_1':rc_1,'political':political}
     return render (request,'political_forum.html',context)
 
 
@@ -1252,16 +1268,7 @@ def chart(request):
         "color": "#000",
       }]
       }
-        # [{data['label'] : 'Upvote',
-        #         data['value'] : poll.Upvote/(poll.Upvote+poll.DownVote)},
-        #         {data['label'] : 'DownVote',
-        #         data['value'] : poll.Upvote/(poll.Upvote+poll.DownVote)}]
-
-    # print(data)
-    
-    # The data for the chart should be in an array where each element of the array is a JSON object
-    # having the `label` and `value` as key value pair.
-    # Create an object for the Column 2D chart using the FusionCharts class constructor                      
+                             
     column2D = FusionCharts("column2D", "ex1" , "700", "450", "chart-1", "json", dataSource)
     return render(request, 'modal.html', {'output': column2D.render(),'out':chartObj.render(),}) 
 
@@ -1546,6 +1553,16 @@ def politicalapi(request):
             polartserializer = PoliticianArticleSerializer(polart,many=True,context=context) 
             polsurvey = PoliticalSurvey.objects.filter(Name=resp[i].Name)
             polsurveyserializer = PoliticalSurveySerializer(polsurvey,many=True,context=context)
+            polcomment = PoliticalCommentSystem.objects.filter(name = i.Name)
+            polcommentserializer = PoliticalCommentSerializer(polcomment,many=True,context=context)
+            rating = []
+            for p in polcomment:
+                r = int(p.ratings)
+                rating.append(r)
+            if rating:    
+                avg_rating = (sum(rating)/len(rating))
+            else:
+                avg_rating = 0
             resp1 = {}
             resp1 = politicalserializer.data
             resp1['Polling'] = pollserializer.data
@@ -1553,8 +1570,11 @@ def politicalapi(request):
             resp1['Polling']['Dislike'] = (poll.DownVote/(poll.Upvote+poll.DownVote))*100
             resp1['Politician_Articles'] = polartserializer.data
             resp1['Politician_Survey'] = polsurveyserializer.data
+            resp1['Politician_Comments'] = polcommentserializer.data
+            resp1['Politician_Rating'] = avg_rating
+            #if resp1['Politician_Comments']['image'] == null:
+            #resp1['Politician_Comments']['Dislike'] = ""
             l1 = resp1
-            print(l1)
             l.append(resp1)
         re = {'Politician_data':l}    
         return Response(re)
@@ -1645,17 +1665,34 @@ def publishersapi(request):
         return Response(re)
 
 @login_required(login_url='/accounts/login/')
-def politicalcomment(request):
+def politicalcomment(request,pk):
+    political = PoliticalForum.objects.get(pk=pk)
+    print(political)
+    name = political.Name
+    print(political.id)
+    id = political.id
+    print(id)
     if request.method=='POST':
         form = PoliticalCommentSystemForm(request.POST,request.FILES)
         if form.is_valid():
             a = form.save(commit=False)
             a.user = request.user
+            print(request.user.email)
+            p = Profile.objects.get(email=request.user.email)
+            if p.Profile_Picture is 'null':
+                a.image = ""
+            else:
+                a.image = p.Profile_Picture
+            print(p.Profile_Picture)
+            print('HI')    
+            print(a.image)       
+            a.name = name
             a.save()
             messages.success(request,'Comment has been Uploaded')
-
+            #return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
+            
     form = PoliticalCommentSystemForm()
-    return render(request,'politicalcomment.html',{'form':form})        
+    return render(request,'politicalcomment.html',{'form':form,'id':str(id)})        
 
 
 

@@ -1,7 +1,7 @@
 from rest_framework import serializers,exceptions
 from .models import (Ebook,Magazine,SocialChannel,NationalNewsChannel,RegionalNewsChannel,NationalNewsPaper,RegionalNewsPaper,
 			Article,NewsPaper,Dummy,PublisherDetail,Edition,NewsChannel,PoliticalForum,PoliticalPosition,EbookUpload,
-			Article_upload,Polling,PoliticianArticle,Vote,PoliticalSurvey,State)
+			Article_upload,Polling,PoliticianArticle,Vote,PoliticalSurvey,State,PoliticalCommentSystem)
 from accounts.models import Profile
 from django.contrib.auth.models import User
 from django.db.models.signals import post_save
@@ -322,6 +322,12 @@ class PoliticalVotingSerializer(serializers.Serializer):
 	question_id = serializers.IntegerField()
 	opinion = serializers.IntegerField()
 	email = serializers.EmailField()
+
+class PoliticalCommentSerializer(serializers.ModelSerializer):
+	class Meta:
+		model = PoliticalCommentSystem
+		fields = '__all__'
+
 
 class EbookUpdatedSerializer(serializers.ModelSerializer):
 	url = serializers.URLField(source='pdf')

@@ -141,4 +141,4 @@ class EbookUploadForm(forms.ModelForm):
 class PoliticalCommentSystemForm(forms.ModelForm):
 	class Meta:
 		model = PoliticalCommentSystem
-		exclude = ('user','uploaded_on',)
+		exclude = ('user','uploaded_on','image','name')

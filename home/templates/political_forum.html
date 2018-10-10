@@ -123,23 +123,19 @@
     <div class="col-sm-3">
       <div class="rating-block">
         <h4>Average user rating</h4>
-        <h2 class="bold padding-bottom-7">4.3 <small>/ 5</small></h2>
-        <button type="button" class="btn btn-warning btn-sm" aria-label="Left Align">
-          <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
-        </button>
-        <button type="button" class="btn btn-warning btn-sm" aria-label="Left Align">
-          <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
-        </button>
-        <button type="button" class="btn btn-warning btn-sm" aria-label="Left Align">
-          <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
-        </button>
-        <button type="button" class="btn btn-default-pol btn-grey btn-sm" aria-label="Left Align">
-          <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
-        </button>
-        <button type="button" class="btn btn-default-pol btn-grey btn-sm" aria-label="Left Align">
-          <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
-        </button>
-      </div>
+        <h2 class="bold padding-bottom-7">{{ avg_rating|floatformat:2 }} <small>/ 5</small></h2>
+        {% if avg_rating >= 4.5 %}
+        <img src="{% static 'dist/images/stars/5-star.png' %}">
+        {% elif avg_rating >= 3.5 and avg_rating < 4.5 %}
+        <img src="{% static 'dist/images/stars/4-star.png' %}">
+        {% elif avg_rating >= 2.5 and avg_rating < 3.5 %}
+        <img src="{% static 'dist/images/stars/3-star.png' %}">
+        {% elif avg_rating >= 1.5 and avg_rating < 2.5 %}
+        <img src="{% static 'dist/images/stars/2-star.png' %}">
+        {% elif avg_rating < 1.5 %}
+        <img src="{% static 'dist/images/stars/1-star.png' %}">
+        {% endif %}
+        </div>
     </div>
     <div class="col-sm-3">
       <h4>Rating breakdown</h4>
@@ -154,7 +150,7 @@
             </div>
           </div>
         </div>
-        <div class="pull-right" style="margin-left:10px;">1</div>
+        <div class="pull-right" style="margin-left:10px;">{{ rc_5 }}</div>
       </div>
       <div class="pull-left">
         <div class="pull-left" style="width:35px; line-height:1;">
@@ -167,7 +163,7 @@
             </div>
           </div>
         </div>
-        <div class="pull-right" style="margin-left:10px;">1</div>
+        <div class="pull-right" style="margin-left:10px;">{{ rc_4 }} </div>
       </div>
       <div class="pull-left">
         <div class="pull-left" style="width:35px; line-height:1;">
@@ -180,7 +176,7 @@
             </div>
           </div>
         </div>
-        <div class="pull-right" style="margin-left:10px;">0</div>
+        <div class="pull-right" style="margin-left:10px;">{{ rc_3 }} </div>
       </div>
       <div class="pull-left">
         <div class="pull-left" style="width:35px; line-height:1;">
@@ -193,7 +189,7 @@
             </div>
           </div>
         </div>
-        <div class="pull-right" style="margin-left:10px;">0</div>
+        <div class="pull-right" style="margin-left:10px;">{{ rc_2 }} </div>
       </div>
       <div class="pull-left">
         <div class="pull-left" style="width:35px; line-height:1;">
@@ -206,105 +202,56 @@
             </div>
           </div>
         </div>
-        <div class="pull-right" style="margin-left:10px;">0</div>
+        <div class="pull-right" style="margin-left:10px;">{{ rc_1 }} </div>
       </div>
     </div>
   </div>
+<br><br>
+  <div class="row" style="text-align: center;">
+    <a href="{% url 'content:politicalcomment' political.id %} "><button class="btn btn-danger">Write Review</button></a>
+    
 
+  </div>
   <div class="row">
+    
     <div class="col-sm-7">
       <hr/>
       <div class="review-block">
+        {% for comment in polcomment %}
         <div class="row">
           <div class="col-sm-3">
+            {% if comment.image %}
+            <img src="{{ comment.image.url}}" style="height: 150px;width: 150px;" class="img-rounded">
+            {% else %}
             <img src="http://dummyimage.com/60x60/666/ffffff&text=No+Image" class="img-rounded">
-            <div class="review-block-name"><a href="#">Lorem</a></div>
-            <div class="review-block-date">January 29, 2016<br/>1 day ago</div>
+            {% endif %}
+            <div class="review-block-name"><a href="#">{{ comment.user }} </a></div>
+            <div class="review-block-date">{{ comment.uploaded_on }} <br/></div>
           </div>
           <div class="col-sm-9">
-            <div class="review-block-rate">
-              <button type="button" class="btn btn-warning btn-xs" aria-label="Left Align">
-                <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
-              </button>
-              <button type="button" class="btn btn-warning btn-xs" aria-label="Left Align">
-                <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
-              </button>
-              <button type="button" class="btn btn-warning btn-xs" aria-label="Left Align">
-                <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
-              </button>
-              <button type="button" class="btn btn-default-pol btn-grey btn-xs" aria-label="Left Align">
-                <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
-              </button>
-              <button type="button" class="btn btn-default-pol btn-grey btn-xs" aria-label="Left Align">
-                <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
-              </button>
-            </div>
-            <div class="review-block-title">Good Article</div>
-            <div class="review-block-description">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s.</div>
+            <h4>Rating given by {{ comment.user }} to {{ comment.name }} is</h4>
+              {% if comment.ratings == '5' %}
+              <img src="{% static 'dist/images/stars/5-star.png' %} ">
+              {% elif comment.ratings == '4' %}
+              <img src="{% static 'dist/images/stars/4-star.png' %} ">
+              {% elif comment.ratings == '3' %}
+              <img src="{% static 'dist/images/stars/3-star.png' %} ">
+              {% elif comment.ratings == '2' %}
+              <img src="{% static 'dist/images/stars/2-star.png' %} ">
+              {% elif comment.ratings == '1' %}
+              <img src="{% static 'dist/images/stars/1-star.png' %} ">
+              {% endif %}
+            <br><br>
+            <div class="review-block-title"><b>{{ comment.comment_title }}</b> </div>
+            <br>
+            <div class="review-block-description">{{ comment.comment }} </div>
           </div>
         </div>
-        <hr/>
-        <div class="row">
-          <div class="col-sm-3">
-            <img src="http://dummyimage.com/60x60/666/ffffff&text=No+Image" class="img-rounded">
-            <div class="review-block-name"><a href="#">Lorem</a></div>
-            <div class="review-block-date">January 29, 2016<br/>1 day ago</div>
-          </div>
-          <div class="col-sm-9">
-            <div class="review-block-rate">
-              <button type="button" class="btn btn-warning btn-xs" aria-label="Left Align">
-                <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
-              </button>
-              <button type="button" class="btn btn-warning btn-xs" aria-label="Left Align">
-                <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
-              </button>
-              <button type="button" class="btn btn-warning btn-xs" aria-label="Left Align">
-                <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
-              </button>
-              <button type="button" class="btn btn-default-pol btn-grey btn-xs" aria-label="Left Align">
-                <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
-              </button>
-              <button type="button" class="btn btn-default-pol btn-grey btn-xs" aria-label="Left Align">
-                <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
-              </button>
-            </div>
-            <div class="review-block-title">Good Article</div>
-            <div class="review-block-description">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s.</div>
-          </div>
-        </div>
-        <hr/>
-        <div class="row">
-          <div class="col-sm-3">
-            <img src="http://dummyimage.com/60x60/666/ffffff&text=No+Image" class="img-rounded">
-            <div class="review-block-name"><a href="#">Lorem</a></div>
-            <div class="review-block-date">January 29, 2016<br/>1 day ago</div>
-          </div>
-          <div class="col-sm-9">
-            <div class="review-block-rate">
-              <button type="button" class="btn btn-warning btn-xs" aria-label="Left Align">
-                <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
-              </button>
-              <button type="button" class="btn btn-warning btn-xs" aria-label="Left Align">
-                <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
-              </button>
-              <button type="button" class="btn btn-warning btn-xs" aria-label="Left Align">
-                <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
-              </button>
-              <button type="button" class="btn btn-grey btn-xs" aria-label="Left Align">
-                <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
-              </button>
-              <button type="button" class="btn btn-grey btn-xs" aria-label="Left Align">
-                <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
-              </button>
-            </div>
-            <div class="review-block-title">Good Article</div>
-            <div class="review-block-description">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s.</div>
-          </div>
-        </div>
+        <hr>
+        {% endfor %}
       </div>
     </div>
   </div>
-
 </div> <!-- /container -->
 
 
