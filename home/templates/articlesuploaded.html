@@ -141,6 +141,8 @@
                             <th> Image </th>
                             <th>title  </th>
                             <th>Description</th>
+                            <th>Article Link</th>
+                            <th>Author</th>
                            <th>Actions</th>
                             
                             
@@ -152,6 +154,8 @@
                             <td><img src="{{ art.image.url }}" style="height: 100px;width: 100px">  </td>
                             <td>{{ art.title }}</td>
                             <td>{{ art.description }} </td>
+                            <td><a href="{{ art.url }}"> {{ art.url }} </a>  </td>
+                            <td>{{ art.Author }} </td>
                             <td><a href="#" title="view/edit" data-rel="tooltip"> <span class="fa fa-pencil"></span></a>
                                 <a href="{% url 'accounts:deletearticle' art.id %} " title="delete" data-rel="tooltip"><span class="fa fa-trash-o"></span></a>
                             </td>

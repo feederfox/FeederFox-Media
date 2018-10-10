@@ -3,9 +3,10 @@ from rest_framework import status
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from rest_framework.views import APIView
-from accounts.models import Profile
+from accounts.models import Profile,Magazines
 from django.contrib.auth.models import User
-from rest_framework.generics import ListCreateAPIView,CreateAPIView
+from rest_framework.generics import (ListCreateAPIView,CreateAPIView,RetrieveUpdateDestroyAPIView,ListAPIView,
+                RetrieveAPIView,UpdateAPIView)
 from rest_framework.permissions import IsAuthenticated,AllowAny
 from django.http import HttpResponse,Http404
 from django.contrib.auth import authenticate,login
@@ -15,18 +16,29 @@ from pdf2image import convert_from_path
 from django.conf import settings
 from django.http import HttpResponseRedirect
 from django.contrib.auth.decorators import login_required
+from rest_framework.renderers import TemplateHTMLRenderer
 from pylovepdf.ilovepdf import ILovePdf
 from .fusioncharts import FusionCharts
+import matplotlib.pyplot as plt
+from matplotlib.backends.backend_agg import FigureCanvasAgg
 import zlib,os,sys,PyPDF2
 from rest_framework.authtoken.models import Token
-from .forms import (PublisherDetailsForm,ArticleForm,UploadContentForm,MainEditionForm,EditionForm,StateForm,PublisherDetailEditForm,
-                    PoliticalForumForm,ArticleUploadForm,PollingForm)
-from .models import (Ebook,Magazine,SocialChannel,RegionalNewsChannel,NationalNewsChannel,NationalNewsPaper,Dummy,Article_upload,ArticleReview,
-                RegionalNewsPaper,Article,NewsPaper,PublisherDetail,Article,Main_Edition,Edition,Sub_Edition,State,PoliticalForum,Polling,Vote,
-                PoliticalSurvey)
-from .serializers import (EbookSerializer,MagazineSerializer,SocialChannelSerializer,NationalNewsChannelSerializer,RegionalNewsChannelSerializer,
-    NationalNewsPaperSerializer,RegionalNewsPaperSerializer,ArticleSerializer,SignupSerializer,LoginSerializer,NewsPaperSerializer,DummySerializer)
+from .forms import (PublisherDetailsForm,ArticleForm,UploadContentForm,MainEditionForm,EditionForm,StateForm,
+    PublisherDetailEditForm,ArticleUploadForm,PoliticalForumForm,PollingForm,PoliticainArticleForm,UploadMagazineForm,
+    NewsChannelForm,EbookUploadForm,PoliticalCommentSystemForm)
+from .models import (Ebook,Magazine,SocialChannel,RegionalNewsChannel,NationalNewsChannel,NationalNewsPaper,Dummy,
+    Article_upload,ArticleReview,RegionalNewsPaper,Article,NewsPaper,PublisherDetail,Article,Main_Edition,Edition,
+    Sub_Edition,State,PoliticalForum,Polling,Vote,PoliticalSurvey,PoliticianArticle,NewsChannel,EbookUpload,
+    Article_upload,Vote1,NewsPaperAdmin)
+from .serializers import (EbookSerializer,MagazineSerializer,SocialChannelSerializer,NationalNewsChannelSerializer,
+    RegionalNewsChannelSerializer,NationalNewsPaperSerializer,RegionalNewsPaperSerializer,ArticleSerializer,
+    SignupSerializer,LoginSerializer,NewsPaperSerializer,DummySerializer,PublisherDetailSerializer,
+    NewsChannelSerializer,PublisherListSerializer,PoliticalForumSerializer,PoliticalPositionSerializer,
+    EbookUpdatedSerializer,ArticleuploadSerializer,NewsPaperEditionSerializer,PollingSerializer,
+    PoliticianArticleSerializer,PoliticalSurveySerializer,PoliticalVotingSerializer,PoliticalForumAPISerializer,
+    profileUploadSerializer,SignupAPISerializer)
 from .models import Revenue
+from django.core.urlresolvers import reverse
 
 
 
@@ -87,6 +99,68 @@ def ebook_list(request):
                 serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 @api_view(['GET', 'POST'])
+def ebook_updated(request):
+    context = {'request':request}
+    if request.method == 'GET':
+        ebook = EbookUpload.objects.all()
+        serializer = EbookUpdatedSerializer(ebook, many=True,context=context)
+        resp3 = serializer.data
+        ebook_list = {'E-Books':resp3}
+        return Response(ebook_list)
+
+    elif request.method == 'POST':
+        serializer = EbookUpdatedSerializer(data=request.DATA)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        else:
+            return Response(
+                serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
+@api_view(['GET', 'POST'])
+def politicalforum(request):
+    if request.method == 'GET':
+        polforum = PoliticalForum.objects.all()
+        serializer = PoliticalForumSerializer(polforum, many=True,context={'request':request})
+        resp3 = serializer.data
+        political = {'PoliticalForum':resp3}
+        return Response(political)
+
+    elif request.method == 'POST':
+        serializer = PoliticalForumSerializer(data=request.DATA)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        else:
+            return Response(
+                serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
+
+
+# @api_view(['GET', 'POST'])
+# def politicalposition(request):
+#     if request.method == 'GET':
+#         ebook = PoliticalPosition.objects.all()
+#         print(ebook)
+#         serializer = PoliticalPositionSerializer(ebook, many=True)
+#         resp3 = serializer.data
+#         ebook_list = {'E-Books':resp3}
+#         return Response(ebook_list)
+
+#     elif request.method == 'POST':
+#         serializer = PoliticalPositionSerializer(data=request.DATA)
+#         if serializer.is_valid():
+#             serializer.save()
+#             return Response(serializer.data, status=status.HTTP_201_CREATED)
+#         else:
+#             return Response(
+#                 serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
+
+@api_view(['GET', 'POST'])
 def Articles(request):
     if request.method == 'GET':
         article = Article.objects.all()
@@ -124,20 +198,42 @@ def magazine_list(request):
                 serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
-
 @api_view(['GET', 'POST'])
-def nationalchannels_list(request):
+def newschannels_list(request):
+    context = {'request':request}
     if request.method == 'GET':
 
-        nationalchannel = NationalNewsChannel.objects.all()
-        serializer = NationalNewsChannelSerializer(nationalchannel, many=True)
+        newschannel = NewsChannel.objects.all()
+        serializer = NewsChannelSerializer(newschannel, many=True,context=context)
         resp3 = serializer.data
         national = {'NationalNewsChannels':resp3}
 
         return Response(national)
 
     elif request.method == 'POST':
-        serializer = NationalNewsChannelSerializer(data=request.DATA)
+        serializer = NewsChannelSerializer(data=request.DATA)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        else:
+            return Response(
+                serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
+
+@api_view(['GET', 'POST'])
+def nationalchannels_list(request):
+    if request.method == 'GET':
+
+        nationalchannel = NewsChannel.objects.all()
+        serializer = NewsChannelSerializer(nationalchannel, many=True)
+        resp3 = serializer.data
+        national = {'NationalNewsChannels':resp3}
+
+        return Response(national)
+
+    elif request.method == 'POST':
+        serializer = NewsChannelSerializer(data=request.DATA)
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data, status=status.HTTP_201_CREATED)
@@ -156,6 +252,191 @@ def regionalchannels_list(request):
 
     elif request.method == 'POST':
         serializer = RegionalNewsChannelSerializer(data=request.DATA)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        else:
+            return Response(
+                serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
+@api_view(['GET'])
+def pub(request, pk):
+    try:
+        product = PublisherDetail.objects.get(pk=pk)
+    except Product.DoesNotExist:
+        return Response(status=status.HTTP_404_NOT_FOUND)
+
+    if request.method == 'GET':
+        context = {
+            "request":request
+            }
+        pub = PublisherDetail.objects.get(pk=pk)
+        print(pub)
+        pubserializer = PublisherDetailSerializer(pub,context=context)
+        name = pub.Name
+        news = NewsPaper.objects.filter(name=name)
+        print(news)
+        newsserializer = NewsPaperSerializer(news,many=True,context=context)
+        response = {
+            'status': status.HTTP_200_OK,
+            'PublisherDetails' : pubserializer.data,
+        }
+        print(response['PublisherDetails']['Sub_Edition'])
+        response['PublisherDetails']['Sub_Edition'] = newsserializer.data
+        return Response(response)
+
+
+
+@api_view(['GET'])
+def publist(request):
+
+    if request.method == 'GET':
+        context = {
+            "request":request
+            }
+        pub = PublisherDetail.objects.filter(Type=1)
+        print(pub)
+        pubserializer = PublisherListSerializer(pub,many=True,context=context)
+        response = {
+            'status': status.HTTP_200_OK,
+            'PublisherDetails' : pubserializer.data,
+        }
+        a = response['PublisherDetails']
+        print(a)
+        print(a['url'][0])
+        return Response(response)
+
+
+class pub_list(ListAPIView):
+
+    queryset = PublisherDetail.objects.all()
+    serializer_class = PublisherListSerializer
+
+    def get_queryset(self, *args, **kwargs):
+        news = NewsPaper.objects.all()
+        n = []
+        for i in news:
+            n.append(i)
+        name = n 
+        publisherdetails = PublisherDetail.objects.filter(Name__in=name)
+        for i in publisherdetails:
+            print(i.Name)
+        return publisherdetails   
+
+
+
+
+class pub_detail(RetrieveAPIView):
+   
+
+    def get_queryset(self, *args, **kwargs):
+        context = {
+            "request":self.request
+            }
+        pub_id = self.kwargs.get('pk',None)
+        pub = PublisherDetail.objects.get(pk=pub_id)
+        print(pub)
+        pubserializer = PublisherDetailSerializer(pub,context=context)
+        name = pub.Name
+        news = NewsPaper.objects.filter(name=name)
+
+        print(news)
+        newsserializer = NewsPaperSerializer(news,many=True,context=context)
+        response = {
+            'status': status.HTTP_200_OK,
+            'PublisherDetails' : pubserializer.data,
+        }
+        print(response['PublisherDetails']['Sub_Edition'])
+        response['PublisherDetails']['Sub_Edition'] = newsserializer.data
+
+        return news
+
+
+@api_view(['GET','POST'])
+def pubdetails(request):
+    context = {
+            "request":request
+            }
+
+    news = NewsPaper.objects.all()
+    nam = []
+    for i in news:
+        nam.append(i)
+    name = nam 
+    pub = PublisherDetail.objects.filter(Type=1)   
+    pub_details = PublisherDetail.objects.filter(Name__in=name)
+    print(pub_details)
+    print(len(pub_details))
+    p = []
+    for a in pub:
+        p.append(a)
+    b = p    
+    print(b)
+    n = NewsPaper.objects.filter(name__in=b)   
+    print(n)  
+    newsserializer = NewsPaperSerializer(n,many=True,context=context)
+    print(newsserializer)
+    news = newsserializer.data
+    pubserializer = PublisherDetailSerializer(pub,many=True,context=context)
+    response = {
+            'status': status.HTTP_200_OK,
+            'PublisherDetails' : pubserializer.data,
+        }
+
+    for c in range( len(pub_details)):
+        pass
+    response['PublisherDetails'][c]['Sub_Edition'] = newsserializer.data
+    a = {'PublisherDetails':response}
+    return Response(response)
+
+
+def edition(request,pk):
+    content = PublisherDetail.objects.get(pk=pk)
+    name = content.Name
+    #url = content.url
+    image = content.Add_Logo.url
+    mainedition = content.Main_Edition
+    sub = content.Sub_Edition.all()
+    language = content.Language
+    print(language)
+    print(sub)
+    print(mainedition)
+    newspaper = NewsPaper.objects.filter(name=name)
+    print(newspaper)
+    sub1=[]
+    for n in newspaper:
+        sub1.append(n.subedition)
+    print(sub1)
+    context = {'name':name,'image':image,'mainedition':mainedition,'sub':sub,'newspaper':newspaper,'language':language}
+    return render(request,'edition.html',context)    
+
+
+@api_view(['GET', 'POST'])
+def publisherdetails(request):
+    if request.method == 'GET':
+        news = NewsPaper.objects.all()
+        print(news)
+        nam = []
+        for i in news:
+            nam.append(i)
+        name = nam    
+        print(name)
+        pub_details = PublisherDetail.objects.get(Name__in=name)
+        print(pub_details)
+        n = NewsPaper.objects.filter(name=pub_details.Name)
+        print(n)
+        sub = []
+        for a in n:
+            sub.append(a.subedition)
+        print(sub)
+        serializer = PublisherDetailSerializer(pub_details)
+        resp3 = serializer.data
+        pubdetail = {'PublisherDetails':resp3}
+        return Response(pubdetail)
+
+    elif request.method == 'POST':
+        serializer = PublisherDetailSerializer(data=request.DATA)
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data, status=status.HTTP_201_CREATED)
@@ -240,8 +521,25 @@ def contents_list(request):
         context = {
             "request":request
             }
+        pub_details = PublisherDetail.objects.filter(Type=1)
+        r = {}
+        l = []   
+        for i in pub_details:
+            news = NewsPaper.objects.filter(name=i.Name)
+            print(news)
+            print(len(news))
+            newsserializer = NewsPaperEditionSerializer(news,many=True,context=context)
+            if news:
+                pub = PublisherDetail.objects.get(Name = i.Name)
+                publisherserializer = PublisherDetailSerializer(pub,context=context) 
+                resp1 = {}
+                resp1 = publisherserializer.data
+                resp1['Edition_Count'] = len(news)
+                resp1['Sub_Edition'] = newsserializer.data
+                l.append(resp1)
+        re = {'NationalNewsPapers':l}    
         ebook = Ebook.objects.all()
-        National = NationalNewsChannel.objects.all()
+        National = NewsChannel.objects.all()
         Regional = RegionalNewsChannel.objects.all()
         magazine = Magazine.objects.all()
         socialchannel = SocialChannel.objects.all()
@@ -249,15 +547,19 @@ def contents_list(request):
         regional = RegionalNewsPaper.objects.all()
         article = Article.objects.all()
         newspaper = NewsPaper.objects.all()
+        ebook_updated = EbookUpload.objects.all()
+        political = PoliticalForum.objects.all()
         ebookserializer = EbookSerializer(ebook, many=True,context=context)
         magazineserializer = MagazineSerializer(magazine,many=True,context=context)
         socialserializer = SocialChannelSerializer(socialchannel,many=True,context=context)
-        NationalSerializer = NationalNewsChannelSerializer(National,many=True,context=context)
+        NationalSerializer = NewsChannelSerializer(National,many=True,context=context)
         RegionalSerializer = RegionalNewsChannelSerializer(Regional,many=True,context=context)
         nationalserializer = NationalNewsPaperSerializer(national,many=True,context=context)
         regionalserializer = RegionalNewsPaperSerializer(regional,many=True,context=context)
         articleserializer = ArticleSerializer(article,many=True,context=context)
         newspaperserializer = NewsPaperSerializer(newspaper,many=True,context=context)
+        ebookupdatedserializer = EbookUpdatedSerializer(ebook_updated,many=True,context=context)
+        politicalserializer = PoliticalForumSerializer(political,many=True,context=context)
         resp = ebookserializer.data
         resp1 = magazineserializer.data
         resp2 = socialserializer.data
@@ -267,7 +569,9 @@ def contents_list(request):
         resp6 = regionalserializer.data
         resp7 = articleserializer.data
         resp8 = newspaperserializer.data
-        ebk = {'E-Books':resp}
+        resp9 = ebookupdatedserializer.data
+        resp10 = politicalserializer.data
+        #ebk = {'E-Books':resp}
         magaz = {'Magazines':resp1}
         social = {'SocialChannels':resp2}
         national = {'NationalNewsChannels':resp3}
@@ -275,18 +579,21 @@ def contents_list(request):
         nat = {'NationalNewsPapers':resp8}
         reg = {'RegionalNewsPapers':resp6}
         art = {'Articles':resp7}
+        pol = {'PoliticalForum':resp10}
+        ebook = {'E-Books':resp9}
         b = regional.copy()
         b.update(national)
         news = {'NewsChannels':b}
         c = reg.copy()
-        c.update(nat)
+        c.update(re)
         paper = {'NewsPapers':c}
-        a = ebk.copy()
+        a = ebook.copy()
         a.update(magaz)
         a.update(social)
         a.update(news)
         a.update(paper)
         a.update(art)
+        a.update(pol)
         return Response(a)
 
     # elif request.method == 'POST':
@@ -318,6 +625,22 @@ def news(request):
     return Response(a)
 
 
+class articleuploadapi(APIView):
+    serializer_class = ArticleuploadSerializer
+
+    def post(self,request,*args,**kwargs):
+        data = request.data
+        title = data['title']
+        image = data['image']
+        description = data['description']
+        Author = data['Author']
+        url = data['url']
+        serializer = ArticleuploadSerializer(data=data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response({'detail':serializer.data})
+
+        return Response({'detail':"Error"})    
 
 class signup(APIView):
     serializer_class = SignupSerializer
@@ -331,10 +654,70 @@ class signup(APIView):
         if serializer.is_valid():
             serializer.save()
             print(serializer)
-            return Response({"detail": "True"})
+            return Response({"detail": "True" })
 
         return Response({'detail':'Email already in use'},status=status.HTTP_200_OK)
 
+
+class signupapi(APIView):
+    serializer_class = SignupAPISerializer
+    def post(self,request, *args, **kwargs):
+        data = request.data
+        email = data['email']
+        print(email)
+        serializer = SignupAPISerializer(data=data)
+        if serializer.is_valid():
+            serializer.save()
+            try:
+                a = Profile.objects.get(email=email)
+            except Exception as e:
+                return Response({'status_code':0,'detail':"User not found" },status=status.HTTP_200_OK)
+            username = a.username
+            Mobile = a.Mobile
+            Profile_Picture = a.Profile_Picture
+            Social_login = 0
+            d = {'email':email,'username':username,'Mobile':Mobile,'Profile_Picture':Profile_Picture.url,
+            'Social_login':Social_login}
+            print(d)
+            s = SignupAPISerializer(data=d)
+            if s.is_valid():
+                s.save()
+            response = {
+                'status_code':1,
+                'detail':s.data,
+            }
+            response['detail']['Social_login'] = 0
+            return Response(response)
+        response = {
+            'status_code' : 0,
+            'detail':'Email already in use',
+        }
+        return Response(response,status=status.HTTP_200_OK)
+
+
+class newspaperedition(APIView):
+    serializer_class = NewsPaperEditionSerializer
+
+    def post(self,request, *args, **kwargs):
+        data = request.data
+        name = data.get('name',None)
+        subedition = data.get('subedition')
+        print(name)
+        print(subedition)
+        try:
+            newspaper = NewsPaper.objects.get(name=name,subedition=subedition)
+            print(newspaper)
+        except Exception as e:
+            return Response({'detail':"NewsPaper not found" },status=status.HTTP_200_OK)
+
+        if newspaper:
+            newsserializer = NewsPaperEditionSerializer(newspaper,context={'request':request})
+            response = {
+                'status': status.HTTP_200_OK,
+                'PublisherDetails' : newsserializer.data,
+            }
+            return Response(response)
+                
 class login(APIView):
     serializer_class = LoginSerializer
 
@@ -363,31 +746,59 @@ class login(APIView):
             else:
                 return Response({'detail':"False" },status=status.HTTP_200_OK)
         return Response({'detail':" False" },status=status.HTTP_200_OK)
-        # data = request.data
-        # serializer = LoginSerializer(data=data)
-        # if serializer.is_valid(raise_exception=True):
-        #     new_data = serializer.data
-        #     return Response(new_data,status = status.HTTP_200_OK)
-        # return Response(serializer.errors,status = status.HTTP_400_BAD_REQUEST)
 
-# class UserCreateAPIView(ListCreateAPIView):
-#     #serializer_class = UserCreateSerializer
 
-#     @staticmethod
-#     def post(self,request, *args, **kwargs):
 
-#         username = request.POST.get('username')
-#         email = request.POST.get('email')
-#         password = request.POST.get('password')
-#         Application_type = request.POST.get('Application_type')
+class loginapi(APIView):
+    serializer_class = LoginSerializer
 
-#         user = User.objects.create_user(username,email,password)
-#         user.Application_type = Application_type
-#         user.save()
+    def post(self, request, *args, **kwargs):
+        data = request.data
+        email = data.get('email', None)
+        password = data.get('password', None)
+        email = data['email']
+        try:
+            a = Profile.objects.get(email=email)
+        except Exception as e:
+            return Response({'status_code':0,'detail':"User not found" },status=status.HTTP_200_OK)
+        username = a.username
+        Mobile = a.Mobile
+        Social_login = 0
+        print(Mobile)
+        d = {'email':email,'username':username,'Mobile':"",'Profile_Picture':"",'Social_login':Social_login}       
+        if a.Mobile:
+            d = {'email':email,'username':username,'Mobile':Mobile,'Profile_Picture':"",'Social_login':Social_login} 
+            if a.Profile_Picture:
+                Profile_Picture = a.Profile_Picture
+                d = {'email':email,'username':username,'Mobile':Mobile,'Profile_Picture':Profile_Picture.url,
+                'Social_login':Social_login}
 
-#         token = Token.objects.create(user=user)
 
-#         return Response({'detail':" User has been Created with Token: " + token.key})
+        serializer = SignupAPISerializer(data=d)
+        if serializer.is_valid():
+            serializer.save()
+            resp = serializer.data
+        try:
+            username = User.objects.get(email=email).username
+            print(username)
+        except Exception as e:
+            return Response({'status_code':0,'detail':{"message":"User Not Found"} },status=status.HTTP_200_OK)
+        print(username)
+        if username:
+            user = authenticate(username=username, password=password)
+            print(user)
+
+            if user is not None:
+                if user.is_active:
+                    response = {'status_code':1,'detail': serializer.data}
+                    response['detail']['Social_login'] = 0
+                    response['detail']['user_id'] = user.id
+                    return Response(response,status=status.HTTP_200_OK)
+                else:
+                    return Response({'status_code':0,'detail':{"message":"False"}},status=status.HTTP_200_OK)
+            else:
+                return Response({'status_code':0,'detail':{"message":"False"} },status=status.HTTP_200_OK)
+        return Response({'status_code':0,'detail':{"message":"False"} },status=status.HTTP_200_OK)
 
 
 def android(request):
@@ -433,6 +844,8 @@ def view_articles(request,pk):
     title = art.title
     description = art.description
     image = art.image
+    url = art.url
+    author = art.author
     context = {'articles':art}
     return render(request,'article1.html',locals())    
 
@@ -467,7 +880,7 @@ def load_subedition(request):
 
 def upload(request,pk):
     a = PublisherDetail.objects.get(pk=pk)
-    d = [i for i in a.Sub_Edition.all() ]   
+    d = [i for i in a.Sub_Edition.all() ]
     length = len(a.Sub_Edition.all())
     n = a.Name
     # s = Sub_Edition.objects.all()
@@ -485,8 +898,8 @@ def upload(request,pk):
         print(n)
     print(n)
     y = Sub_Edition.objects.filter(Name=n).distinct()
-    print(y)    
-        
+    print(y)
+
     if request.method=='POST':
         form = UploadContentForm(request.POST,request.FILES)
         print('HI')
@@ -505,32 +918,6 @@ def upload(request,pk):
             print(b.Add_PDF)
             pdf1 = b.Add_PDF
             print(pdf1)
-            # ilovepdf = ILovePdf('project_public_896a1a0eff68b3d3da5e27710febc890_klzpac598631384d2f6025175094ce5ec1f76', verify_ssl=True)
-            # task = ilovepdf.new_task('compress')
-            # task.add_file('C:\karmashakthi.pdf')
-            # task.set_output_folder('C:\FeederFox-Media')
-            # task.execute()
-            # task.download()
-            # task.delete_current_task()
-            #pdf = open((os.path.join(settings.BASE_DIR,'media','NewsPapers','Awami_270818.pdf')))
-            #pdf = open(pdf1,'rb')
-            #print(pdf)
-            #compressed_pdf = os.system("ps2pdf -dPDFSETTINGS=/ebook %s reduc/%s" % (pdf1,pdf1))
-            # pages = convert_from_path(pdf, 500)
-            # for page in pages:
-            #     page.save('out.jpg', 'JPEG')
-            # writer = PyPDF2.PdfFileWriter()
-            # reader = PyPDF2.PdfFileReader(pdf)
-            # for i in range(reader.numPages):
-            #     page = reader.getPage(i)
-            #     page.compressContentStreams()
-            #     writer.addPage(page)
-
-            # with open((os.path.join(settings.BASE_DIR,'media','NewsPapers',pdf1_compress)),'wb') as f:
-            #     writer.write(f)    
-            # compressed_pdf = zlib.compress(pdf1)
-            # print(sys.getsizeof(compressed_pdf))
-            # compress_ratio = (float(len(pdf)) - float(len(compressed_pdf))) / float(len(pdf))
             b.save()
             name = b.Publishing_Name
             image = b.Add_Logo
@@ -539,9 +926,9 @@ def upload(request,pk):
             subedition = b.Sub_Edition
             user = request.user
             uploaded_at = datetime.datetime.now().strftime("%d-%m-%y %H-%M-%S")
-            newspap = NewsPaper.objects.filter(name=name,subedition=subedition)
+            newspap = NewsPaperAdmin.objects.filter(name=name,subedition=subedition)
             newspap.delete()
-            newspaper = NewsPaper.objects.create(name=name,image=image,url=url,mainedition=mainedition,
+            newspaper = NewsPaperAdmin.objects.create(name=name,image=image,url=url,mainedition=mainedition,
                                     subedition=subedition,user=user,Uploaded_at=uploaded_at)
             print(newspaper)
 
@@ -552,7 +939,7 @@ def upload(request,pk):
 
 
     form = UploadContentForm()
-    return render(request,'upload_content.html',{'form':form})    
+    return render(request,'upload_content.html',{'form':form})
 
 def edition(request,pk):
     content = PublisherDetail.objects.get(pk=pk)
@@ -651,40 +1038,118 @@ def politicalmodal(request,pk):
     political = PoliticalForum.objects.get(pk=pk)
     name = political.Name
     synopsis = political.Synopsis
-    image = political.Image.url
+    image = political.Image
     Educational_Qualification = political.Educational_Qualification
     Family_History = political.Family_History
     projects_taken = political.Projects_Taken
     video_link = political.video_link
     poll = Polling.objects.get(Name=name)
+    polart = PoliticianArticle.objects.filter(Name=name)
+    print(polart)
     dataSource = {}
-    dataSource['chart'] = { 
+    dataSource = {  
+        "chart": {
         "caption": "FeederFox-Media",
-            "xAxisName": "Month",
-            "yAxisName": "Percentage",
-            "numberPrefix": "%",
-            "theme": "candy"
-        }
+        "xAxisName": "Month",
+        "yAxisName": "Percentage in (%)",
+        "numberSuffix": "%",
+        "showalternatehgridcolor": "0",
+        "plotgradientcolor": "",
+        "showplotborder": "0",
+        "showBorder": "0",
+        "borderColor": "#666666",
+        "borderThickness": "4",
+        "borderAlpha": "80",
+        "bgColor": "#DDDDDD",
+        "bgAlpha": "50",
+        "plotHoverEffect":"1",
+        "valuePadding": "5",
+        "theme": "fusion",
+      },
+      "data": [{
+        "label": "Yes",
+        "value": ((poll.Upvote/(poll.Upvote+poll.DownVote))*100),
+        "color": "#9D2125",
+      }, {
+        "label": "No",
+        "value": (poll.DownVote/(poll.Upvote+poll.DownVote))*100,
+        "color": "#000",
+      }]
+      }
 
 
-    dataSource['data'] = []
+
+    column2D = FusionCharts("column2D", "ex1" , "550", "350", "chart-1", "json", dataSource)
+
+    dataSourc = {}
+    dataSourc = {
+    "chart": {
+    "caption": "FeederFox-Media",
+    "yaxisname": "Percentage (in %)",
+    "numbersuffix": " %",
+    "rotatelabels": "1",
+    "setadaptiveymin": "1",
+    "showalternatehgridcolor": "0",
+    "plotgradientcolor": "",
+    "showplotborder": "0",
+    "showBorder": "0",
+    "borderColor": "#666666",
+    "borderThickness": "4",
+    "borderAlpha": "80",
+    "bgColor": "#DDDDDD",
+    "bgAlpha": "50",
+    "plotHoverEffect":"1",
+    "valuePadding": "5",
+    "theme": "fusion",
+    },
+    "data": [
+    {
+      "label": 'April',
+      "value": ((poll.Upvote/(poll.Upvote+poll.DownVote))*100)
+    },
+    {
+      "label": "May",
+      "value": "80.0",
+    },
+    {
+      "label": "June",
+      "value": "86.5",
+    },
+    {
+      "label": "July",
+      "value": "81.5",
+    },
+    {
+      "label": "August",
+      "value": "76.5",
+    },
+    {
+      "label": "Sept",
+      "value": "89.5",
+    }
+
+    ]
+    }
+
+    chartObj = FusionCharts('line','ex2','600','350','chart-2','json',dataSourc)
+
+
     
-    
-    data = {}
-    data['label'] = str(poll.Month)
-    data['value'] = (poll.Upvote/(poll.Upvote+poll.DownVote))*100
-    dataSource['data'].append(data)
-
-    column2D = FusionCharts("column2D", "ex1" , "400", "350", "chart-1", "json", dataSource)
-
     context = {'name':name,'synopsis':synopsis,'image':image,'Educational_Qualification':Educational_Qualification,'video_link':video_link,
-            'Family_History':Family_History,'projects_taken':projects_taken,'poll':poll,'output':column2D.render()}
-    return render (request,'modalview.html',context)
+        'Family_History':Family_History,'projects_taken':projects_taken,'poll':poll,'output':column2D.render(),'polart':polart,
+                'out':chartObj.render()}
+    return render (request,'political_forum.html',context)
 
 
 @login_required(login_url='/accounts/login/')
 def upvote(request,pk):
-    poll = Polling.objects.get(pk=pk)
+    poll = PoliticalSurvey.objects.get(pk=pk)
+    name = poll.Name
+    print(name)
+    p = PoliticalSurvey.objects.filter(Name=poll.Name)
+    print(p)
+    a = Polling.objects.get(Name=name)
+    print(a)
     vote = Vote.objects.all()
     vo = Vote.objects.filter(user=request.user,Poll_Question=poll.Poll_Question)
     print(vo)
@@ -692,8 +1157,8 @@ def upvote(request,pk):
         user = request.user
         v = Vote.objects.create(user=user,Poll_Question=poll.Poll_Question)
         v.save()
-        poll.Upvote += 1
-        poll.save()
+        a.Upvote += 1
+        a.save()
         messages.success(request,'Your Response has been Saved')
         return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
     messages.error(request,'We have already received your response for this Question')
@@ -701,43 +1166,45 @@ def upvote(request,pk):
 
 @login_required(login_url='/accounts/login/')
 def downvote(request,pk):
-    poll = Polling.objects.get(pk=pk)
+    poll = PoliticalSurvey.objects.get(pk=pk)
+    name = poll.Name
+    print(name)
+    p = PoliticalSurvey.objects.filter(Name=poll.Name)
+    print(p)
+    a = Polling.objects.get(Name=name)
+    print(a)
     vote = Vote.objects.all()
     vo = Vote.objects.filter(user=request.user,Poll_Question=poll.Poll_Question)
     print(vo)
     if not vo:
         user = request.user
         v = Vote.objects.create(user=user,Poll_Question=poll.Poll_Question)
-        v.save()    
-        poll.DownVote += 1
-        poll.save()
+        v.save()
+        a.DownVote += 1
+        a.save()
         messages.success(request,'Your Response has been Saved')
         return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
     messages.error(request,'We have already received your response for this Question')
-    return HttpResponseRedirect(request.META.get('HTTP_REFERER'))  
+    return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
 
+@login_required(login_url='/accounts/login/')
 def politicalsurvey(request,pk):
     pol_name = PoliticalForum.objects.get(pk=pk)
     name = pol_name.Name
     print(name)
-    a = PoliticalSurvey.objects.all()
-    print(a)
-    for i in a:
-        print(i)
-        print(i.Poll_Question)
-    return HttpResponse('success')      
+    polsurvey = PoliticalSurvey.objects.filter(Name=name)
+    return render(request,'politicalsurvey.html',{'polsurvey':polsurvey,'name':name})      
 
 def chart(request):
     # Chart data is passed to the `dataSource` parameter, as dict, in the form of key-value pairs.
     dataSource = {}
-    dataSource['chart'] = { 
-        "caption": "Monthly revenue for last year",
-            "subCaption": "FeederFox-Media's SuperMart",
-            "xAxisName": "Month",
-            "yAxisName": "Revenues (In USD)",
-            "numberPrefix": "$",
-            "theme": "zune"
-        }
+    # dataSource['chart'] = { 
+    #     "caption": "FeederFox-Media",
+    #         "xAxisName": "Month",
+    #         "yAxisName": "Percentage in (%)",
+    #         "numberPrefix": "%",
+    #         "theme": "zune"
+    #     }
 
     # The data for the chart should be in an array where each element of the array is a JSON object
     # having the `label` and `value` as key value pair.
@@ -745,23 +1212,118 @@ def chart(request):
     dataSource['data'] = []
     
     # Iterate through the data in `Revenue` model and insert in to the `dataSource['data']` list.
-    for poll in Polling.objects.all():
+    for poll in Polling.objects.filter(Name='Rahul Gandhi'):
         data = {}
         val = {}
-        data['label'] = poll.Month
-        data['value'] = poll.Upvote/(poll.Upvote+poll.DownVote)
-        print(data)
-        dataSource['data'].append(data)
-        print(dataSource)
+      #   "data": [{
+      #   "label": "Batman",
+      #   "value": "85000"
+      # }, {
+      #   "label": "Wolverine",
+      #   "value": "82000"
+      # }]
 
+    dataSource = {  
+        "chart": {
+        "caption": "FeederFox-Media",
+        "xAxisName": "Month",
+        "yAxisName": "Percentage in (%)",
+        "numberSuffix": "%",
+        "showalternatehgridcolor": "0",
+        "plotgradientcolor": "",
+        "showplotborder": "0",
+        "showBorder": "0",
+        "borderColor": "#666666",
+        "borderThickness": "4",
+        "borderAlpha": "80",
+        "bgColor": "#DDDDDD",
+        "bgAlpha": "50",
+        "plotHoverEffect":"1",
+        "valuePadding": "5",
+        "theme": "fusion",
+      },
+      "data": [{
+        "label": "Yes",
+        "value": ((poll.Upvote/(poll.Upvote+poll.DownVote))*100),
+        "color": "#9D2125",
+      }, {
+        "label": "No",
+        "value": (poll.DownVote/(poll.Upvote+poll.DownVote))*100,
+        "color": "#000",
+      }]
+      }
+        # [{data['label'] : 'Upvote',
+        #         data['value'] : poll.Upvote/(poll.Upvote+poll.DownVote)},
+        #         {data['label'] : 'DownVote',
+        #         data['value'] : poll.Upvote/(poll.Upvote+poll.DownVote)}]
 
+    # print(data)
+    
     # The data for the chart should be in an array where each element of the array is a JSON object
     # having the `label` and `value` as key value pair.
-
-
     # Create an object for the Column 2D chart using the FusionCharts class constructor                      
     column2D = FusionCharts("column2D", "ex1" , "700", "450", "chart-1", "json", dataSource)
-    return render(request, 'modalview.html', {'output': column2D.render()}) 
+    return render(request, 'modal.html', {'output': column2D.render(),'out':chartObj.render(),}) 
+
+
+def linechart(request):
+
+    for poll in Polling.objects.filter(Name='Rahul Gandhi'):
+        pass
+    dataSourc = {}
+    dataSourc = {
+    "chart": {
+    "caption": "FeederFox-Media",
+    "yaxisname": "Percentage (in %)",
+    "numbersuffix": " %",
+    "rotatelabels": "1",
+    "setadaptiveymin": "1",
+    "showalternatehgridcolor": "0",
+    "plotgradientcolor": "",
+    "showplotborder": "0",
+    "showBorder": "0",
+    "borderColor": "#666666",
+    "borderThickness": "4",
+    "borderAlpha": "80",
+    "bgColor": "#DDDDDD",
+    "bgAlpha": "50",
+    "plotHoverEffect":"1",
+    "valuePadding": "5",
+    "theme": "fusion",
+    },
+    "data": [
+    {
+      "label": 'Yes',
+      "value": ((poll.Upvote/(poll.Upvote+poll.DownVote))*100)
+    },
+    {
+      "label": "No",
+      "value": ((poll.DownVote/(poll.Upvote+poll.DownVote))*100),
+    },
+    {
+      "label": "Cantsay",
+      "value": "86.5",
+    }
+    ,
+    {
+      "label": "Cantsay",
+      "value": "82.5",
+    }
+    ,
+    {
+      "label": "Cantsay",
+      "value": "76.5",
+    }
+    ,
+    {
+      "label": "Cantsay",
+      "value": "96.5",
+    }
+    ]
+    }
+
+    chartObj = FusionCharts('line','ex1','600','400','chart-1','json',dataSourc)
+    return render(request, 'modal.html', {'output': chartObj.render()})
 
 def review(request):
     review = ArticleReview.objects.all()
@@ -774,7 +1336,7 @@ def politicianarticle(request):
         form = PoliticainArticleForm(request.POST,request.FILES)
         if form.is_valid():
             form.save()
-            messages.success('Successfully Uploaded')
+            messages.success(request,'Successfully Uploaded')
             form = PoliticainArticleForm()    
 
     form = PoliticainArticleForm()
@@ -789,3 +1351,372 @@ def polling(request):
 
     form = PollingForm()
     return render(request,'polling.html',{'form':form})        
+
+
+def newschannelsupload(request):
+    if request.method=='POST':
+        form = NewsChannelForm(request.POST,request.FILES)
+        if form.is_valid():
+            form.save()
+            messages.success(request,'Successfully Added')
+
+    form = NewsChannelForm()
+    return render(request,'uploadnewschannels.html',{'form':form})        
+
+def ebookupload(request):
+    if request.method=='POST':
+        form = EbookUploadForm(request.POST,request.FILES)
+        if form.is_valid():
+            form.save()
+            messages.success(request,'Successfully Uploaded')
+
+    form = EbookUploadForm()
+    return render(request,'uploadebooks.html',{'form':form})            
+
+
+def viewebook(request,pk):
+    ebook = EbookUpload.objects.get(pk=pk)
+    pdf = ebook.pdf
+    name = ebook.name
+    author = ebook.author
+    request.session['ebook_id'] = ebook.id
+    context = {'pdf':pdf,'name':name}
+    return redirect(reverse('payment:process'))
+    #return render(request,'viewebooks.html',context)
+
+class politicalforumdetails(APIView):
+    renderer_classes = [TemplateHTMLRenderer]
+    template_name = 'political_forum_api.html'
+
+    def get(self, request,pk):
+        political = PoliticalForum.objects.get(pk=pk)
+        name = political.Name
+        synopsis = political.Synopsis
+        image = political.Image
+        Educational_Qualification = political.Educational_Qualification
+        Family_History = political.Family_History
+        projects_taken = political.Projects_Taken
+        video_link = political.video_link
+        poll = Polling.objects.get(Name=name)
+        polart = PoliticianArticle.objects.filter(Name=name)
+        print(polart)
+        dataSource = {}
+        dataSource = {  
+            "chart": {
+            "caption": "FeederFox-Media",
+            "xAxisName": "Month",
+            "yAxisName": "Percentage in (%)",
+            "numberSuffix": "%",
+            "showalternatehgridcolor": "0",
+            "plotgradientcolor": "",
+            "showplotborder": "0",
+            "showBorder": "0",
+            "borderColor": "#666666",
+            "borderThickness": "4",
+            "borderAlpha": "80",
+            "bgColor": "#DDDDDD",
+            "bgAlpha": "50",
+            "plotHoverEffect":"1",
+            "valuePadding": "5",
+            "theme": "fusion",
+          },
+          "data": [{
+            "label": "Yes",
+            "value": ((poll.Upvote/(poll.Upvote+poll.DownVote))*100),
+            "color": "#9D2125",
+          }, {
+            "label": "No",
+            "value": (poll.DownVote/(poll.Upvote+poll.DownVote))*100,
+            "color": "#000",
+          }]
+          }
+
+
+
+        column2D = FusionCharts("column2D", "ex1" , "550", "350", "chart-1", "json", dataSource)
+
+        dataSourc = {}
+        dataSourc = {
+        "chart": {
+        "caption": "FeederFox-Media",
+        "yaxisname": "Percentage (in %)",
+        "numbersuffix": " %",
+        "rotatelabels": "1",
+        "setadaptiveymin": "1",
+        "showalternatehgridcolor": "0",
+        "plotgradientcolor": "",
+        "showplotborder": "0",
+        "showBorder": "0",
+        "borderColor": "#666666",
+        "borderThickness": "4",
+        "borderAlpha": "80",
+        "bgColor": "#DDDDDD",
+        "bgAlpha": "50",
+        "plotHoverEffect":"1",
+        "valuePadding": "5",
+        "theme": "fusion",
+        },
+        "data": [
+        {
+          "label": 'April',
+          "value": ((poll.Upvote/(poll.Upvote+poll.DownVote))*100)
+        },
+        {
+          "label": "May",
+          "value": "80.0",
+        },
+        {
+          "label": "June",
+          "value": "86.5",
+        },
+        {
+          "label": "July",
+          "value": "81.5",
+        },
+        {
+          "label": "August",
+          "value": "76.5",
+        },
+        {
+          "label": "Sept",
+          "value": "89.5",
+        }
+
+        ]
+        }
+
+        chartObj = FusionCharts('line','ex2','600','350','chart-2','json',dataSourc)
+
+
+        
+        context = {'name':name,'synopsis':synopsis,'image':image,'Educational_Qualification':Educational_Qualification,'video_link':video_link,
+            'Family_History':Family_History,'projects_taken':projects_taken,'poll':poll,'output':column2D.render(),'polart':polart,
+                    'out':chartObj.render()}
+        #queryset = Profile.objects.all()
+        return Response(context)
+
+
+
+@api_view(['GET'])
+def politicalforumapi(request, pk):
+    try:
+        pol = PoliticalForum.objects.get(pk=pk)
+        print(pol)
+    except pol.DoesNotExist:
+        return Response(status=status.HTTP_404_NOT_FOUND)
+
+    if request.method == 'GET':
+        context = {
+            "request":request
+        }
+        politicianserializer = PoliticalForumSerializer(pol,context=context)    
+        poll = Polling.objects.get(Name=pol.Name)
+        pollserializer = PollingSerializer(poll,context=context)
+        polart = PoliticianArticle.objects.filter(Name=pol.Name)   
+        polartserializer = PoliticianArticleSerializer(polart,many=True,context=context) 
+        polsurvey = PoliticalSurvey.objects.filter(Name=pol.Name)
+        polsurveyserializer = PoliticalSurveySerializer(polsurvey,many=True,context=context)
+        response = {
+            'status':status.HTTP_200_OK,
+            'Polling':pollserializer.data,
+            'Politician_data':politicianserializer.data,
+            'Politician_Articles':polartserializer.data,
+            'Politician_Survey':polsurveyserializer.data,
+        }
+
+    return Response(response)    
+
+
+
+@api_view(['GET'])
+def politicalapi(request):
+    if request.method == 'GET':
+        context = {'request':request}
+        polforum = PoliticalForum.objects.all()
+        resp = {}
+        r = {}
+        l = []   
+        for i in polforum:
+            resp[i] = i
+            political = PoliticalForum.objects.get(Name = resp[i].Name)
+            politicalserializer = PoliticalForumAPISerializer(political,context=context)
+            poll = Polling.objects.get(Name=resp[i].Name)
+            pollserializer = PollingSerializer(poll,context=context)
+            polart = PoliticianArticle.objects.filter(Name=resp[i].Name)   
+            polartserializer = PoliticianArticleSerializer(polart,many=True,context=context) 
+            polsurvey = PoliticalSurvey.objects.filter(Name=resp[i].Name)
+            polsurveyserializer = PoliticalSurveySerializer(polsurvey,many=True,context=context)
+            resp1 = {}
+            resp1 = politicalserializer.data
+            resp1['Polling'] = pollserializer.data
+            resp1['Polling']['Like'] = (poll.Upvote/(poll.Upvote+poll.DownVote))*100
+            resp1['Polling']['Dislike'] = (poll.DownVote/(poll.Upvote+poll.DownVote))*100
+            resp1['Politician_Articles'] = polartserializer.data
+            resp1['Politician_Survey'] = polsurveyserializer.data
+            l1 = resp1
+            print(l1)
+            l.append(resp1)
+        re = {'Politician_data':l}    
+        return Response(re)
+
+
+
+class politicalvotingapi(APIView):
+    serializer_class = PoliticalVotingSerializer
+
+    def post(self,request,*args,**kwargs):
+        data = request.data
+        question_id = data['question_id']
+        opinion = data['opinion']
+        email = data['email']
+        print(question_id)
+        print(opinion)
+        print(email)
+        try:
+            poll = PoliticalSurvey.objects.get(pk=question_id)
+            print(poll)
+        except poll.DoesNotExist:
+            return Response(status=status.HTTP_404_NOT_FOUND)
+        name = poll.Name
+        print(name)
+        a = Polling.objects.get(Name=name)
+        print(a)
+        vote = Vote1.objects.all()
+        username = User.objects.get(email=email).username
+        print(username)
+        user = username
+        vo = Vote1.objects.filter(user = user,Poll_Question=poll.Poll_Question)
+        print(vo)
+        if not vo:
+            user = username
+            print(user)
+            v = Vote1.objects.create(user=user,Poll_Question=poll.Poll_Question)
+            v.save()
+            if opinion == '0':
+                a.DownVote += 1
+            elif opinion == '1':
+                a.Upvote += 1
+            a.save()
+            response = {
+                'status':1,
+                'detail':'Your Response has been Saved !!!',
+            }
+            return Response(response)        
+
+        resp = {
+            'status':0,
+            'detail':'We have already received your Response',
+        }
+        return Response(resp)
+
+# news = NewsPaper.objects.filter(name=name)
+#         print(news)
+#         newsserializer = NewsPaperSerializer(news,many=True,context=context)
+#         response = {
+#             'status': status.HTTP_200_OK,
+#             'PublisherDetails' : pubserializer.data,
+#         }
+#         print(response['PublisherDetails']['Sub_Edition'])
+#         response['PublisherDetails']['Sub_Edition'] = newsserializer.data
+#         return Response(response)
+
+
+@api_view(['GET'])
+def publishersapi(request):
+    if request.method == 'GET':
+        context = {'request':request}
+        pub_details = PublisherDetail.objects.filter(Type=1)
+        r = {}
+        l = []   
+        for i in pub_details:
+            news = NewsPaper.objects.filter(name=i.Name)
+            print(news)
+            print(len(news))
+            newsserializer = NewsPaperEditionSerializer(news,many=True,context=context)
+            if news:
+                pub = PublisherDetail.objects.get(Name = i.Name)
+                publisherserializer = PublisherDetailSerializer(pub,context=context) 
+                resp1 = {}
+                resp1 = publisherserializer.data
+                resp1['Edition_Count'] = len(news)
+                resp1['Sub_Edition'] = newsserializer.data
+                l.append(resp1)
+        re = {'Publisher_details':l}    
+        return Response(re)
+
+@login_required(login_url='/accounts/login/')
+def politicalcomment(request):
+    if request.method=='POST':
+        form = PoliticalCommentSystemForm(request.POST,request.FILES)
+        if form.is_valid():
+            a = form.save(commit=False)
+            a.user = request.user
+            a.save()
+            messages.success(request,'Comment has been Uploaded')
+
+    form = PoliticalCommentSystemForm()
+    return render(request,'politicalcomment.html',{'form':form})        
+
+
+
+class profileuploadapi(UpdateAPIView):
+    queryset = Profile.objects.filter(Account_type='2')
+    serializer_class = profileUploadSerializer
+
+    def post(self,request,*args,**kwargs):
+            data = request.data
+            user = data['user']
+            username = data['username']
+            email = data['email']
+            Company_Name = data['Company_Name']
+            Firstname = data['Firstname']
+            Lastname = data['Lastname']
+            Address = data['Address']
+            Mobile = data['Mobile']
+            password1 = data['password1']
+            password2 = data['password2']
+            Application_type = data['Application_type']
+            instance = self.get_object()
+            instance.username = request.data.get("username")
+            instance.save()
+            serializer = self.get_serializer(instance=instance,data=data)
+            if serializer.is_valid():
+                self.perform_update(serializer)
+                return Response({'detail':serializer.data})
+
+            return Response({'detail':"Error"})
+
+
+
+@api_view(['GET', 'POST'])
+def profile_updated(request):
+    context = {'request':request}
+    if request.method == 'GET':
+        profile = Profile.objects.filter(Account_type='2')
+        serializer = profileUploadSerializer(profile, many=True,context=context)
+        resp3 = serializer.data
+        profile_list = {'profile':resp3}
+        return Response(profile_list)
+
+    elif request.method == 'POST':
+        serializer = profileUploadSerializer(data=request.DATA)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        else:
+            return Response(
+                serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
+def newspapers_admin(request):
+    news = NewsPaperAdmin.objects.all()
+    return render(request,'view_newspapers_admin.html',{'news':news})
+
+def newspapers_uploadto_web(request,pk):
+    b = NewsPaperAdmin.objects.get(pk=pk)
+    newspap = NewsPaper.objects.filter(name=b.name,subedition=b.subedition)
+    newspap.delete()
+    newspaper = NewsPaper.objects.create(name=b.name,image=b.image,url=b.url,mainedition=b.mainedition,
+        subedition=b.subedition,user=b.user,Uploaded_at=b.Uploaded_at)    
+    messages.success(request,'NewsPaper has Successfully Uploaded to Website')
+    return redirect('content:newspapers_admin')  

@@ -5,7 +5,8 @@ from django.conf.urls.static import static
 from django.conf.urls import url,include
 from .views import (signup,publisher_list,customer_list,advertiser_list,post,add_publishers,edit_publishers,add_customers,customer_signup,
     view_post,advertiser_signup,edit_customers,add_advertisers,edit_advertisers,delete_publisher,delete_customer,delete_advertiser,deletearticle,
-    publisher_signup,delete_post,pubprofile,newspapers,magazine,pdf,politician_signup,articlesuploaded,uploadarticlestowebsite)
+    publisher_signup,delete_post,pubprofile,newspapers,magazine,pdf,politician_signup,articlesuploaded,
+    uploadarticlestowebsite,FacebookLogin)
 from django.contrib.auth import views as auth_views
 
 
@@ -39,6 +40,7 @@ urlpatterns = [
     url(r'^articlesuploaded/',articlesuploaded,name='articlesuploaded'),
     url(r'^(?P<pk>[\-\w]+)/uploadarticlestowebsite/',uploadarticlestowebsite,name='uploadarticlestowebsite'),
     url(r'^(?P<pk>[\-\w]+)/deletearticle/',deletearticle,name='deletearticle'),
+    url(r'^facebook/$', FacebookLogin.as_view(), name='fb_login')
 ]
 
 

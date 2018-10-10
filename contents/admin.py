@@ -1,8 +1,9 @@
 from django.contrib import admin
 from .forms import ArticleForm
-from .models import (NationalNewsChannel,RegionalNewsChannel,Magazine,SocialChannel,Ebook,RegionalNewsPaper,NationalNewsPaper,Article,Edition,
-NewsPaper,State,PublisherDetail,Main_Edition,Sub_Edition,PoliticalForum,Dummy,Article_upload,Revenue,ArticleReview,Month,PoliticianArticle,Polling,
-Vote,PoliticalSurvey)
+from .models import (NationalNewsChannel,RegionalNewsChannel,Magazine,SocialChannel,Ebook,RegionalNewsPaper,
+	NationalNewsPaper,Article,Edition,NewsPaper,State,PublisherDetail,Main_Edition,Sub_Edition,PoliticalForum,Dummy,
+	Article_upload,Revenue,ArticleReview,Month,PoliticianArticle,Polling,Vote,PoliticalSurvey,PoliticalPosition,
+	NewsChannel,EbookUpload,Vote1,PoliticalCommentSystem,NewsPaperAdmin)
 
 admin.site.register(RegionalNewsChannel)
 admin.site.register(NationalNewsChannel)
@@ -28,3 +29,9 @@ admin.site.register(PoliticianArticle)
 admin.site.register(Polling)
 admin.site.register(Vote)
 admin.site.register(PoliticalSurvey)
+admin.site.register(PoliticalPosition)
+admin.site.register(NewsChannel)
+admin.site.register(EbookUpload)
+admin.site.register(Vote1)
+admin.site.register(PoliticalCommentSystem)
+admin.site.register(NewsPaperAdmin)

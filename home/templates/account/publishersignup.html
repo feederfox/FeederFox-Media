@@ -259,7 +259,7 @@
 
   <h5 style="FONT-SIZE:25px; COLOR:#000000; LINE-HEIGHT:30px;"> If you already have Account Please <a href=" {% url 'accounts:login' %} ">Login</a>  </h5>
       <br/><br/>
-      <form class="signup" id="signup_form" method="post" action="" style="width:779px;padding-left: 302px;">
+      <form class="signup" id="signup_form" method="post" action="" enctype="multipart/form-data" style="width:779px;padding-left: 302px;">
                       
                       
                       {% csrf_token %}

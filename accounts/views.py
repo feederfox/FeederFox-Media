@@ -10,6 +10,11 @@ from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from contents.models import NewsPaper,Magazine,Article_upload,Article
+from allauth.socialaccount.providers.facebook.views import FacebookOAuth2Adapter
+from rest_auth.registration.views import SocialLoginView
+
+class FacebookLogin(SocialLoginView):
+    adapter_class = FacebookOAuth2Adapter
 
 
 def signup(request):
@@ -36,20 +41,20 @@ def signup(request):
 
 def publisher_signup(request):
     if request.method=='POST':
-        form = PublisherSignUpForm(request.POST)
+        form = PublisherSignUpForm(request.POST,request.FILES)
         if form.is_valid():
             user = form.save()
             user.refresh_from_db()
             user.profile.Account_type = 1
             user.profile.username = form.cleaned_data.get('username')
             user.profile.email = form.cleaned_data.get('email')
-            print(user.profile.Account_type)
-            # u = User.objects.filter(email=user.profile.email)
-            # if u is not None:
+            user.profile.Profile_Picture = form.cleaned_data.get('Profile_Picture')
+            user.profile.Mobile = form.cleaned_data.get('Mobile')
             user.save()
             raw_password = form.cleaned_data.get('password1')
             user = authenticate(username=user.username, password=raw_password)
             login(request, user)
+            messages.success(request,'Successfully Registered')
             return redirect('accounts:login')
     else:
         form = PublisherSignUpForm()
@@ -58,21 +63,20 @@ def publisher_signup(request):
 
 def customer_signup(request):
     if request.method=='POST':
-        form = CustomerSignUpForm(request.POST)
+        form = CustomerSignUpForm(request.POST,request.FILES)
         if form.is_valid():
             user = form.save()
             user.refresh_from_db()
             user.profile.Account_type = 2
             user.profile.username = form.cleaned_data.get('username')
             user.profile.email = form.cleaned_data.get('email')
-            print(user.profile.Account_type)
-            u = User.objects.filter(email=user.profile.email)
-            if u:
-                messages.error(request,'This Email is Already Registered')
+            user.profile.Profile_Picture = form.cleaned_data.get('Profile_Picture')
+            user.profile.Mobile = form.cleaned_data.get('Mobile')
             user.save()
             raw_password = form.cleaned_data.get('password1')
             user = authenticate(username=user.username, password=raw_password)
             login(request, user)
+            messages.success(request,'Successfully Registered')
             return redirect('accounts:login')
     else:
         form = CustomerSignUpForm()
@@ -82,22 +86,20 @@ def customer_signup(request):
 
 def advertiser_signup(request):
     if request.method=='POST':
-        form = AdvertiserSignUpForm(request.POST)
+        form = AdvertiserSignUpForm(request.POST,request.FILES)
         if form.is_valid():
             user = form.save()
             user.refresh_from_db()
             user.profile.Account_type = 3
             user.profile.username = form.cleaned_data.get('username')
             user.profile.email = form.cleaned_data.get('email')
-            print(user.profile.Account_type)
-            u = User.objects.filter(email=user.profile.email)
-            if u:
-                messages.error(request,'This Email is Already Registered')
+            user.profile.Profile_Picture = form.cleaned_data.get('Profile_Picture')
+            user.profile.Mobile = form.cleaned_data.get('Mobile')
             user.save()
-
             raw_password = form.cleaned_data.get('password1')
             user = authenticate(username=user.username, password=raw_password)
             login(request, user)
+            messages.success(request,'Successfully Registered')
             return redirect('accounts:login')
     else:
         form = AdvertiserSignUpForm()
@@ -105,20 +107,20 @@ def advertiser_signup(request):
 
 def politician_signup(request):
     if request.method=='POST':
-        form = PoliticianSignUpForm(request.POST)
+        form = PoliticianSignUpForm(request.POST,request.FILES)
         if form.is_valid():
             user = form.save()
             user.refresh_from_db()
             user.profile.Account_type = 4
             user.profile.username = form.cleaned_data.get('username')
             user.profile.email = form.cleaned_data.get('email')
-            print(user.profile.Account_type)
-            # u = User.objects.filter(email=user.profile.email)
-            # if u is not None:
+            user.profile.Profile_Picture = form.cleaned_data.get('Profile_Picture')
+            user.profile.Mobile = form.cleaned_data.get('Mobile')
             user.save()
             raw_password = form.cleaned_data.get('password1')
             user = authenticate(username=user.username, password=raw_password)
             login(request, user)
+            messages.success(request,'Successfully Registered')
             return redirect('accounts:login')
     else:
         form = PublisherSignUpForm()
@@ -396,7 +398,12 @@ def uploadarticlestowebsite(request,pk):
     title = art.title
     description = art.description
     image = art.image
-    a = Article.objects.create(title=title,image=image,description=description)
+    if art.url:
+        url = art.url
+    else:
+        url = ""    
+    author = art.Author
+    a = Article.objects.create(title=title,image=image,description=description,url=url,author=author)
     a.save()
     article = Article.objects.all()
     messages.success(request,'Article has Successfully Uploaded to Website')

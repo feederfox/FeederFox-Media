@@ -26,16 +26,27 @@ ADVERTISER_CHOICES = [
 
 class SignUpForm(UserCreationForm):
 	email = forms.EmailField()
-	Account_type = forms.ChoiceField(choices = ACCCOUNT_TYPES_CHOICES)
+	Profile_Picture = forms.ImageField()
+	Mobile = forms.IntegerField()
 	class Meta:
 		model = User
-		fields = ('username', 'email', 'password1', 'password2','Account_type' )
+		fields = ('username', 'email','Profile_Picture','Mobile', 'password1', 'password2')
+
+	def clean_email(self):
+		email = self.cleaned_data.get('email')
+		username = self.cleaned_data.get('username')
+		print (User.objects.filter(email=email).count())
+		if email and User.objects.filter(email=email).count() > 0:
+			raise forms.ValidationError(u'This email address is already registered.')
+		return email
 
 class PublisherSignUpForm(UserCreationForm):
 	email = forms.EmailField()
+	Profile_Picture = forms.ImageField()
+	Mobile = forms.IntegerField()
 	class Meta:
 		model = User
-		fields = ('username', 'email', 'password1', 'password2')
+		fields = ('username', 'email','Profile_Picture','Mobile', 'password1', 'password2')
 
 	def clean_email(self):
 		email = self.cleaned_data.get('email')
@@ -47,9 +58,11 @@ class PublisherSignUpForm(UserCreationForm):
 
 class AdvertiserSignUpForm(UserCreationForm):
 	email = forms.EmailField()
+	Profile_Picture = forms.ImageField()
+	Mobile = forms.IntegerField()
 	class Meta:
 		model = User
-		fields = ('username', 'email', 'password1', 'password2')
+		fields = ('username', 'email','Profile_Picture','Mobile', 'password1', 'password2')
 
 	def clean_email(self):
 		email = self.cleaned_data.get('email')
@@ -61,9 +74,11 @@ class AdvertiserSignUpForm(UserCreationForm):
 
 class CustomerSignUpForm(UserCreationForm):
 	email = forms.EmailField()
+	Profile_Picture = forms.ImageField()
+	Mobile = forms.IntegerField()
 	class Meta:
 		model = User
-		fields = ('username', 'email', 'password1', 'password2')
+		fields = ('username', 'email','Profile_Picture','Mobile', 'password1', 'password2')
 
 	def clean_email(self):
 		email = self.cleaned_data.get('email')
@@ -75,9 +90,11 @@ class CustomerSignUpForm(UserCreationForm):
 
 class PoliticianSignUpForm(UserCreationForm):
 	email = forms.EmailField()
+	Profile_Picture = forms.ImageField()
+	Mobile = forms.IntegerField()
 	class Meta:
 		model = User
-		fields = ('username', 'email', 'password1', 'password2')
+		fields = ('username', 'email','Profile_Picture','Mobile', 'password1', 'password2')
 
 	def clean_email(self):
 		email = self.cleaned_data.get('email')
@@ -152,4 +169,4 @@ class AdvertiserEditForm(forms.ModelForm):
 class MagazineForm(forms.ModelForm):
 	class Meta:
 		model = Magazines
-		fields = ('Publishing_House','Magazine_Name','Add_Thumbnail','Add_Magazine','Language','Category','Periodicity','Place')
+		fields = ('Publishing_House','Magazine_Name','Add_Thumbnail','Add_Magazine','Language','Category','Periodicity','State')

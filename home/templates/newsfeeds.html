@@ -1,0 +1,194 @@
+<!-- feederfoxnew/home/templates/publishersignup.html-->
+{% extends 'base.html' %} <!-- Add this for inheritance -->
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}Feederfox-Media {% endblock %}</title>
+</head>
+
+<body>
+{% block pagecontent %}
+{% include 'header1.html' %}
+
+
+    <div class="container">
+        <center><h1 style="font-family:Army Family;color:red;margin-top: 60px;">Feederfox Newsfeeds</h1></center>
+        <p  style="font-size: 23px;">Feederfox.com offers the ability to subscribe to feeds based on individual interests. If you’re a die-hard sports fan who doesn’t want to miss a beat, or a casual enthusiast who simply enjoys reading the headlines, then we recommend subscribing to some of the following feeds.
+
+        </p>
+        <hr>
+        <h3>{{ category }}</h3>
+        <div class="row">
+            {% for a in r %}
+            
+            <div class="col-md-6">
+              <h3>{{ a.title }} </h3>
+
+            <a href="{% url 'newsfeeds:newsfeedsdetail' a.id %}"><img src="{{ a.image.url }} " class="img-responsive" alt="product 1"></a>
+                <div>
+                    <p  style="font-size: 23px;">{{ a.description }} </p>
+                </div>
+            </div>
+            {% endfor %}
+            <br>
+
+                <div class="col-md-6">
+                    <br>
+                    <h3>Also Visit</h3>
+                    <ul class="list-group" style="border-width: 200px;">
+                        <li class="list-group-item"><a href="{% url 'newsfeeds:headlines' %}">Headlines/Breaking News</a></li>
+                        <li class="list-group-item"><a href="{% url 'newsfeeds:educational' %}">Education</a></li>
+                        <li class="list-group-item"><a href="{% url 'newsfeeds:entertainment' %}">Entertainment</a></li>
+                        <li class="list-group-item"><a href="{% url 'newsfeeds:business' %}">Business</a></li>
+                        <li class="list-group-item"><a href="{% url 'newsfeeds:sports' %}">Sports</a></li>
+                        <li class="list-group-item"><a href="{% url 'newsfeeds:lifestyle' %}">Lifestyle</a></li>
+                        <li class="list-group-item"><a href="{% url 'newsfeeds:world' %}">World/International</a></li>
+                        <li class="list-group-item"><a href="{% url 'newsfeeds:globalss' %}">Global</a></li>
+                    </ul>
+                </div>
+
+        </div>
+        <!-- end of row -->
+
+<hr/>
+
+
+        <div class="row">
+
+            <div class="col-md-6">
+              <h3>Educational</h3><br>
+                <!-- <a href="#"><img src="{% static 'dist/images/newsfeeds/a2.jpg' %}" style="height:405px;width:100%" class="img-responsive" alt="product 1"></a> -->
+
+                    <p  style="font-size: 23px;">IBPS RRB Office Assistant prelims scores 2018 discharged, here&#39;s the means
+by which to check</p>
+
+            </div>
+
+
+            <div class="col-md-6">
+              <h3>Entertainment</h3><br>
+                <!-- <a href="#"><img src="{% static 'dist/images/newsfeeds/a1.jpg' %}" style="height:405px;width:100%" class="img-responsive" alt="product 1"></a> -->
+
+                    <p  style="font-size: 23px;">Troll says Abhishek Bachchan should open vadapav slow down after
+Manmarziyaan, performing artist&#39;s reaction is nobility itself</p>
+
+            </div>
+
+
+        </div>
+
+
+
+
+<hr/>
+
+
+
+        <div class="row">
+
+            <div class="col-md-6">
+               <h3>Business</h3><br>
+                <a href="#"><img src="{% static 'dist/images/newsfeeds/a7.jpg' %}" style="height:405px;width:100%" class="img-responsive" alt="product 1"></a>
+
+                    <p  style="font-size: 23px;">Save Bank of India prone to raise loan costs one week from now to prop up
+withdrawing rupee: Poll</p>
+
+            </div>
+
+            <div class="col-md-6">
+              <h3>Sports</h3><br>
+                <a href="#"><img src="{% static 'dist/images/newsfeeds/a3.jpg' %}" style="height:405px;width:100%" class="img-responsive" alt="product 1"></a>
+
+                    <p style="font-size: 23px;">Virat Kohli, lifter Mirabai Chanu lounge in Khel Ratna brilliance</p>
+
+            </div>
+        </div>
+
+
+
+
+
+
+
+
+
+<hr/>
+
+
+
+        <div class="row">
+
+            <div class="col-md-6">
+               <h3>Lifestyle</h3><br>
+                <a href="#"><img src="{% static 'dist/images/newsfeeds/a5.jpg' %}"  style="height:405px;width:100%"class="img-responsive" alt="product 1"></a>
+
+                    <p  style="font-size: 23px;">Carbs are not the adversary. This examination says high carb eating regimen may prompt
+weight reduction.</p>
+
+            </div>
+
+            <div class="col-md-6">
+              <h3>Social</h3><br>
+                <!-- <a href="#"><img src="{% static 'dist/images/newsfeeds/a2.jpg' %}" style="height:405px;width:100%" class="img-responsive" alt="product 1"></a> -->
+
+                    <p  style="font-size: 23px;">IBPS RRB Office Assistant prelims scores 2018 discharged, here&#39;s the means
+by which to check</p>
+
+            </div>
+
+        </div>
+
+
+
+
+
+
+
+
+
+
+
+<hr/>
+
+
+
+
+
+
+
+        <div class="row">
+
+            <div class="col-md-6">
+               <h3>World/International</h3><br>
+                <a href="#"><img src="{% static 'dist/images/newsfeeds/a4.jpg' %}"  style="height:405px;width:100%"class="img-responsive" alt="product 1"></a>
+
+                    <p  style="font-size: 23px;">India, society of more than billion individuals, lifting individuals out of
+neediness, says US President Donald Trump</p>
+
+            </div>
+
+<!--                 <div class="col-md-6">
+                    <h3>Popular Post</h3>
+                    <hr>
+                    <ul style="list-style-type:square">
+                        <li><a href="">Indian then raced to victory through elegant batting</a></li>
+                        <li><a href="">Indian then raced to victory through elegant batting</a></li>
+                        <li><a href="">Indian then raced to victory through elegant batting</a></li>
+                        <li><a href="">Indian then raced to victory through elegant batting</a></li>
+
+                        <li><a href="">Indian then raced to victory through elegant batting</a></li>
+                        <li><a href="">Indian then raced to victory through elegant batting</a></li>
+                        <li><a href="">Indian then raced to victory through elegant batting</a></li>
+                    </ul>
+
+                </div> -->
+
+            </div>
+    </div>
+<!-- end-container -->
+{% include 'footer.html' %}
+{% endblock %}
+</body>
+</html>

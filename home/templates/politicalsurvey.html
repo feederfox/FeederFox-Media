@@ -1,0 +1,153 @@
+{% extends 'base.html' %} <!-- Add this for inheritance -->
+{% load static %}
+<!doctype html>
+<html>
+<head>
+  <head>
+  </head>
+</head>
+
+{% block pagecontent %} 
+
+<body>
+ <!--header starts here -->
+ <header class="header-two-bars">
+   <div class="header-first-bar">
+    <div id="weather-frame" class="container">
+     <div id="upper-detail">
+      <div id="city-name"></div>
+    </div>
+    <div id="lower-detail">
+      <div class="row">
+       <div id="temp" class="col-xs-6">
+       </div>
+     </div>
+   </div>
+ </div>
+ <div class="header-limiter">
+   <h1><a href="{% url 'home' %} "><img src="{% static 'dist/images/logos/logo.png' %}" class="img-responsive header_img"></a></h1>
+   <nav style="margin-top:10px;margin-left:650px;">
+    <a href="{% url 'publisherpage' %}">Publisher</a>
+    <a href="{% url 'customerpage' %}">Customer</a>
+    <a href="{% url 'advertiserpage' %}">Advertiser</a>
+  </nav>
+  <a href="{% url 'accounts:login' %}" class="logout-button" style="margin-top:10px;">Login</a>
+</div>
+</div>
+</header>
+<!-- header ends here -->
+<br>
+<div class="container">
+<h2 style="text-align: center;">Political Survey of {{ name }} </h2>
+<br>
+<div class="box1 box-1">
+<div class="row">
+  <div class="col-md-4"></div>
+  <div class="col-md-4">
+    {% if messages %}
+<ul class="messages">
+  {% for message in messages %}
+  <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+  {% endfor %}
+</ul>
+{% endif %}
+
+{% for poll in polsurvey %}
+
+<h4> {{ forloop.counter }}. {{ poll.Poll_Question }} ?</h4>
+
+<div class="row">
+ <div class="col-md-5">
+  <a href="{% url 'content:upvote' poll.id %} " data-toggle="tooltip" title="Yes"><i class="fa fa-thumbs-up fa-4x" aria-hidden="true" style="color:green;margin-right:10px;"></i></a>
+  <a href="{% url 'content:downvote' poll.id %} " data-toggle="tooltip" title="No"><i class="fa fa-thumbs-down fa-4x" aria-hidden="true" style="color:red;"></i></a>
+</div>
+</div>
+
+<br><br>
+{% endfor %}
+<a href="{% url 'dashboard' %} "><button class="btn btn-default" style="background-color: #8E5959;"> Thank You</button></a>
+<br><br>
+  </div>
+  </div>
+  </div>
+</div>
+
+
+<div class="bg-footer">
+ <!-- footer -->
+ <div class="footer">
+  <div class="container">
+   <div class="row ">
+    <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" style="margin-top:-47px;">
+     <div class="ft-logo"><img src="{% static 'dist/images/only_logo.png' %}" alt="" style="width:136px;height:87px;"></div>
+   </div>
+ </div>
+ <hr class="footer-line">
+ <div class="row" style="margin-top:-20px;">
+  <!-- footer-about -->
+  <div class="col-xl-3 col-lg-3 col-md-4 col-sm-6 col-6 ">
+   <div class="footer-widget">
+    <div class="footer-title">Company</div>
+    <ul class="list-unstyled">
+     <li><a href="{% url 'about' %}" class="footer_links" target="_blank">About</a></li>
+     <li><a href="#" class="footer_links">Careers</a></li>
+     <li><a href="{% url 'privacy' %}" class="footer_links" target="_blank">Legal & Privacy</a></li>
+   </ul>
+ </div>
+</div>
+<!-- /.footer-about -->
+<!-- footer-links -->
+<div class="col-xl-3 col-lg-3 col-md-4 col-sm-6 col-6 ">
+ <div class="footer-widget ">
+  <div class="footer-title">Quick Links</div>
+  <ul class="list-unstyled">
+   <li><a href="#" class="footer_links">News</a></li>
+   <li><a href="{% url 'contact' %}" class="footer_links" target="_blank">Contact us</a></li>
+   <li><a href="{% url 'faq' %}" class="footer_links" target="_blank">FAQ</a></li>
+ </ul>
+</div>
+</div>
+<!-- /.footer-links -->
+<!-- footer-links -->
+<div class="col-xl-3 col-lg-3 col-md-4 col-sm-6 col-6 ">
+ <div class="footer-widget ">
+  <div class="footer-title">Social</div>
+  <ul class="list-unstyled">
+   <li><a href=" https://twitter.com/FeederfoxMedia" class="footer_links">Twitter</a></li>
+   <li><a href="https://plus.google.com/u/0/101427838675064638174" class="footer_links">Google +</a></li>
+   <li><a href="https://www.instagram.com/feederfoxmedia/" class="footer_links">Instagram</a></li>
+   <li><a href="https://www.facebook.com/FeederFoxMedia/" class="footer_links">Facebook</a></li>
+ </ul>
+</div>
+</div>
+<!-- /.footer-links -->
+<!-- footer-links -->
+<div class="col-xl-3 col-lg-3 col-md-12 col-sm-6 col-6 ">
+ <div class="footer-widget ">
+  <h3 class="footer-title">Subscribe Newsletter</h3>
+  <form>
+   <div class="newsletter-form">
+    <input class="form-control" placeholder="Enter Your Email address" type="text">
+    <button class="btn btn-sm btn-footer" type="submit" style="margin-top:12px;">Go</button>
+  </div>
+</form>
+</div>
+</div>
+<!-- /.footer-links -->
+<!-- tiny-footer -->
+</div>
+<div class="row ">
+  <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 text-center ">
+   <div class="tiny-footer">
+    <p class="footer_para">Copyright © All Rights Reserved 2018 | Design & Development by <a href="# " class="copyrightlink">Feederfox</a></p>
+  </div>
+</div>
+<!-- /. tiny-footer -->
+</div>
+</div>
+</div>
+<!-- /.footer -->
+{% endblock %}
+</body>
+
+</html>

@@ -68,6 +68,31 @@ max-width:1041px;
 }
 
 }
-  
-@media screen and (max-width: 600px) {
+
+
+/*responsive code for political forum page*/
+/*
+@media only screen and (max-width: 600px) {
+  .ft-cards-2 .ft-card-item {
+    height: auto;
 }
+
+} 
+
+@media only screen and (min-width: 600px) {
+    .ft-cards-2 .ft-card-item {
+    height: auto;
+}
+}
+
+@media only screen and (min-width: 768px) {
+    .ft-cards-2 .ft-card-item {
+    height: auto;
+}
+}
+
+@media only screen and (max-width: 768px) {
+    .ft-cards-2 .ft-card-item {
+    height: auto;
+}
+}*/

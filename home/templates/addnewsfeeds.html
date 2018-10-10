@@ -1,0 +1,22 @@
+    
+    {% extends "base.html" %}
+    {% load crispy_forms_tags %}
+    {% load widget_tweaks %}
+    {% block pagecontent %}
+    {% include "header1.html" %} 
+    <div class="container">
+
+        <h3>Upload Newsfeeds</h3>
+        <hr>
+        <form  method="POST"  enctype="multipart/form-data">  
+                {% csrf_token %}  
+                {{ form|crispy }}  
+                <button type="submit" class="save btn btn-danger">Save</button>  
+        </form> 
+    </div> 
+
+    {% include 'footer.html' %}
+    {% endblock %}
+    
+    
+

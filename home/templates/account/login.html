@@ -271,6 +271,11 @@
   <a class="button secondaryAction" href=" {% url 'account_reset_password' %} "> Forgot Password</a>
   <button class="primaryAction" type="submit">Sign In</button>
 </form>
+<p><strong>-- OR --</strong></p>
+  <a href="{% url 'social:begin' 'github' %}">Login with GitHub</a><br>
+  <a href="{% url 'social:begin' 'facebook' %}">Login with Facebook</a><br>
+  <a href="{% url 'social:begin' 'google-oauth2' %}">Login with Google+</a>
+  <div id="google-plus-button">Google+ Sign In</div>
 
 </div>  
 

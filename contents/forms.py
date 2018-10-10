@@ -1,6 +1,7 @@
 from django import forms
-from .models import PublisherDetail,Article,State,Main_Edition,Edition,State,PoliticalForum,Article_upload,PoliticianArticle,Polling
-from accounts.models import Post
+from .models import (PublisherDetail,Article,State,Main_Edition,Edition,State,Article_upload,PoliticalForum,
+	PoliticianArticle,Polling,NewsChannel,EbookUpload,PoliticalCommentSystem)
+from accounts.models import Post,Magazines
 
 class PublisherDetailsForm(forms.ModelForm):
 	class Meta:
@@ -82,6 +83,12 @@ class UploadContentForm(forms.ModelForm):
 		fields = ('Type','Add_PDF','Periodicity','Number_of_Editions','Sub_Editions','Uploading_By')
 		
 
+class UploadMagazineForm(forms.ModelForm):
+	class Meta:
+		model = Magazines
+		fields = ('Add_Magazine','Category','Periodicity')
+
+
 class MainEditionForm(forms.ModelForm):
 	class Meta:
 		model = Main_Edition
@@ -103,7 +110,6 @@ class PoliticalForumForm(forms.ModelForm):
 	class Meta:
 		model = PoliticalForum
 		fields = '__all__'
-		exclude = ('vote_score','num_vote_up','num_vote_down',)		
 
 class ArticleUploadForm(forms.ModelForm):
 	description = forms.CharField(widget=forms.Textarea)
@@ -120,4 +126,19 @@ class PoliticainArticleForm(forms.ModelForm):
 class PollingForm(forms.ModelForm):
 	class Meta:
 		model = Polling
-		fields = ('Name','Month','Poll_Question')		
+		fields = ('Name','Month')		
+
+class NewsChannelForm(forms.ModelForm):
+	class Meta:
+		model = NewsChannel
+		fields = '__all__'		
+
+class EbookUploadForm(forms.ModelForm):
+	class Meta:
+		model = EbookUpload
+		fields = '__all__'		
+
+class PoliticalCommentSystemForm(forms.ModelForm):
+	class Meta:
+		model = PoliticalCommentSystem
+		exclude = ('user','uploaded_on',)

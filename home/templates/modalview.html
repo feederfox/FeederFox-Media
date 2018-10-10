@@ -34,7 +34,21 @@
 </div>
 </div>
 
+
 <br><br><br>
+
+<div class="row">
+                     <h3 style="padding:10px;"><strong>{{ polart.Title }} </strong></h3>
+                     <div class="col-md-3">
+                           <img src="{{ polart.Image.url }} " alt="Avatar" style="width:250px;height:250px;">
+                     </div>
+                     <div class="col-md-9">
+                        <p class="politcs-artcle">{{ polart.Description }} </p>
+                     </div>
+                     </div>
+
+                  <br><br><br><br><br>
+
 <div style="margin-left: 20px">
   <div class="row">
    <div class="col-md-12">
@@ -42,18 +56,21 @@
     <a href="{% url 'content:politicalsurvey' poll.id %} "><button class="btn btn-default" style="background-color: #8E5959;">Take Survey</button></a>
   </div>
   </div>
-  <!-- <div class="row">
-   <div class="col-md-2">
-    <a href="{% url 'content:upvote' poll.id %} " data-toggle="tooltip" title="Yes"><i class="fa fa-thumbs-up fa-4x" aria-hidden="true" style="color:green;"></i></a>
-    <a href="{% url 'content:downvote' poll.id %} " data-toggle="tooltip" title="No"><i class="fa fa-thumbs-down fa-4x" aria-hidden="true" style="color:orange;"></i></a>
-  </div>
-  </div> -->
+  
   </div>
 
 <br><br><br>
 
+<div class="row">
+<div style="margin-left: 10px" id="chart-1">{{ output|safe }}</div>
+</div>
+<br><br>
 
-  <div style="margin-left: 20px" id="chart-1" >{{ output|safe }}</div>
+<div class="row">
+<div style="" id="chart-2">{{ out|safe }}</div>
+</div>
+<br><br><br>
+
 
         <div class="modal-footer">
           <a href="{% url 'home' %}"><button type="button" class="btn btn-default" data-dismiss="modal">Close</button></a>

@@ -1,6 +1,5 @@
 {% extends 'base.html' %} <!-- Add this for inheritance -->
 {% load static %}
-{% load poll_tags %}
 <!-- bse scrolling bar ends here -->
 
 {% block pagecontent %}
@@ -1099,112 +1098,28 @@ geography, cautions countries against China&#39;s aid. </a>
 <br>
 
 
-<!--Start of Social Channels-->
-<!-- <div class="container">
-<h2 class="social_channels"><strong>Social Channels</strong></h2>
-<div class="row wow animated fadeInDown">
-  <div class="col-md-10">
-     <div class="accordion">
-  <ul>
-    <li tabindex="1">
-      <div>
-        <a href="#">
-          <h2>Social Channels</h2>
-          <p>Coming Soon!</p>
-        </a>
-      </div>
-    </li>
-    <li tabindex="2">
-      <div>
-        <a href="#">
-          <h2>Social Channels</h2>
-          <p>Coming Soon!</p>
-        </a>
-      </div>
-    </li>
-    <li tabindex="3">
-      <div>
-        <a href="#">
-          <h2>Social Channels</h2>
-          <p>Coming Soon!</p>
-        </a>
-      </div>
-    </li>
-    <li tabindex="4">
-      <div>
-        <a href="#">
-          <h2>Social Channels</h2>
-          <p>Coming Soon!</p>
-        </a>
-      </div>
-    </li>
-    <li tabindex="5">
-      <div>
-        <a href="#">
-          <h2>Social Channels</h2>
-          <p>Coming Soon!</p>
-        </a>
-      </div>
-    </li>
-    <li tabindex="6">
-      <div>
-        <a href="#">
-          <h2>Social Channels</h2>
-          <p>Coming Soon!</p>
-        </a>
-      </div>
-    </li>
-  </ul>
-</div>
-  </div>
-
-  <div class="col-md-2">
-    <div class="card_ad card-5">
-    <img src="dist/images/ads/HG.jpg" alt="Alt" style="width:100%;height:247px;">
-  </div>
-  </div>
-  </div>
-
-</div> -->
-<!--End of Social Channels-->
-
-<!--<div class="container">-->
-<!--<img src="static/dist/images/ads/kidscamp_mainbanner-800x360.jpg" alt="Alt" style="height:120px;width:60%;margin-left:262px;">-->
-<!--</div>-->
-
 
 
 <!--Ebooks-->
-<div class="container ebook-respnsive">
-  <h2 class="section_heading"><strong>E-books</strong></h2>
-  <div class="row">
-    <div class="col-md-12">
-        <section>
-         <div class="stage">
-          <div class="cbImage"><img src='static/dist/images/ebooks/e-books.jpg' alt="Alt" /></div>
-          <div class="cbImage"><img src='static/dist/images/ebooks/e-books.jpg' alt="Alt" /></div>
-          <div class="cbImage"><img src='static/dist/images/ebooks/e-books.jpg' alt="Alt" /></div>
-          <div class="cbImage"><img src='static/dist/images/ebooks/e-books.jpg' alt="Alt" /></div>
-          <div class="cbImage"><img src='static/dist/images/ebooks/e-books.jpg' alt="Alt" /></div>
-          <div class="cbImage active"><img src='static/dist/images/ebooks/e-books.jpg' alt="Alt" /></div>
-          <div class="cbImage"><img src='static/dist/images/ebooks/e-books.jpg' alt="Alt" /></div>
-          <div class="cbImage"><img src='static/dist/images/ebooks/e-books.jpg' alt="Alt" /></div>
-          <div class="cbImage"><img src='static/dist/images/ebooks/e-books.jpg' alt="Alt" /></div>
-          <div class="cbImage"><img src='static/dist/images/ebooks/e-books.jpg' alt="Alt" /></div>
-          <div class="cbImage"><img src='static/dist/images/ebooks/e-books.jpg' alt="Alt" /></div>
-          <div class="clear"></div>
-        </div>
-          <div class="clear"></div>
-          <div class="controls">
-            <div class="cbcontrol" id="cbControlRight"><</div>
-            <div class="cbcontrol" id="cbControlLeft">></div>
-            <div class="clear"></div>
-          </div>
-        </section>
-    </div>
-  </div>
 
-</div>
+<div class="container ebook-respnsive">
+        <h2 class="section_heading" id="linkebooks"><strong>E-books</strong></h2>
+        <div class="container">
+        <section class="customer-logos slider">
+          {% for e in ebook %}
+        <a href="{% url 'content:viewebook' e.id %} "><div class="slide"><img src="{{ e.image.url }} "></div></a>
+        <div class="slide"><img src="static/dist/images/ebooks/e-books.jpg"></div>
+        <div class="slide"><img src="static/dist/images/ebooks/e-books.jpg"></div>
+        <div class="slide"><img src="static/dist/images/ebooks/e-books.jpg"></div>
+        <div class="slide"><img src="static/dist/images/ebooks/e-books.jpg"></div>
+        <div class="slide"><img src="static/dist/images/ebooks/e-books.jpg"></div>
+        <div class="slide"><img src="static/dist/images/ebooks/e-books.jpg"></div>
+        <div class="slide"><img src="static/dist/images/ebooks/e-books.jpg"></div>
+        {% endfor %}
+        </section>
+        </div>
+     </div>
+
 <br>
 <!--Ebooks ends here-->
 
@@ -1250,7 +1165,7 @@ geography, cautions countries against China&#39;s aid. </a>
   <div class="articles_bg box-artcl effect5">
    <div class="row">
     <div id="content">
-      {% for article in articles %}
+      {% for article in articles|slice:":3" %}
      <div class="col-md-3">
        <div class="container1">
          <div class="flipper">

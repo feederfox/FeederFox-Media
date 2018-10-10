@@ -16,20 +16,29 @@ ACCOUNT_CHOICES = [
     ('2','IOS'),
 ]
 
+
+LOGIN_CHOICES = [
+    ('0','Normal'),
+    ('1','Facebook'),
+    ('2','GooglePlus'),
+]
+
+
 class Profile(models.Model):
     user = models.OneToOneField(User, on_delete = models.CASCADE,null=True)
     username = models.CharField(max_length=100)
-    email = models.EmailField(unique=True)
+    email = models.EmailField()
     Account_type = models.CharField(max_length=100,choices=ACCCOUNT_TYPES_CHOICES)
     Company_Name = models.CharField(max_length=100,blank=True,null=True)
     Firstname = models.CharField(max_length=100,blank=True,null=True)
     Lastname = models.CharField(max_length=100,blank=True,null=True)
     Address = models.CharField(max_length=1000,blank=True,null=True)
-    Mobile = models.CharField(max_length=100,blank=True,null=True)
+    Mobile = models.IntegerField(blank=True,null=True)
     password1 = models.CharField(max_length=100)
     password2 = models.CharField(max_length=100)
     Application_type = models.CharField(max_length=100,choices=ACCOUNT_CHOICES,null=True)
-
+    Profile_Picture = models.ImageField(upload_to='Profiles/',blank=True,null=True)
+    Social_login = models.CharField(max_length=100,choices=LOGIN_CHOICES,null=True)
 
     def __str__(self):
         return str(self.user)
@@ -114,7 +123,8 @@ class Magazines(models.Model):
     Category = models.CharField(max_length=100,choices=CATEGORY_CHOICES)
     user = models.ForeignKey(User,null=True,on_delete=models.CASCADE)
     Periodicity = models.CharField(max_length=100,choices=PERIODICITY_CHOICES)
-    Place = models.CharField(max_length=400)
+    State = models.CharField(max_length=400)
+    Uploaded_at = models.CharField(max_length=100)
 
     def __str__(self):
         return str(self.Magazine_Name)

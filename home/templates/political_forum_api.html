@@ -1,0 +1,100 @@
+{% extends 'base.html' %} <!-- Add this for inheritance -->
+{% load static %}
+<!doctype html>
+<html>
+<head>
+  <head>
+  </head>
+</head>
+
+{% block pagecontent %} 
+
+<body>
+ <!--header starts here -->
+<!-- header ends here -->
+<br>
+
+<h1 class="text-center text-primary">{{ name }} </h1>
+<div class="container">
+ <div class="row">
+  <div class="col-md-6">
+    <img class="center-block img-responsive" src="{{ image.url }}" style="width:100%;height:300px;">
+  </div>
+  <div class="col-md-6">
+    <p class="politcs-desc"><strong>Name</strong>: {{ name }} </p>
+    <p class="politcs-desc"><strong>Projects Taken</strong>: </p>
+    <p class="politcs-desc"><strong>Education Qualification</strong>:{{ Educational_Qualification }} </p>
+    <p class="politcs-desc"><strong>Family History</strong>: {{ Family_History }}</p>
+  </div>
+</div>
+</div>
+<br>
+<div class="container">
+  <div class="row">
+    <div class="col-md-12">
+       <h3><strong>Overview of {{ name }} </strong></h3>
+      <p class="politcs-desc-modal">{{ synopsis }} </p>
+    </div>
+  </div>
+</div>
+<div class="container-fluid">
+  <br>
+  <div class="container">
+   <div class="row">
+    <div class="col-md-6">
+     <iframe width="1220" height="400" src="{{ video_link }}" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+   </div>
+ </div>
+</div>
+<br>
+</div>
+<br>
+<div id="services" class="gray-bg">
+  <section class="container section ft-cards-2">
+    <header class="sec-heading">
+      <h2>{{ name }} Articles</h2>
+    </header>
+    {% for p in polart %}
+    <div class="row">
+      <div class="col-md-12">
+        <div class="ft-card-item wow fadeInUp" data-wow-duration="1.2s">
+          <img src="{{ p.Image.url }} " alt="Travel Portal Development" height="255">
+          <div class="ft-content">
+            <h5><strong>{{ p.Title }} </strong></h5>
+            <p class="politcs-desc">{{ p.Description }}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+    {% endfor %}
+  </section>
+</div>
+<br>
+
+
+<div class="container">
+  <div class="row">
+   <div class="col-md-12">
+    <p class="politcs-ques"><strong>Survey of {{ name }} </strong></p>
+    <a target="_blank" href="{% url 'content:politicalsurvey' poll.id %}"><button class="btn btn-default" style="background-color: #8E5959;">Take Survey</button></a>
+  </div>
+  </div>
+<br>
+
+<div class="row">
+  <div class="col-md-6">
+      <div style="margin-left: 10px" id="chart-1">{{ output|safe }}</div>
+  </div>
+  <div class="col-md-6">
+     <div style="" id="chart-2">{{ out|safe }}</div>
+  </div>
+</div>
+<br><br>
+</div>
+<br><br><br>
+
+
+{% endblock %}
+</body>
+
+</html>

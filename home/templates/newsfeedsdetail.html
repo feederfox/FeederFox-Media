@@ -1,0 +1,120 @@
+{% extends 'base.html' %} <!-- Add this for inheritance -->
+{% load static %}
+<!doctype html>
+<html>
+<head>
+</head>
+
+<body>
+{% block pagecontent %} 
+
+
+<div class="container">
+  <center><h2>NewsFeeds</h2></center>
+  <hr>
+  <div class="row">
+    <div class="col-md-8 col-xs-8 col-sm-8 col-lg-8">
+<div class="card12">
+   <h4><b>{{ r.title }}</b></h4> 
+  <img src="{% static 'dist/images/pexels-photo-327533.jpeg' %}" alt=" " style="height:250px;width: 100%; ">
+  <div class="container12">
+   
+    <p>{{ r.description }}</p> 
+  </div>
+</div>
+</div>
+<div class="col-md-4 col-xs-4 col-sm-4 col-lg-4">
+
+<div class='wrapper12'>
+  <a href='http://www.idblanter.com' title='Dunia Blanter'>
+    <img src="{{ r.image.url }}" alt="" style="width:136px;height:87px;">
+  </a>
+  <br/>
+<div class="related-post12" id="related-post">
+  <h4>
+    <i class="fa fa-bookmark">
+      
+    </i> 
+    Related Post
+  </h4>
+  <ul class="related-post-style-3">
+    <li class="related-post-item" tabindex="0">
+      <a class="related-post-item-title" href="http://www.idblanter.com/2017/02/masign-magz-premium-responsive-blogger-template.html">
+        <img alt="thumbnail" class="related-post-item-thumbnail" src="https://1.bp.blogspot.com/-vIq3PuBjslE/WKTuY9nkFaI/AAAAAAAAFis/zQUE7b7aGCgLU7PZZajWsGym0KeXGeduQCLcB/s310/Masign%2BMagz.png" width="300" height="300" title="Masign Magz Premium Material Design Colored Blogger Template">
+      </a>
+      <div class="related-post-item-tooltip">
+        <a class="related-post-item-title" title="Masign Magz Premium Material Design Colored Blogger Template" href="http://www.idblanter.com/2017/02/masign-magz-premium-responsive-blogger-template.html">Masign Magz Premium Material Design Colored Blogger Template</a>
+      </div>
+      <span style="display:block;clear:both;"></span>
+    </li>
+    <li class="related-post-item" tabindex="0">
+      <a class="related-post-item-title" href="http://www.idblanter.com/2016/08/masign-view-premium-responsive-blogger-template.html">
+        <img alt="thumbnail" class="related-post-item-thumbnail" src="https://1.bp.blogspot.com/-UF2ZFNW5Tac/V6Hl9Eo1YZI/AAAAAAAAEY4/qFg0N2hJvF4IDlh82nW1vLTgw2wAoTrQgCLcB/s310/Masign%2BView.png" width="300" height="300" title="Masign View Premium Material Design Blogger Template">
+      </a>
+      <div class="related-post-item-tooltip">
+        <a class="related-post-item-title" title="Masign View Premium Material Design Blogger Template" href="http://www.idblanter.com/2016/08/masign-view-premium-responsive-blogger-template.html">Masign View Premium Material Design Blogger Template</a>
+      </div>
+      <span style="display:block;clear:both;"></span>
+    </li>
+    <li class="related-post-item" tabindex="0">
+      <a class="related-post-item-title" href="http://www.idblanter.com/2016/05/masign-grid-premium-responsive-blogger-template.html">
+        <img alt="thumbnail" class="related-post-item-thumbnail" src="https://2.bp.blogspot.com/-0T8HGQvLaLY/V0WPwFVnTTI/AAAAAAAAD88/GR45XjHThSkPnSDUZyChEJKnU_0ka77mQCLcB/s310/Masign%2BGrid%2BBlogger%2BTemplate.png" width="300" height="300" title="Masign Grid Premium Material Design Blogger Template">
+      </a>
+      <div class="related-post-item-tooltip">
+        <a class="related-post-item-title" title="Masign Grid Premium Material Design Blogger Template" href="http://www.idblanter.com/2016/05/masign-grid-premium-responsive-blogger-template.html">Masign Grid Premium Material Design Blogger Template
+        </a>
+      </div>
+      <span style="display:block;clear:both;"></span>
+    </li>
+    <li class="related-post-item" tabindex="0">
+      <a class="related-post-item-title" href="http://www.idblanter.com/2016/07/masign-simple-responsive-blogger-template.html">
+        <img alt="thumbnail" class="related-post-item-thumbnail" src="https://2.bp.blogspot.com/--GCobNXH1J4/V4mggyqbdnI/AAAAAAAAESg/HEqjnQiPMm4z0FUy7oMDoPIgjbDCarzWACEw/s310/Masign%2BSimple.png" width="300" height="300" title="Masign Simple Responsive Material Design Blogger Template">
+      </a>
+      <div class="related-post-item-tooltip">
+        <a class="related-post-item-title" title="Masign Simple Responsive Material Design Blogger Template" href="http://www.idblanter.com/2016/07/masign-simple-responsive-blogger-template.html">Masign Simple Responsive Material Design Blogger Template</a>
+      </div>
+      <span style="display:block;clear:both;"></span>
+    </li>
+    <li class="related-post-item" tabindex="0">
+      <a class="related-post-item-title" href="http://www.idblanter.com/2016/06/masign-free-responsive-blogger-template.html">
+        <img alt="thumbnail" class="related-post-item-thumbnail" src="https://2.bp.blogspot.com/-bLItMqv6t7I/V1eznr1SK1I/AAAAAAAAEEs/S23c-h_unNEAfo9fCxeVs9UgU4xGzsOQgCKgB/s310/Masign%2BFree%2BMaterial%2BDesign%2B2016.png" width="300" height="300" title="Masign Free Responsive Material Design Blogger Template">
+      </a>
+      <div class="related-post-item-tooltip">
+        <a class="related-post-item-title" title="Masign Free Responsive Material Design Blogger Template" href="http://www.idblanter.com/2016/06/masign-free-responsive-blogger-template.html">Masign Free Responsive Material Design Blogger Template</a>
+      </div>
+      <span style="display:block;clear:both;"></span>
+    </li>
+    <li class="related-post-item" tabindex="0">
+      <a class="related-post-item-title" href="http://www.idblanter.com/2016/01/ageka-dark-responsive-blogger-template.html">
+        <img alt="thumbnail" class="related-post-item-thumbnail" src="https://1.bp.blogspot.com/-06tHMIeVyVQ/VpmyJICOd_I/AAAAAAAADUc/qHmJ-Jy7nt0/s310/AgekaDarkBloggerTemplate.jpg" width="300" height="300" title="Ageka Dark Responsive Blogger Template">
+      </a>
+      <div class="related-post-item-tooltip">
+        <a class="related-post-item-title" title="Ageka Dark Responsive Blogger Template" href="http://www.idblanter.com/2016/01/ageka-dark-responsive-blogger-template.html">Ageka Dark Responsive Blogger Template</a>
+      </div>
+      <span style="display:block;clear:both;"></span>
+    </li>
+  </ul>
+  <span style="display:block;clear:both;"></span>
+</div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+</div>
+</div>
+</div>
+
+
+{% endblock %}
+</body>
+
+</html>
