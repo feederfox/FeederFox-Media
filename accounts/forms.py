@@ -170,3 +170,8 @@ class MagazineForm(forms.ModelForm):
 	class Meta:
 		model = Magazines
 		fields = ('Publishing_House','Magazine_Name','Add_Thumbnail','Add_Magazine','Language','Category','Periodicity','State')
+
+class ProfileEditForm(forms.ModelForm):
+	class Meta:
+		model = Profile
+		fields = ('Firstname','Lastname','Profile_Picture','Mobile','Address')		

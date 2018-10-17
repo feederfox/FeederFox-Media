@@ -25,6 +25,9 @@ urlpatterns = [
     url(r'^publisherpage/',views.publisherpage,name='publisherpage'),
     url(r'^customerpage/',views.customerpage,name='customerpage'),
     url(r'^advertiserpage/',views.advertiserpage,name='advertiserpage'),
-
-
+    url(r'^articlePage/',views.articlePage,name='articlePage'),
+    url(r'^ebooksviewall/',views.ebooksviewall,name='ebooksview'),
+    url(r'^consultingpage/',views.consultingpage,name='consultingpage'),
+    url(r'^careerspage/',views.careers1,name='careers1'),
+    url(r'^comingSoon/',views.comingSoon,name='comingSoon'),
 ]

@@ -127,6 +127,12 @@ REST_AUTH_SERIALIZERS = {
         'contents.serializers.ForgotPasswordSerializer',
 }
 
+
+REST_FRAMEWORK = {
+    'DEFAULT_PAGINATION_CLASS': 'contents.pagination.CustomPagination',
+    'PAGE_SIZE': 100
+}
+
 # Database
 # https://docs.djangoproject.com/en/1.11/ref/settings/#databases
 

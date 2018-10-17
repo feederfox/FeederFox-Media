@@ -151,7 +151,8 @@
                         <tr>
 
                             <td>{{ forloop.counter }}</td>
-                            <td><img src="{{ art.image.url }}" style="height: 100px;width: 100px">  </td>
+                            <td>{% if art.image %} <img src="{{ art.image.url }}" style="height: 100px;width: 100px">
+                            {% else %} None {% endif %}  </td>
                             <td>{{ art.title }}</td>
                             <td>{{ art.description }} </td>
                             <td><a href="{{ art.url }}"> {{ art.url }} </a>  </td>

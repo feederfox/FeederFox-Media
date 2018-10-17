@@ -79,6 +79,8 @@ class ArticleSerializer(serializers.ModelSerializer):
 		model = Article
 		fields = '__all__'
 
+		
+
 ACCCOUNT_CHOICES = [
     ('1','Android'),
     ('2','IOS'),
@@ -154,8 +156,7 @@ class SignupAPISerializer(serializers.ModelSerializer):
 		Mobile = validated_data['Mobile']
 		u = User.objects.filter(username=username)
 		if u:
-			raise UserException({'status_code':0,
-                'detail':'Username is already in use'})
+			raise UserException({'status_code':0,'detail':'Username is already in use'})
 		e = User.objects.filter(email=email)
 		if e:
 		    raise EmailException({'status_code':0,
@@ -324,6 +325,7 @@ class PoliticalVotingSerializer(serializers.Serializer):
 	email = serializers.EmailField()
 
 class PoliticalCommentSerializer(serializers.ModelSerializer):
+	image = serializers.ImageField()
 	class Meta:
 		model = PoliticalCommentSystem
 		fields = '__all__'
@@ -350,28 +352,29 @@ class NewsPaperEditionSerializer(serializers.ModelSerializer):
 
 
 class ForgotPasswordSerializer(serializers.Serializer):
-    email = serializers.EmailField()
-    password_reset_form_class = PasswordResetForm
-    def validate_email(self, value):
-        self.reset_form = self.password_reset_form_class(data=self.initial_data)
-        if not self.reset_form.is_valid():
-            raise serializers.ValidationError(_('Error'))
+	email = serializers.EmailField()
+	print(email)
+	password_reset_form_class = PasswordResetForm
+    
+	def validate_email(self, value):
+		self.reset_form = self.password_reset_form_class(data=self.initial_data)
+		if not self.reset_form.is_valid():
+			raise serializers.ValidationError(_('Error'))
 
-        ###### FILTER YOUR USER MODEL ######
-        if not User.objects.filter(email=value).exists():
+	        ###### FILTER YOUR USER MODEL ######
+		if not User.objects.filter(email=value).exists():
+			raise serializers.ValidationError({'detail':'PoliticalForumAPISerializer'})
+		return value
 
-            raise serializers.ValidationError(_('Invalid e-mail address'))
-        return value
-
-    def save(self):
-        request = self.context.get('request')
-        opts = {
-            'use_https': request.is_secure(),
-            'from_email': getattr(settings, 'DEFAULT_FROM_EMAIL'),
-            'request': request,
+	def save(self):
+	    request = self.context.get('request')
+	    opts = {
+	        'use_https': request.is_secure(),
+	        'from_email': getattr(settings, 'DEFAULT_FROM_EMAIL'),
+	        'request': request,
         }
-        self.reset_form.save(**opts)
-
+	    self.reset_form.save(**opts)
+	
 
 class profileUploadSerializer(serializers.ModelSerializer):
 	url = HyperlinkedIdentityField(view_name='content:profileuploadapi')

@@ -220,7 +220,6 @@ class PoliticalCommentSystem(models.Model):
 	image = models.ImageField()
 	user = models.CharField(max_length=100)
 	uploaded_on = models.DateField(auto_now=True,auto_now_add=False)
-	comment_title = models.CharField(max_length=256)
 	comment = models.CharField(max_length=20000)
 	ratings = models.CharField(max_length=100,choices = RATING_CHOICES)
 

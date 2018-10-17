@@ -152,12 +152,13 @@
     display: inline-block;
     max-width: 240px;
     float: left;
+    margin-right:23px;
 }
 
 .ft-cards-2 .ft-card-item .ft-content {
-    display: inline-block;
-    padding: 30px 20px;
-    width: 80%;
+    /*display: inline-block;*/
+    padding: 28px 2px;
+    width: 95%;
 }
 
 .ft-cards-2 .ft-card-item .ft-content h5,.ft-cards-2 .ft-card-item .ft-content .ft-boxed-hover ul li .hover-content .ft-heading,.ft-boxed-hover ul li .hover-content .ft-cards-2 .ft-card-item .ft-content .ft-heading,.ft-cards-2 .ft-card-item .ft-content .ft-tabs .tabs-list li a .tab-group .tab-info,.ft-tabs .tabs-list li a .tab-group .ft-cards-2 .ft-card-item .ft-content .tab-info,.ft-cards-2 .ft-card-item .ft-content .sidebar .comments-widget .widget-item span .widget-comm-title,.sidebar .comments-widget .widget-item span .ft-cards-2 .ft-card-item .ft-content .widget-comm-title,.ft-cards-2 .ft-card-item .ft-content .comingsoon .content-wrapper .content-inner .cs-timer .item .title-timer,.comingsoon .content-wrapper .content-inner .cs-timer .item .ft-cards-2 .ft-card-item .ft-content .title-timer,.ft-cards-2 .ft-card-item .ft-content .shop-layout-options span,.shop-layout-options .ft-cards-2 .ft-card-item .ft-content span {
@@ -241,3 +242,50 @@
   box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
 }
 
+.btn-grey{
+    background-color:#D8D8D8;
+	color:#FFF;
+}
+.rating-block{
+	background-color:#FAFAFA;
+	border:1px solid #EFEFEF;
+	padding:15px 15px 20px 15px;
+	border-radius:3px;
+}
+.bold{
+	font-weight:700;
+}
+.padding-bottom-7{
+	padding-bottom:7px;
+}
+
+.review-block{
+	background-color:#FAFAFA;
+	border:1px solid #EFEFEF;
+	padding:15px;
+	border-radius:3px;
+	margin-bottom:15px;
+}
+.review-block-name{
+	font-size:12px;
+	margin:10px 0;
+}
+.review-block-date{
+	font-size:12px;
+}
+.review-block-rate{
+	font-size:13px;
+	margin-bottom:15px;
+}
+.review-block-title{
+	font-size:15px;
+	font-weight:700;
+	margin-bottom:10px;
+}
+.review-block-description{
+	font-size:13px;
+}
+
+.btn-default-pol{
+    border: none;
+}

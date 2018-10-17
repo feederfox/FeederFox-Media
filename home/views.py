@@ -17,6 +17,11 @@ from contents.models import NewsPaper,Magazine,PublisherDetail,PoliticalForum,Ar
 from django.contrib.auth.forms import AdminPasswordChangeForm, PasswordChangeForm
 from django.contrib.auth import update_session_auth_hash
 from social_django.models import UserSocialAuth
+import json
+from django.views.decorators.csrf import csrf_exempt
+from chatterbot import ChatBot
+from chatterbot.trainers import ListTrainer
+
 
 
 
@@ -28,24 +33,26 @@ def admin(request):
     if request.user.is_authenticated:
         if request.user.is_superuser:
             return render(request,'admin_dashboard.html',{})
-        messages.error(request,'Please Login with Admin Credentials')
     return redirect('accounts:admin_login')
 
 
 @login_required
 def dashboard(request):
-
+    a = request.user
+    print(a)
+    p = Profile.objects.get(username=a)
+    print(p)
     if request.user.is_superuser:
         return render(request,'admin_dashboard.html',{})
     messages.error(request,'Please Login with Admin Credentials')
     if request.user.profile.Account_type=='1':
         print(request.user.profile.Account_type)
-        return render (request,'publisher_dashboard.html',{})
+        return render (request,'publisher_dashboard.html',{'p':p})
     elif request.user.profile.Account_type=='2':
-        return render(request,'customer_dashboard.html',{})
+        return render(request,'customer_dashboard.html',{'p':p})
     elif request.user.profile.Account_type=='3':    
-        return render(request,'advertiser_dashboard.html',{})
-    return render(request,'politiciandashboard.html',{})    
+        return render(request,'advertiser_dashboard.html',{'p':p})
+    return render(request,'politiciandashboard.html',{'p':p})    
 
 def article1(request):
     return render(request,'article1.html',{})
@@ -88,6 +95,7 @@ def contact(request):
 
     return render(request,'contact.html',{'form':form})
 
+
 def index(request):
     newspaper = NewsPaper.objects.all()
     print(newspaper)
@@ -102,10 +110,18 @@ def index(request):
     ebook = EbookUpload.objects.all()
     political = PoliticalForum.objects.all()
     pubdetails = PublisherDetail.objects.filter(Name__in=name)
+    print(pubdetails)
+    a = int((len(pubdetails))/2)
+    pub1 = PublisherDetail.objects.filter(Name__in=name)[:a]
+    pub2 = PublisherDetail.objects.filter(Name__in=name)[a:]
+    print(pub1)
+    print(len(pubdetails))
+    print((len(pubdetails))/2)
     articles = Article.objects.all().reverse()
     print(political)
+    title = "Chatbot Version 1.0"
     context = {'newspapers':newspaper,'magazines':magazine,'pubdetails':pubdetails,'articles':articles,
-            'political':political,'ebook':ebook}
+            'political':political,'ebook':ebook,'title':title,'pub1':pub1,'pub2':pub2}
     return render(request,'index.html',context)
 
 
@@ -201,3 +217,79 @@ def password(request):
     else:
         form = PasswordForm(request.user)
     return render(request, 'password.html', {'form': form})
+
+
+@csrf_exempt
+def get_response(request):
+	bot = Chatbot('Bot')
+	chatbot = ChatBot(
+    'Bot',
+    trainer='chatterbot.trainers.ChatterBotCorpusTrainer'
+	)
+# Train based on the english corpus
+	chatbot.train("chatterbot.corpus.english")
+	#bot.set_trainer(ListTrainer)
+	response = {'status': None}
+	if request.method == 'POST':
+		data = json.loads(request.body)
+		message = data['message']
+		chat_response = chatbot.get_response(message).text
+		response['message'] = {'text': chat_response, 'user': False, 'chat_bot': True}
+		response['status'] = 'ok'
+	else:
+		response['error'] = 'no post data found'
+		return HttpResponse(
+			json.dumps(response),
+			content_type="application/json"
+			)
+
+
+
+def comingSoon(request):
+    return render(request,'coming-soon.html',{})
+
+def articlePage(request):
+    articles = Article.objects.all()
+    context = {'articles':articles}
+    return render(request,'all_article.html',context)
+
+def consultingpage(request):
+    return render(request,'consulting.html',{})
+
+def ebooksviewall(request):
+    ebook = EbookUpload.objects.all()
+    context = {'ebook':ebook}
+    return render(request,'ebooksviewall.html',context)
+
+def careers1(request):
+    form = ContactForm()
+    if request.method=='POST':
+        form = ContactForm(request.POST)
+        if form.is_valid():
+            Name = request.POST.get('Name')
+            Email = request.POST.get('Email')
+            Mobile = request.POST.get('Mobile')
+            Feedback = request.POST.get('Feedback')
+            template = get_template('contact_template.txt')
+            context = {
+                'contact_name': Name,
+                'contact_email': Email,
+                'contact_mobile': Mobile,
+                'contact_feedback':Feedback
+            }
+            content = template.render(context)
+            print(context)
+            print(content)
+            email = EmailMessage(
+                "New contact form submission",
+                content,
+                "feederfox.com" +'',
+                ['vinaytm7@gmail.com'],
+                headers = {'Reply-To': Email }
+            )
+            email.send()
+            return redirect('careers1')
+
+    return render(request,'careers.html',{'form':form})
+
+    

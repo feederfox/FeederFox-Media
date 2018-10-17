@@ -2,15 +2,15 @@ from django.db import models
 
 # Create your models here..
 NEWSFEEDS_CHOICES=[
-('Headlines','Headlines'),
-('Educational','Educational'),
-('Entertainment','Entertainment'),
-('Business','Business'),
-('Sports','Sports'),
-('Lifestyles','Lifestyles'),
-('Social','Social'),
-('World','World'),
-('Global','Global'),
+('1','Headlines'),
+('2','Educational'),
+('3','Entertainment'),
+('4','Business'),
+('5','Sports'),
+('6','Lifestyles'),
+('7','Social'),
+('8','World'),
+('9','Global'),
 ]
 
 

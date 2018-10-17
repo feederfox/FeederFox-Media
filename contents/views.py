@@ -23,6 +23,7 @@ import matplotlib.pyplot as plt
 from matplotlib.backends.backend_agg import FigureCanvasAgg
 import zlib,os,sys,PyPDF2
 from rest_framework.authtoken.models import Token
+from .pagination import PostLimitOffsetPagination,PostPageNumberPagination,CustomPagination
 from collections import Counter
 from .forms import (PublisherDetailsForm,ArticleForm,UploadContentForm,MainEditionForm,EditionForm,StateForm,
     PublisherDetailEditForm,ArticleUploadForm,PoliticalForumForm,PollingForm,PoliticainArticleForm,UploadMagazineForm,
@@ -510,11 +511,19 @@ def article_list(request):
     context = {
             "request":request
             }
+    paginator = PostLimitOffsetPagination()
+    paginator.page_size = 10        
     article = Article.objects.all()
-    articleserializer = ArticleSerializer(article,many=True)
-    resp3 = articleserializer.data
+    print(request.user)
+    print(request.user.profile)
+    print(request.user.profile.Profile_Picture)
+    result_page = paginator.paginate_queryset(article, request)
+    serializer = ArticleSerializer(result_page, many=True)
+    resp3 = serializer.data
     a = {'Articles':resp3}
-    return Response(a)
+    return paginator.get_paginated_response(a)
+    
+    #return Response(a)
 
 @api_view(['GET', 'POST'])
 def contents_list(request):
@@ -1572,8 +1581,22 @@ def politicalapi(request):
             resp1['Politician_Survey'] = polsurveyserializer.data
             resp1['Politician_Comments'] = polcommentserializer.data
             resp1['Politician_Rating'] = avg_rating
-            #if resp1['Politician_Comments']['image'] == null:
-            #resp1['Politician_Comments']['Dislike'] = ""
+            for i in polcomment:
+                
+                if i.image == '':
+                    print(i.id)
+                    c = i.id
+                    print(c)
+                    resp1['Politician_Comments'][c-1]['image'] = ""
+            # for i in polcomment:
+            #     c = [c for c in polcomment if  i.image == ""]
+            #     print(c)
+            #     for x in range(len(polcomment)):
+            #         if i.image == '':
+            #             resp1['Politician_Comments'][x]['image'] = ""
+            #         else:
+            #             print(i.image)
+            #             resp1['Politician_Comments'][x]['image'] = i.image.url
             l1 = resp1
             l.append(resp1)
         re = {'Politician_data':l}    
@@ -1679,10 +1702,14 @@ def politicalcomment(request,pk):
             a.user = request.user
             print(request.user.email)
             p = Profile.objects.get(email=request.user.email)
-            if p.Profile_Picture is 'null':
+            if p.Profile_Picture == '':
                 a.image = ""
+                print('HI')
+                print(a.image)
             else:
                 a.image = p.Profile_Picture
+                print('HI')
+                print(a.image)
             print(p.Profile_Picture)
             print('HI')    
             print(a.image)       

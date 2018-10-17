@@ -1,0 +1,104 @@
+{% extends 'base.html' %} <!-- Add this for inheritance -->
+{% load static %}
+<!doctype html>
+<html>
+<head>
+</head>
+{% block pagecontent %}
+<body>
+
+
+{% include 'header2.html' %}
+
+
+
+
+
+<div class="container">
+<div class="row">
+  {% for e in ebook %}
+  <div class="col-md-3 col-xs-3 col-sm-3 col-lg-3">
+<div class="component">
+        <ul class="align">
+          <li>
+            <figure class='book'>
+
+              <!-- Front -->
+
+              <ul class='hardcover_front'>
+                <li>
+                  <div class="coverDesign blue">
+                    <img src="{{ e.image.url }} " alt="Avatar" style="width:160px;height:221px;">
+                  </div>
+                </li>
+                <li></li>
+              </ul>
+
+              <!-- Pages -->
+
+              <ul class='page'>
+                <li></li>
+                <li>
+                  <a class="ebook btn" href="{% url 'content:viewebook' e.id %} ">Read</a>
+                </li>
+                <li></li>
+                <li></li>
+                <li></li>
+              </ul>
+
+              <!-- Back -->
+
+              <ul class='hardcover_back'>
+                <li></li>
+                <li></li>
+              </ul>
+              <ul class='book_spine'>
+                <li></li>
+                <li></li>
+              </ul>
+              <figcaption>
+                <span>{{e.name}}</span>
+                <p>By {{e.author}}</p>
+              </figcaption>
+            </figure>
+          </li>
+        </ul>
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+</div>
+
+
+
+
+
+
+
+
+
+
+{% include 'footer.html' %}
+
+
+<script type="text/javascript">
+
+window.onscroll = function() {myFunction()};
+
+var header = document.getElementById("myHeader");
+var sticky = header.offsetTop;
+
+function myFunction() {
+  if (window.pageYOffset > sticky) {
+    header.classList.add("sticky");
+  } else {
+    header.classList.remove("sticky");
+  }
+}
+
+</script>
+
+{% endblock %}
+</body>
+
+</html>

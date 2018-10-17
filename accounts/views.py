@@ -3,8 +3,9 @@ import PyPDF2
 from django.conf import settings
 from django.contrib.auth import login, authenticate
 from django.shortcuts import render, redirect,HttpResponse
-from .forms import ( SignUpForm,PostForm,PublisherForm,PublisherEditForm,CustomerEditForm,CustomerForm,MagazineForm,PoliticianSignUpForm,
-                        AdvertiserForm,AdvertiserEditForm,PublisherSignUpForm,AdvertiserSignUpForm,CustomerSignUpForm)
+from .forms import ( SignUpForm,PostForm,PublisherForm,PublisherEditForm,CustomerEditForm,CustomerForm,MagazineForm,
+    PoliticianSignUpForm,AdvertiserForm,AdvertiserEditForm,PublisherSignUpForm,AdvertiserSignUpForm,CustomerSignUpForm,
+    ProfileEditForm)
 from .models import Profile,Post,NewsPap
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
@@ -415,4 +416,20 @@ def deletearticle(request,pk):
         art.delete()
         messages.success(request,'Successfully Deleted')
         return redirect('accounts:articlesuploaded')
-    
+     
+
+def editprofile(request,pk):
+    profile = Profile.objects.get(pk=pk)
+    print(profile)
+    profile_form = ProfileEditForm(instance=profile)
+    if request.method=='POST':
+        form = ProfileEditForm(request.POST,request.FILES, instance=profile)
+        if form.is_valid():
+            user = form.save()
+            user.save()
+            print(user)
+            messages.success(request,'Successfully Updated')
+            return redirect('dashboard')
+
+    form = ProfileEditForm()
+    return render(request,'profile_edit_form.html',{'form':profile_form,'p':profile})

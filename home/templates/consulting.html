@@ -1,0 +1,80 @@
+
+<!-- feederfoxnew/home/templates/publishersignup.html-->
+{% extends 'base.html' %} <!-- Add this for inheritance -->
+{%  load static %}
+<!-- <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}About Us {% endblock %}</title>
+</head>
+ -->
+{% block pagecontent %}
+ {% include 'header2.html' %}
+<div class="consulting_body">
+<h1 class="consultingh1">
+Welcome to Feederfox Services
+<br/>
+<img src="https://image.ibb.co/nk616F/Layer_1_copy_21.png" width="47" height="11" align="center">
+</h1>
+<!--<p style="text-align: center;color:white;font-size: 20px;">-->
+<!--  WE AT FEEDERFOX BELIEVE IN HELPING OUR CLIENTS HIRE FAST AND HIRE-->
+<!--FOR VALUE.-->
+<!--</p>-->
+<!--<article>-->
+<!--  <p class="consultingp">-->
+<!--    Feederfox Media offers a broad spectrum of news portal services on a single platform to its-->
+<!--readers/viewers across Asia.-->
+
+<!--We also simultaneously have our services where we work on providing Manpower needs to-->
+<!--Corporates like MNC’s. And, we have already served various companies like Infosys, Mphasis,-->
+<!--Concentrix and Agies.-->
+
+<!--Taking forward this expertise we would like to serve your company with our excellent services.-->
+<!--  </p>-->
+<!--</article>-->
+
+<div class="container" style="padding-bottom: 117px;padding-top: 145px;">
+  <div class="row">
+    <div class="col-md-6 col-xs-6 col-sm-6 col-lg-6">
+      <img style="width:100%;" src="{% static 'dist/images/new-images/JOBSEEKER.jpg' %}">
+    </div>
+      <div class="col-md-6 col-xs-6 col-sm-6 col-lg-6">
+        <img style="width:100%;" src="{% static 'dist/images/new-images/EMPLOYER.jpg' %}">
+      </div>
+    </div>
+  </div>
+
+
+
+
+
+
+
+
+
+<div class="social_icons" style="padding-top:40px;">
+  <div class="square">
+    <div class="icons">
+      <i class="fa fa-facebook" aria-hidden="true"></i>
+    </div>
+  </div>
+  <div class="square">
+    <div class="icons">
+      <i class="fa fa-youtube" aria-hidden="true"></i>
+    </div>
+  </div>
+  <div class="square">
+    <div class="icons">
+      <i class="fa fa-twitter" aria-hidden="true"></i>
+    </div>
+  </div>
+  <div class="square">
+    <div class="icons">
+      <i class="fa fa-dribbble" aria-hidden="true"></i>
+    </div>
+  </div>
+</div>
+</div>
+ {% include 'footer.html' %}
+{% endblock %}

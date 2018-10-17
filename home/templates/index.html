@@ -1,787 +1,18 @@
 {% extends 'base.html' %} <!-- Add this for inheritance -->
 {% load static %}
-<!-- bse scrolling bar ends here -->
-
+{% load crispy_forms_tags %}
+<!doctype html>
+<html>
+<head>
+    <title>
+       {% block title %}FeederFox{% endblock %}
+    </title>
+</head>
 {% block pagecontent %}
+
+<div id="full-bg">
  <!--header starts here -->
- <header class="header-two-bars">
-
-  <div class="header-first-bar">
-        <div id="weather-frame" class="container">
-          <div id="upper-detail">
-            <div id="city-name"></div>
-          </div>
-          <div id="lower-detail">
-            <div class="row">
-              <div id="temp" class="col-xs-6">
-              </div>
-            </div>
-          </div>
-        </div>
-
-    <div class="header-limiter">
-
-      <h1><a href="{% url 'home' %} "><img src="{% static 'dist/images/logos/logo.png' %}" class="img-responsive header_img"></a></h1>
-
-      <nav style="margin-top:10px;margin-left:650px;">
-        <a href="{% url 'publisherpage' %}">Publisher</a>
-        <a href="{% url 'customerpage' %}">Customer</a>
-        <a href="{% url 'advertiserpage' %}">Advertiser</a>
-      </nav>
-
-      <a href="{% url 'accounts:login' %}" class="logout-button" style="margin-top:10px;">Login</a>
-    </div>
-
-  </div>
-
-</header>
-<!-- header ends here -->
-
-
-<nav class="navbar navbar-inverse">
-  <div class="container">
-    <div class="navbar-header">
-      <button class="navbar-toggle" type="button" data-toggle="collapse" data-target=".js-navbar-collapse">
-        <span class="sr-only">Toggle navigation</span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-      </button>
-    </div>
-
-    <div class="collapse navbar-collapse js-navbar-collapse">
-      <ul class="nav navbar-nav">
-        <li class="dropdown">
-          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Home <span class="caret"></span></a>
-          <ul class="dropdown-menu" role="menu">
-            <li><a href="#linknewschannels">NewsChannels</a></li>
-            <li><a href="#linknewspapers">Newspapers</a></li>
-            <li><a href="#linkmagazines">Magazines</a></li>
-            <li><a href="">Social Channels</a></li>
-          </ul>
-        </li>
-
-                <li class="dropdown mega-dropdown">
-          <a href="#" class="dropdown-toggle" data-toggle="dropdown">Political Forum <span class="caret"></span></a>
-          <ul class="dropdown-menu mega-dropdown-menu">
-            <li class="col-sm-3">
-              <ul>
-                <li class="dropdown-header">Politicians</li>
-                <div id="menCollection" class="carousel slide" data-ride="carousel">
-                  <div class="carousel-inner">
-                    <div class="item active">
-                      <a href="#"><img src="{% static 'dist/images/new-images/Rahul_Gandhi.jpg' %}" class="img-responsive" alt="product 1"></a>
-                    </div><!-- End Item -->
-                    <div class="item">
-                      <a href="#"><img src="{% static 'dist/images/new-images/Narendra-Modi.jpg' %}" class="img-responsive" alt="product 2"></a>
-                    </div><!-- End Item -->
-                    <div class="item">
-                      <a href="#"><img src="{% static 'dist/images/new-images/siddh.jpeg' %}" class="img-responsive" alt="product 3"></a>
-                    </div><!-- End Item -->
-                  </div>
-                  <!-- End Carousel Inner -->
-                  <!-- Controls -->
-                  <a class="left carousel-control" href="#menCollection" role="button" data-slide="prev">
-                    <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
-                    <span class="sr-only">Previous</span>
-                  </a>
-                  <a class="right carousel-control" href="#menCollection" role="button" data-slide="next">
-                    <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
-                    <span class="sr-only">Next</span>
-                  </a>
-                </div><!-- /.carousel -->
-                <li class="divider"></li>
-                <li><a href="#">View all Politicians <span class="glyphicon glyphicon-chevron-right pull-right"></span></a></li>
-                <a href="{% url 'accounts:polsignup' %} "> <button class="btn btn-raised waves-effect bg-red" type="submit"> Sign Up </button> </a>
-                <a href="{% url 'accounts:login' %} "> <button class="btn btn-raised waves-effect bg-red" type="submit"> Login </button> </a>
-              </ul>
-            </li>
-            {% for political in political %}
-            <li class="col-sm-3">
-              <div class="card card-5">
-                <div class="row">
-                  <div class="col-md-12">
-                    <img src="{{ political.Image.url }} " class="img-responsive img-rounded" alt="" style="height:160px;">
-                    <br>
-                    <p class="politics-para">{{ political.Synopsis|truncatechars:100 }} </p>
-                  </div>
-                </div>
-                <a href="{% url 'content:politicalmodal' political.id %} "><button type="button" class="btn btn-info btn-lg" data-toggle="modal" >View More</button></a>
-              </div>
-
-            </li>
-
-            {% endfor %}
-           <!--  {% for poiltical in political %}
-           <li class="col-sm-3">
-              <div class="card card-4">
-                <div class="row">
-                  <div class="col-md-12">
-                    <img src="{% static 'dist/images/new-images/siddh.jpeg' %}" class="img-responsive img-rounded" alt="" style="height:160px;">
-                    <br>
-                    <p class="politics-para">Siddaramaiah is an Indian politician and was the 22nd Chief Minister of Karnataka from 2013 to 2018. He is a member of Congress working committee. On 13 May 2013 he was sworn in as the Chief Minister of Karnataka. Source : Wikipedia</p>
-                  </div>
-                </div>
-                <button type="button" class="btn btn-info btn-lg" data-toggle="modal" >View More</button></a>
-
-              </div>
-            </li>
-            {% endfor %} -->
-            
-            
-          </ul>
-        </li>
-
-        <li class="dropdown">
-          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">NewsFeeds <span class="caret"></span></a>
-          <ul class="dropdown-menu" role="menu">
-            <li><a href="#">Headlines/Breaking News</a></li>
-            <li><a href="#">Educational</a></li>
-            <li><a href="#">Entertainment</a></li>
-            <li><a href="#">Business</a></li>
-            <li><a href="#">Sports</a></li>
-            <li><a href="#">Lifestyle</a></li>
-            <li><a href="#">Social</a></li>
-            <li><a href="#">World/International</a></li>
-            <li><a href="#">Global</a></li>
-          </ul>
-        </li>
-        <li class="dropdown">
-          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Article/Blog <span class="caret"></span></a>
-          <ul class="dropdown-menu" role="menu">
-            <li><a href="#">Business/Economic</a></li>
-            <li><a href="# ">Write Article</a></li>
-            <li><a href="#">E-books</a></li>
-          </ul>
-        </li>
-        <li class="dropdown">
-          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Business <span class="caret"></span></a>
-          <ul class="dropdown-menu" role="menu">
-            <li><a href="#">Consulting</a></li>
-          </ul>
-        </li>
-      </ul>
-
-    </div><!-- /.nav-collapse -->
-  </div>
-</nav>
-
-          <!-- Modal -->
-    <div class="modal fade" id="myModalSidda" role="dialog">
-    <div class="modal-dialog modal-lg">
-      <div class="modal-content" style="width:1370px; margin-left: -235px; height: auto;">
-        <div class="modal-header">
-          <button type="button" class="close" data-dismiss="modal">&times;</button>
-          <h4 class="modal-title">Politician Info</h4>
-        </div>
-        <div class="modal-body">
-          <!-- <p>This is a large modal.</p> -->
-
-          <div class="row">
-            <div  class="col-md-4">
-              <div class="card">
-  <img src="{% static 'dist/images/new-images/siddh.jpeg' %}" alt="Avatar" style="width:250px;height:250px;">
-
-    <h4><b>Siddaramaiah</b></h4>
-  </div>
-</div>
-
-<div class="col-md-8">
-
-  <!-- <img src="{% static 'dist/images/logos/modi.jpg' %}" alt="Denim Jeans" style="width:100px;height:100px;"> -->
-  <h5>Name:Siddaramaiah</h5><br/>
-  <h5>Projects Taken:</h5><br/>
-  <h5>Education Qualification: B.Sc and Bachelor of Law from Mysore University.</h5><br/>
-  <h5>Family History:He was born to Siddarame Gowda and Boramma in a remote village called Siddaramanahundi in Varuna Hobli near to T.Narasipura of Mysore District in a farming family. He had no formal schooling until he was ten but went on to do his B.Sc and Bachelor of Law from Mysore University. He is a leader of the Kuruba Gowda community. He is the second amongst five siblings.</h5><br/>
-</div>
-
-</div>
-
-<h3>Video Player</h3>
-<iframe width="560" height="315" src="https://www.youtube.com/embed/wCs15GHMcig" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
-<br/>
-
-<div class="row">
-            <div  class="col-md-12">
-              <h3> Synopsis</h3>
-              <p class="card2">
-Siddaramaiah (born 12 August 1948) is an Indian politician and was the 22nd Chief Minister of Karnataka from 2013 to 2018. He is a member of Congress working committee. Currently a leader of the Indian National Congress party, Siddaramaiah was a member of various Janata Parivar factions for several years. Earlier, as a Janata Dal (Secular) leader, he was Deputy Chief Minister of Karnataka on two occasions. On 13 May 2013 he was sworn in as the Chief Minister of Karnataka.Siddaramaiah was elected as Chief Minister after Congress adopted secret balloting to select the new chief minister. He led the Indian National Congress to victory by achieving an absolute majority of 122/224 seats in the 2013 Legislative Assembly election.On 15 May 2018, he resigned from his position of the chief minister of Karnataka, respecting the verdict of the 2018 Karnataka Legislative Assembly election. He also became the first chief minister of Karnataka to serve full 5 years term in 40 years, and the second in the history of the southern state after Devaraj Urs. He also holds the record of presenting state budget for 13 times as a finance minister in Government of Karnataka. Despite allegations of mounting debt on state exchequer by the opposition, he is known for maintaining fiscal prudence within the ambit of Fiscal Responsibility and Budget Management Act of the state.
-
-<p>
-</div>
-</div>
-
-<h2>Articles</h2>
-<div class="row">
-            <div  class="col-md-3">
-              <div class="card">
-  <img src="{% static 'dist/images/logos/logo.png' %}" alt="Avatar" style="width:250px;height:250px;">
- </div>
-</div>
-<div  class="col-md-3">
-    <h4><b>Description</b></h4>
-    <p>Article  Description will come here </p>
-</div>
-
-<div  class="col-md-3">
-              <div class="card">
-  <img src="{% static 'dist/images/logos/logo.png' %}" alt="Avatar" style="width:250px;height:250px;">
- </div></div>
- <div  class="col-md-3">
-    <h4><b>Description</b></h4>
-    <p>Article Description will come here </p>
-  </div>
-</div>
-
-
-<div class="row">
-            <div  class="col-md-3">
-              <div class="card">
-  <img src="{% static 'dist/images/logos/logo.png' %}" alt="Avatar" style="width:250px;height:250px;">
- </div>
-</div>
-<div  class="col-md-3">
-    <h4><b>Description</b></h4>
-    <p>Article Description will come here </p>
-</div>
-
-<div  class="col-md-3">
-              <div class="card">
-  <img src="{% static 'dist/images/logos/logo.png' %}" alt="Avatar" style="width:250px;height:250px;">
- </div></div>
- <div  class="col-md-3">
-    <h4><b>Description</b></h4>
-    <p>Article Description will come here. </p>
-  </div>
-</div>
-
-<br/><br/>
-
-<div class="row">
-            <div  class="col-md-3">
-              <div class="card">
-  <img src="{% static 'dist/images/logos/logo.png' %}" alt="Avatar" style="width:250px;height:250px;">
- </div>
-</div>
-<div  class="col-md-3">
-    <h4><b>Description</b></h4>
-    <p>Article Description will come here. </p>
-</div>
-
-<div  class="col-md-3">
-              <div class="card">
-  <img src="{% static 'dist/images/logos/logo.png' %}" alt="Avatar" style="width:250px;height:250px;">
- </div></div>
- <div  class="col-md-3">
-    <h4><b>Description</b></h4>
-    <p>Article Description will come here. </p>
-  </div>
-</div>
-<br/><br/>
-
-<div class="row">
-            <div  class="col-md-3">
-              <div class="card">
-  <img src="{% static 'dist/images/logos/logo.png' %}" alt="Avatar" style="width:250px;height:250px;">
- </div>
-</div>
-<div  class="col-md-3">
-    <h4><b>Description</b></h4>
-    <p>Article Description will come here. </p>
-</div>
-
-<div  class="col-md-3">
-              <div class="card">
-  <img src="{% static 'dist/images/logos/logo.png' %}" alt="Avatar" style="width:250px;height:250px;">
- </div></div>
- <div  class="col-md-3">
-    <h4><b>Description</b></h4>
-    <p>Article Description will come here. </p>
-  </div>
-</div>
-<br/><br/>
-
-<div class="row">
-            <div  class="col-md-3">
-              <div class="card">
-  <img src="{% static 'dist/images/logos/logo.png' %}" alt="Avatar" style="width:250px;height:250px;">
- </div>
-</div>
-<div  class="col-md-3">
-    <h4><b>Description</b></h4>
-    <p>Article Description will come here. </p>
-</div>
-
-<div  class="col-md-3">
-              <div class="card">
-  <img src="{% static 'dist/images/logos/logo.png' %}" alt="Avatar" style="width:250px;height:250px;">
- </div></div>
- <div  class="col-md-3">
-    <h4><b>Description</b></h4>
-    <p>Article Description will come here. </p>
-  </div>
-</div>
-<br/><br/>
-
-<div class="row">
-            <div  class="col-md-3">
-              <div class="card">
-  <img src="{% static 'dist/images/logos/logo.png' %}" alt="Avatar" style="width:250px;height:250px;">
- </div>
-</div>
-<div  class="col-md-3">
-    <h4><b>Description</b></h4>
-    <p>Article Description will come here. </p>
-</div>
-
-<div  class="col-md-3">
-  <img src="{% static 'dist/images/logos/logo.png' %}" alt="Avatar" style="width:250px;height:250px;">
- </div>
- <div  class="col-md-3">
-    <h4><b>Description</b></h4>
-    <p>Article Description will come here. </p>
-  </div>
-</div>
-
-
-
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
-
-<div class="modal fade" id="myModalModi" role="dialog">
-    <div class="modal-dialog modal-lg">
-      <div class="modal-content" style="width:1370px; margin-left: -235px; height: auto;">
-        <div class="modal-header">
-          <button type="button" class="close" data-dismiss="modal">&times;</button>
-          <h4 class="modal-title">Politician Info</h4>
-        </div>
-        <div class="modal-body">
-          <!-- <p>This is a large modal.</p> -->
-
-          <div class="row">
-            <div  class="col-md-4">
-              <div class="card">
-  <img src="{% static 'dist/images/new-images/Narendra-Modi.jpg' %}" alt="Avatar" style="width:250px;height:250px;">
-
-    <h4><b>Narendra Modi</b></h4>
-  </div>
-</div>
-
-<div class="col-md-8">
-  <!-- <img src="{% static 'dist/images/logos/modi.jpg' %}" alt="Denim Jeans" style="width:100px;height:100px;"> -->
-  <h5><b> Name</b>:Narendra Modi</h5><br/>
-  <h5><b>Projects Taken </b>:</h5><br/>
-  <h5><b> Education Qualification</b>: Master of Arts Degree in Political Science from Gujarat University</h5><br/>
-  <h5><b>Family History </b>:Narendra Modi was born on 17 September 1950 to a family of grocers in Vadnagar, Mehsana district, Bombay State (present-day Gujarat). He was the third of six children born to Damodardas Mulchand Modi (c.1915 – 1989) and Hiraben Modi (born c.1920).</h5><br/>
-</div>
-
-</div>
-
-<h3>Video</h3>
-<iframe width="560" height="315" src="https://www.youtube.com/embed/WQSaplxm_Aw" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
-<br/>
-
-<div class="row">
-            <div  class="col-md-12">
-              <h3> Synopsis</h3>
-              <p class="card2">
-On 26th May 2014 Shri Narendra Modi was sworn in as the Prime Minister of India. Under his leadership, the BJP-led NDA government has ushered an era of inclusive and development-oriented governance, catering to the aspirations of the farmer, the poor, marginalized, youth, women and neo-middle class.
-Shri Narendra Modi took the plunge into mainstream politics in 1987 and became the General Secretary of the Gujarat BJP in one year. His organizational skills were behind the Nyay Yatra of 1987 and Lok Shakti Yatra in 1989. These efforts played a major role in the BJP coming to power in Gujarat first for a brief period in 1990 and then from 1995 till date. Shri Modi became the National Secretary of the BJP in1995 and in 1998 given the responsibility of General Secretary (Organization), a very important post in the party organization. 3 years later in 2001 the party entrusted him with the responsibility of taking over as the CM of Gujarat. He was re-elected as CM in 2002, 2007 and in 2012.
-
-<p>
-</div>
-</div>
-<h2>Articles</h2>
-<div class="row">
-            <div  class="col-md-3">
-              <div class="card">
-  <img src="{% static 'dist/images/logos/logo.png' %}" alt="Avatar" style="width:250px;height:250px;">
- </div>
-</div>
-<div  class="col-md-3">
-    <h4><b>Description</b></h4>
-    <p>Article  Description will come here </p>
-</div>
-
-<div  class="col-md-3">
-              <div class="card">
-  <img src="{% static 'dist/images/logos/logo.png' %}" alt="Avatar" style="width:250px;height:250px;">
- </div></div>
- <div  class="col-md-3">
-    <h4><b>Description</b></h4>
-    <p>Article Description will come here </p>
-  </div>
-</div>
-
-
-<div class="row">
-            <div  class="col-md-3">
-              <div class="card">
-  <img src="{% static 'dist/images/logos/logo.png' %}" alt="Avatar" style="width:250px;height:250px;">
- </div>
-</div>
-<div  class="col-md-3">
-    <h4><b>Description</b></h4>
-    <p>Article Description will come here </p>
-</div>
-
-<div  class="col-md-3">
-              <div class="card">
-  <img src="{% static 'dist/images/logos/logo.png' %}" alt="Avatar" style="width:250px;height:250px;">
- </div></div>
- <div  class="col-md-3">
-    <h4><b>Description</b></h4>
-    <p>Article Description will come here. </p>
-  </div>
-</div>
-
-<br/><br/>
-
-<div class="row">
-            <div  class="col-md-3">
-              <div class="card">
-  <img src="{% static 'dist/images/logos/logo.png' %}" alt="Avatar" style="width:250px;height:250px;">
- </div>
-</div>
-<div  class="col-md-3">
-    <h4><b>Description</b></h4>
-    <p>Article Description will come here. </p>
-</div>
-
-<div  class="col-md-3">
-              <div class="card">
-  <img src="{% static 'dist/images/logos/logo.png' %}" alt="Avatar" style="width:250px;height:250px;">
- </div></div>
- <div  class="col-md-3">
-    <h4><b>Description</b></h4>
-    <p>Article Description will come here. </p>
-  </div>
-</div>
-<br/><br/>
-
-<div class="row">
-            <div  class="col-md-3">
-              <div class="card">
-  <img src="{% static 'dist/images/logos/logo.png' %}" alt="Avatar" style="width:250px;height:250px;">
- </div>
-</div>
-<div  class="col-md-3">
-    <h4><b>Description</b></h4>
-    <p>Article Description will come here. </p>
-</div>
-
-<div  class="col-md-3">
-              <div class="card">
-  <img src="{% static 'dist/images/logos/logo.png' %}" alt="Avatar" style="width:250px;height:250px;">
- </div></div>
- <div  class="col-md-3">
-    <h4><b>Description</b></h4>
-    <p>Article Description will come here. </p>
-  </div>
-</div>
-<br/><br/>
-
-<div class="row">
-            <div  class="col-md-3">
-              <div class="card">
-  <img src="{% static 'dist/images/logos/logo.png' %}" alt="Avatar" style="width:250px;height:250px;">
- </div>
-</div>
-<div  class="col-md-3">
-    <h4><b>Description</b></h4>
-    <p>Article Description will come here. </p>
-</div>
-
-<div  class="col-md-3">
-              <div class="card">
-  <img src="{% static 'dist/images/logos/logo.png' %}" alt="Avatar" style="width:250px;height:250px;">
- </div></div>
- <div  class="col-md-3">
-    <h4><b>Description</b></h4>
-    <p>Article Description will come here. </p>
-  </div>
-</div>
-<br/><br/>
-
-<div class="row">
-            <div  class="col-md-3">
-              <div class="card">
-  <img src="{% static 'dist/images/logos/logo.png' %}" alt="Avatar" style="width:250px;height:250px;">
- </div>
-</div>
-<div  class="col-md-3">
-    <h4><b>Description</b></h4>
-    <p>Article Description will come here. </p>
-</div>
-
-<div  class="col-md-3">
-              <div class="card">
-  <img src="{% static 'dist/images/logos/logo.png' %}" alt="Avatar" style="width:250px;height:250px;">
- </div></div>
- <div  class="col-md-3">
-    <h4><b>Description</b></h4>
-    <p>Article Description will come here. </p>
-  </div>
-</div>
-
-
-
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
-
-<div class="modal fade" id="myModalRahul" role="dialog">
-    <div class="modal-dialog modal-lg">
-      <div class="modal-content" style="width:1370px; margin-left: -235px; height: auto;">
-        <div class="modal-header">
-          <button type="button" class="close" data-dismiss="modal">&times;</button>
-          <h4 class="modal-title">Politician Info</h4>
-        </div>
-        <div class="modal-body">
-          <!-- <p>This is a large modal.</p> -->
-
-          <div class="row">
-            <div  class="col-md-4">
-              <div class="card">
-  <img src="{% static 'dist/images/new-images/Rahul_Gandhi.jpg' %}" alt="Avatar" style="width:250px;height:250px;">
-
-    <h4><b>Rahul Gandhi</b></h4>
-  </div>
-</div>
-
-<div class="col-md-8">
-  <!-- <img src="{% static 'dist/images/logos/modi.jpg' %}" alt="Denim Jeans" style="width:100px;height:100px;"> -->
-  <h5>Name:Rahul Gandhi</h5><br/>
-  <h5>Projects Taken:</h5><br/>
-  <h5>Education Qualification: M.Phil from Trinity College, Cambridge in 1995.</h5><br/>
-  <h5>Family History:Rahul Gandhi was born in Delhi on 19 June 1970, as the first of the two children of Rajiv Gandhi, who later became the Prime Minister of India, and Italian-born Sonia Gandhi, who later became President of Indian National Congress, and as the grandson of the then Prime Minister Indira Gandhi. His paternal grandfather Feroze Gandhi was a Parsi from Gujarat.He is also the great-grandson of India's first Prime Minister, Jawaharlal Nehru. Priyanka Vadra is his younger sister and Robert Vadra is his brother-in-law. He identifies himself as a Hindu Brahmin.</h5><br/>
-</div>
-
-</div>
-<h3>Video</h3>
-<iframe width="560" height="315" src="https://www.youtube.com/embed/-VzAT2eGoh0" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
-<br/>
-
-<div class="row">
-            <div  class="col-md-12">
-              <h3> Synopsis</h3>
-              <p class="card2">
-RAHUL GANDHI  Is an Indian politician. The son of Sonia and Rajiv Gandhi, he is the President of the Indian National Congress and serves such additional offices as the Chairperson of the Indian Youth Congress and the National Students Union of India. A member of the Indian Parliament, Gandhi represents the constituency of Amethi, Uttar Pradesh in the 16th Lok Sabha. Gandhi entered politics in 2004 and successfully contested the general elections held that year from Amethi, a seat that was earlier held by his father; he won again from the constituency in 2009 and 2014. Amidst calls from Congress party veterans for his greater involvement in party politics and national government, Gandhi was elected Congress Vice-President in 2013, having served as the General Secretary previously. Gandhi led Congress' campaign in the 2014 Indian general elections; the party suffered its worst electoral result in its history, winning only 44 seats compared to 206 seats won previously in the 2009 general election. Gandhi took over as the president of the Congress in December 2017. He is also a Trustee of Rajiv Gandhi Foundation and Rajiv Gandhi Charitable Trust.
-
-<p>
-</div>
-</div>
-
-<h2>Articles</h2>
-<div class="row">
-            <div  class="col-md-3">
-              <div class="card">
-  <img src="{% static 'dist/images/logos/logo.png' %}" alt="Avatar" style="width:250px;height:250px;">
- </div>
-</div>
-<div  class="col-md-3">
-    <h4><b>Description</b></h4>
-    <p>Article  Description will come here </p>
-</div>
-
-<div  class="col-md-3">
-              <div class="card">
-  <img src="{% static 'dist/images/logos/logo.png' %}" alt="Avatar" style="width:250px;height:250px;">
- </div></div>
- <div  class="col-md-3">
-    <h4><b>Description</b></h4>
-    <p>Article Description will come here </p>
-  </div>
-</div>
-
-
-<div class="row">
-            <div  class="col-md-3">
-              <div class="card">
-  <img src="{% static 'dist/images/logos/logo.png' %}" alt="Avatar" style="width:250px;height:250px;">
- </div>
-</div>
-<div  class="col-md-3">
-    <h4><b>Description</b></h4>
-    <p>Article Description will come here </p>
-</div>
-
-<div  class="col-md-3">
-              <div class="card">
-  <img src="{% static 'dist/images/logos/logo.png' %}" alt="Avatar" style="width:250px;height:250px;">
- </div></div>
- <div  class="col-md-3">
-    <h4><b>Description</b></h4>
-    <p>Article Description will come here. </p>
-  </div>
-</div>
-
-<br/><br/>
-
-<div class="row">
-            <div  class="col-md-3">
-              <div class="card">
-  <img src="{% static 'dist/images/logos/logo.png' %}" alt="Avatar" style="width:250px;height:250px;">
- </div>
-</div>
-<div  class="col-md-3">
-    <h4><b>Description</b></h4>
-    <p>Article Description will come here. </p>
-</div>
-
-<div  class="col-md-3">
-              <div class="card">
-  <img src="{% static 'dist/images/logos/logo.png' %}" alt="Avatar" style="width:250px;height:250px;">
- </div></div>
- <div  class="col-md-3">
-    <h4><b>Description</b></h4>
-    <p>Article Description will come here. </p>
-  </div>
-</div>
-<br/><br/>
-
-<div class="row">
-            <div  class="col-md-3">
-              <div class="card">
-  <img src="{% static 'dist/images/logos/logo.png' %}" alt="Avatar" style="width:250px;height:250px;">
- </div>
-</div>
-<div  class="col-md-3">
-    <h4><b>Description</b></h4>
-    <p>Article Description will come here. </p>
-</div>
-
-<div  class="col-md-3">
-              <div class="card">
-  <img src="{% static 'dist/images/logos/logo.png' %}" alt="Avatar" style="width:250px;height:250px;">
- </div></div>
- <div  class="col-md-3">
-    <h4><b>Description</b></h4>
-    <p>Article Description will come here. </p>
-  </div>
-</div>
-<br/><br/>
-
-<div class="row">
-            <div  class="col-md-3">
-              <div class="card">
-  <img src="{% static 'dist/images/logos/logo.png' %}" alt="Avatar" style="width:250px;height:250px;">
- </div>
-</div>
-<div  class="col-md-3">
-    <h4><b>Description</b></h4>
-    <p>Article Description will come here. </p>
-</div>
-
-<div  class="col-md-3">
-              <div class="card">
-  <img src="{% static 'dist/images/logos/logo.png' %}" alt="Avatar" style="width:250px;height:250px;">
- </div></div>
- <div  class="col-md-3">
-    <h4><b>Description</b></h4>
-    <p>Article Description will come here. </p>
-  </div>
-</div>
-<br/><br/>
-
-<div class="row">
-            <div  class="col-md-3">
-              <div class="card">
-  <img src="{% static 'dist/images/logos/logo.png' %}" alt="Avatar" style="width:250px;height:250px;">
- </div>
-</div>
-<div  class="col-md-3">
-    <h4><b>Description</b></h4>
-    <p>Article Description will come here. </p>
-</div>
-
-<div  class="col-md-3">
-              <div class="card">
-  <img src="{% static 'dist/images/logos/logo.png' %}" alt="Avatar" style="width:250px;height:250px;">
- </div></div>
- <div  class="col-md-3">
-    <h4><b>Description</b></h4>
-    <p>Article Description will come here. </p>
-  </div>
-</div>
-
-
-
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
-
-
-<!-- bse scrolling bar starts here -->
-<div class="runtext-container">
-  <div class="main-runtext">
-    <marquee direction="" onmouseover="this.stop();" onmouseout="this.start();">
-
-      <div class="holder">
-
-       <div class="text-container">
-         &nbsp; &nbsp; <img src=""> &nbsp; <a data-fancybox-group="gallery" class="fancybox" " title="Feederfox">Breaking News!!   Church and sexual abuse: Catholics, state have been silent for too long; Kerala
-rape must cause Vatican to act.</a>
-       </div>
-
-       <div class="text-container">
-         &nbsp; &nbsp; <img src=""> &nbsp; <a data-fancybox-group="gallery" class="fancybox"  title="Feederfox">Narendra Modi&#39;s birthday LIVE updates: Union ministers, BJP CMs, Israeli
-envoy, actors wish PM on his 68th.</a>
-       </div>
-
-       <div class="text-container">
-         &nbsp; &nbsp; <img src=""> &nbsp; <a data-fancybox-group="gallery" class="fancybox"  title="Feederfox">Keshav Prasad Maurya attacks Akhilesh&#39;s efforts to unite Opposition, says ex-
-CM &#39;couldn&#39;t keep his family together&#39.</a>
-       </div>
-
-       <div class="text-container">
-         &nbsp; &nbsp; <img src=""> &nbsp; <a data-fancybox-group="gallery" class="fancybox" title="Feederfox">Typhoon Mangkhut weakens to tropical storm after plowing into China; 2.4
-million evacuated from Guangdong province.</a>
-       </div>
-
-       <div class="text-container">
-         &nbsp; &nbsp; <img src=""> &nbsp; <a data-fancybox-group="gallery" class="fancybox"  title="Feederfox">Bigg Boss season 12 begins with Salman Khan as host; Karanvir Bohra,
-Sreesanth, Anup Jalota among contestants. </a>
-       </div>
-
-       <div class="text-container">
-         &nbsp; &nbsp; <img src=""> &nbsp; <a data-fancybox-group="gallery" class="fancybox"  title="Feederfox">Asia Cup 2018: Pakistan warm up for high-voltage India clash with professional
-performance in win over Hong Kong.</a>
-       </div>
-
-       <div class="text-container">
-         &nbsp; &nbsp; <img src=""> &nbsp; <a data-fancybox-group="gallery" class="fancybox"  title="Feederfox">Rahul Gandhi to launch campaign in Madhya Pradesh on Monday with
-roadshow: Congress chief to meet 11 Hindu priests.</a>
-       </div>
-
-       <div class="text-container">
-         &nbsp; &nbsp; <img src=""> &nbsp; <a data-fancybox-group="gallery" class="fancybox" title="Feederfox">General Bipin Rawat says Nepal, Bhutan can’t delink from India due to
-geography, cautions countries against China&#39;s aid. </a>
-       </div>
-
-     </div>
-
-   </marquee>
- </div>
-</div>
-<!-- bse scrolling bar ends here -->
-
+ {% include 'header1.html' %}
 
 <div class="carousel slide" id="img-carousel" data-ride="carousel">
   <!-- Indicators-->
@@ -792,25 +23,25 @@ geography, cautions countries against China&#39;s aid. </a>
   </ol>
   <!-- Wrapper for slides-->
   <div class="carousel-inner" role="listbox">
-    <div class="item active"><img src="{% static 'dist/images/new-images/br.jpg' %}" alt=""/ style="width:100%;">
+    <div class="item active"><img src="{% static 'dist/images/new-images/wallpaper MAGAZINE.jpg' %}" alt=""/ style="width:100%;">
       <div class="carousel-caption">
         <h2 class="animated fadeInDown">Magazines</h2>
         <p class="animated fadeInUp">Ofcourse a magazine is shaped by its editor, and each editor is different.</p>
-        <p class="animated fadeInUp"><a class="btn btn-transparent btn-rounded btn-large" href="#">Learn More</a></p>
+        <p class="animated fadeInUp"><a class="btn btn-transparent btn-rounded btn-large" href="#linkmagazines">Learn More</a></p>
       </div>
     </div>
-    <div class="item"><img src="{% static 'dist/images/new-images/paper.jpg' %}" alt=""/ style="width:100%;">
+    <div class="item"><img src="{% static 'dist/images/new-images/wallpaper newspaper.jpg' %}" alt=""/ style="width:100%;">
       <div class="carousel-caption">
         <h2 class="animated bounceInDown">Newspapers</h2>
-        <p class="animated bounceInUp">In these times we fight for ideas and News Papers are our fortress.</p>
-        <p class="animated bounceInUp"><a class="btn btn-transparent btn-rounded btn-large" href="#">Get Started</a></p>
+        <p class="animated bounceInUp">In these times we fight for ideas and NewsPapers are our fortress.</p>
+        <p class="animated bounceInUp"><a class="btn btn-transparent btn-rounded btn-large" href="#linknewspapers">Get Started</a></p>
       </div>
     </div>
-    <div class="item"><img src="{% static 'dist/images/new-images/nwez.jpg' %}" alt=""/ style="width:100%;">
+    <div class="item"><img src="{% static 'dist/images/new-images/wallpaper live stream 3.jpg' %}" alt=""/ style="width:100%;">
       <div class="carousel-caption">
         <h2 class="animated fadeInDown">Newschannels</h2>
         <p class="animated fadeInDown">People who watch news are pretty smart. Most of them don't go to one channel for all their news anyway.</p>
-        <p class="animated fadeInRight"><a class="btn btn-transparent btn-rounded btn-large" href="#">Watch Now!</a></p>
+        <p class="animated fadeInRight"><a class="btn btn-transparent btn-rounded btn-large" href="#linknewschannels">Watch Now!</a></p>
       </div>
     </div>
   </div>
@@ -818,112 +49,89 @@ geography, cautions countries against China&#39;s aid. </a>
 </div>
 
   <!-- feederfox site overview -->
-<div class="container_ad">
-  <div>
-    <span>Description</span>
-    <img src="{% static 'dist/images/new-images/5.jpg' %}" alt="">
-  </div>
-  <div>
-    <span>Description</span>
-    <img src="{% static 'dist/images/new-images/6.jpg' %}" alt="">
-  </div>
-  <div>
-    <span>Description</span>
-    <img src="{% static 'dist/images/new-images/news channel image.jpg' %}" alt="">
-  </div>
-</div>
+<!--<div class="container_ad">-->
+<!--  <div>-->
+<!--    <span>Description</span>-->
+<!--    <img src="{% static 'dist/images/new-images/11.jpg' %}" alt="">-->
+<!--  </div>-->
+<!--  <div>-->
+<!--    <span>Description</span>-->
+<!--    <img src="{% static 'dist/images/new-images/22.jpg' %}" alt="">-->
+<!--  </div>-->
+<!--  <div>-->
+<!--    <span>Description</span>-->
+<!--    <img src="{% static 'dist/images/new-images/33.jpg' %}" alt="">-->
+<!--  </div>-->
+<!--</div>-->
   <!-- feederfox site overview ends here -->
 
   <!-- Newschannels starts here -->
+   <div class="row">
+     <div class="col-md-12">
+      <img src="{% static 'dist/images/new-images/NEWS-CHANNELS.png' %}" alt="" class="img-responsive">
+   </div>
+</div>
   <div class="container">
-    <h2 class="heading-chnls"><strong>NewsChannels</strong></h2><br>
-      <div class="owl-carousel owl-theme">
-        <div class="item">
-          <a href="{% url 'video1' %}">
-            <div class="box-model">
-             <img class="img-responsive" src="static/dist/images/national/1.jpg" style="height:150px;">
-           </div>
-         </a>
-       </div>
-       <div class="item">
-        <a href="{% url 'video2' %}">
+    <div class="padd-block">
+    <div class="owl-carousel owl-theme">
+      <div class="item" style="margin-right:30px;">
+        <a href="{% url 'video1' %}">
           <div class="box-model">
-           <img class="img-responsive" src="static/dist/images/national/12.png" alt="" style="height:150px;">
+           <img class="img-responsive" src="static/dist/images/national/new_logos/jan-tv.png" style="height:150px;">
          </div>
        </a>
      </div>
+     <div class="item" style="margin-right:30px;">
+      <a href="{% url 'video2' %}">
+        <div class="box-model">
+         <img class="img-responsive" src="static/dist/images/national/new_logos/tv100.png" alt="" style="height:150px;">
+       </div>
+     </a>
+   </div>
 
-   <div class="item">
+   <div class="item" style="margin-right:30px;">
     <a href="{% url 'video3' %}">
       <div class="box-model">
-       <img class="img-responsive" src="static/dist/images/national/bhaarattoday.png" alt="" style="height:150px;">
+       <img class="img-responsive" src="static/dist/images/national/new_logos/barat.png" alt="" style="height:150px;">
      </div>
    </a>
  </div>
- <div class="item">
+ <div class="item" style="margin-right:30px;">
   <a href="{% url 'video4' %}">
     <div class="box-model">
-     <img class="img-responsive" src="static/dist/images/national/prudent.jpg" alt="" style="height:150px;">
-   </div>
- </a>
-</div>
-<div class="item">
-  <a href="{% url 'video5' %}">
-    <div class="box-model">
-      <img class="img-responsive" src="static/dist/images/national/4.png" alt="" style="height:150px;">
-    </div>
-  </a>
-</div>
-
-<div class="item">
-  <a href="{% url 'video6' %}">
-    <div class="box-model">
-     <img class="img-responsive" src="static/dist/images/national/21.png" alt="" style="height:150px;">
+     <img class="img-responsive" src="static/dist/images/national/new_logos/lotus.png" alt="" style="height:150px;">
    </div>
  </a>
 </div>
 <div class="item">
  <a href="{% url 'video7' %}">
   <div class="box-model">
-   <img class="img-responsive" src="static/dist/images/national/janamtv.jpg" alt="" style="height:150px;">
+   <img class="img-responsive" src="static/dist/images/national/new_logos/JANAM.png" alt="" style="height:150px;">
  </div>
 </a>
 </div>
-<!--
-<div class="item">
-  <a href="#">
+<div class="item" style="margin-right:30px;">
+  <a href="{% url 'video5' %}">
     <div class="box-model">
-     <img class="img-responsive" src="static/dist/images/national/zee_media.jpg" alt="" style="height:150px;">
+      <img class="img-responsive" src="static/dist/images/national/new_logos/prudent.png" alt="" style="height:150px;">
+    </div>
+  </a>
+</div>
+<div class="item" style="margin-right:30px;">
+  <a href="{% url 'video6' %}">
+    <div class="box-model">
+     <img class="img-responsive" src="static/dist/images/national/new_logos/INH.png" alt="" style="height:150px;">
    </div>
  </a>
 </div>
-<div class="item">
-  <a href="#">
-    <div class="box-model">
-     <img class="img-responsive" src="static/dist/images/national/india_today.png" alt="" style="height:150px;">
-   </div>
- </a>
+
 </div>
-<div class="item">
-  <a href="#">
-    <div class="box-model">
-     <img class="img-responsive" src="static/dist/images/national/NDTV.png" alt="" style="height:150px;">
-   </div>
- </a>
-</div>
-<div class="item">
-  <a href="#">
-    <div class="box-model">
-     <img class="img-responsive" src="static/dist/images/national/NDTV.png" alt="" style="height:150px;">
-   </div>
- </a>
-</div> -->
 </div>
 </div>
 
 <!-- Newschannels ends here -->
 
- <section style="background: url(static/dist/images/new-images/pub-signup-bg.jpg) center top no-repeat; background-size: cover;" class="bar no-mb color-white text-center bg-fixed relative-positioned">
+ <section style="background: url(static/dist/images/new-images/are-you-a-publisher-b.jpg) center top no-repeat; background-size: cover;" class="bar no-mb color-white text-center bg-fixed relative-positioned">
         <div class="dark-mask"></div>
         <div class="container">
           <div class="icon icon-outlined icon-lg"><i class="fa fa-file-code-o"></i></div>
@@ -932,17 +140,18 @@ geography, cautions countries against China&#39;s aid. </a>
           <p class="text-center"><a href="{% url 'accounts:pubsignup' %}" class="btn btn-template-outlined-white btn-lg">Sign Up</a></p>
         </div>
 </section>
-<br>
+
 <!--Newspapers-->
+<div class="row">
+  <div class="col-md-12">
+   <img src="{% static 'dist/images/new-images/newspaper.png' %}" alt="" class="img-responsive">
+</div>
+</div>
 <div class="container">
-  <h2 class="heading-news"><strong>NewsPapers</strong></h2><br>
-  <!--National Newspapers starts here-->
-  <div class="row">
-    <div class="col-md-12">
-     <div class="wrapper">
+    <div class="padd-block">
       <div class="owl-carousel owl-theme">
-       {% for pubdetails in pubdetails %}
-    <div class="item" style="border:3px solid #a41c20;">
+       {% for pubdetails in pub1 %}
+    <div class="item" style="margin-right:30px;">
       <div class="hovereffect"><img src='{{ pubdetails.Add_Logo.url }}' class="img-responsive reg-img">
          <div class="overlay">
                <a class="info"  href="{% url 'content:edition' pubdetails.id %} " target="_blank">Read</a>
@@ -950,16 +159,21 @@ geography, cautions countries against China&#39;s aid. </a>
       </div>
     </div>
      {% endfor %}
-
+</div>
+<div class="owl-carousel owl-theme">
+       {% for pubdetails in pub2 %}
+    <div class="item" style="margin-right:30px;">
+      <div class="hovereffect"><img src='{{ pubdetails.Add_Logo.url }}' class="img-responsive reg-img">
+         <div class="overlay">
+               <a class="info"  href="{% url 'content:edition' pubdetails.id %} " target="_blank">Read</a>
+        </div>
       </div>
     </div>
-    <!--National Newspapers sliders Ends here-->
-  </div>
+     {% endfor %}
 </div>
-
+</div>
 </div>
 <!--Newspapers Ends here-->
-<br>
 
 <!--<div class="container">-->
 <!--<img src="{% static 'dist/images/ads/maxresdefault.jpg' %}" alt="Alt" style="height:120px;width:60%;margin-left:262px;">-->
@@ -967,8 +181,14 @@ geography, cautions countries against China&#39;s aid. </a>
 
 
 <!--Magazines-->
+<div class="row">
+    <div class="col-md-12">
+        <img src="{% static 'dist/images/new-images/magzines.png' %}" alt="" class="img-responsive">
+     </div>
+</div>
+
 <div class="container">
- <h2 class="heading-magzn"><strong>Magazines</strong></h2>
+  <div class="padd-block">
   <div class="row">
     <div align="center">
       <button class="btn btn-default filter-button btn-send" data-filter="all">All</button>
@@ -979,109 +199,9 @@ geography, cautions countries against China&#39;s aid. </a>
     </div>
     <br/>
 
-    <div class="gallery_product col-lg-2 col-md-2 col-sm-2 col-xs-6 filter hdpe">
-     <div class="hovereffect">
-      <img class="img-responsive" src="static/dist/images/magazines/2.png" alt="">
-      <div class="overlay">
-       <a class="info" href="#">View Details</a>
-     </div>
-   </div>
- </div>
-
-
- <div class="gallery_product col-lg-2 col-md-2 col-sm-2 col-xs-6 filter sprinkle">
-   <div class="hovereffect">
-    <img class="img-responsive" src="static/dist/images/magazines/2.png" alt="">
-    <div class="overlay">
-     <a class="info" href="#">View Details</a>
-   </div>
- </div>
-</div>
-
-<div class="gallery_product col-lg-2 col-md-2 col-sm-3 col-xs-6 filter hdpe">
- <div class="hovereffect">
-  <img class="img-responsive" src="static/dist/images/magazines/3.png" alt="">
-  <div class="overlay">
-   <a class="info" href="#">View Details</a>
- </div>
-</div>
-</div>
-
-<div class="gallery_product col-lg-2 col-md-2 col-sm-3 col-xs-6 filter irrigation">
- <div class="hovereffect">
-  <img class="img-responsive" src="static/dist/images/magazines/4.png" alt="">
-  <div class="overlay">
-   <a class="info" href="#">View Details</a>
- </div>
-</div>
-</div>
-
-<div class="gallery_product col-lg-2 col-md-2 col-sm-3 col-xs-6 filter spray">
- <div class="hovereffect">
-  <img class="img-responsive" src="static/dist/images/magazines/5.png" alt="">
-  <div class="overlay">
-   <a class="info" href="#">View Details</a>
- </div>
-</div>
-</div>
-
-
-<div class="gallery_product col-lg-2 col-md-2 col-sm-3 col-xs-6 filter irrigation">
- <div class="hovereffect">
-  <img class="img-responsive" src="static/dist/images/magazines/Aaragini.png" alt="">
-  <div class="overlay">
-   <a class="info" href="#">View Details</a>
- </div>
-</div>
-</div>
-
-<div class="gallery_product col-lg-2 col-md-2 col-sm-3 col-xs-6 filter spray">
- <div class="hovereffect">
-  <img class="img-responsive" src="static/dist/images/magazines/7.png" alt="">
-  <div class="overlay">
-   <a class="info" href="#">View Details</a>
- </div>
-</div>
-</div>
-
-<div class="gallery_product col-lg-2 col-md-2 col-sm-3 col-xs-6 filter irrigation">
- <div class="hovereffect">
-  <img class="img-responsive" src="static/dist/images/magazines/8.png" alt="">
-  <div class="overlay">
-   <a class="info" href="#">View Details</a>
- </div>
-</div>
-</div>
-
-<div class="gallery_product col-lg-2 col-md-2 col-sm-3 col-xs-6 filter irrigation">
- <div class="hovereffect">
-  <img class="img-responsive" src="static/dist/images/magazines/Nammude_Arogyam.png" alt="">
-  <div class="overlay">
-   <a class="info" href="#">View Details</a>
- </div>
-</div>
-</div>
-
-<div class="gallery_product col-lg-2 col-md-2 col-sm-3 col-xs-6 filter hdpe">
- <div class="hovereffect">
-  <img class="img-responsive" src="static/dist/images/magazines/Media_Visphot.png" alt="">
-  <div class="overlay">
-   <a class="info" href="#">View Details</a>
- </div>
-</div>
-</div>
-
-<div class="gallery_product col-lg-2 col-md-2 col-sm-3 col-xs-6 filter spray">
- <div class="hovereffect">
-  <img class="img-responsive" src="static/dist/images/magazines/Unlimited_News_Aug18.png" alt="">
-  <div class="overlay">
-   <a class="info" href="#">View Details</a>
- </div>
-</div>
-</div>
 
 {% for magazine in magazines %}
-<div class="gallery_product col-lg-2 col-md-2 col-sm-3 col-xs-6 filter sprinkle">
+<div class="gallery_product col-lg-2 col-md-2 col-sm-3 col-xs-6 filter hdpe">
  <div class="hovereffect">
   <img class="img-responsive" src="{{ magazine.image.url }}" alt="">
   <div class="overlay">
@@ -1093,106 +213,117 @@ geography, cautions countries against China&#39;s aid. </a>
 
 </div>
 </div>
+</div>
 <!--End of Magazines-->
 
-<br>
+<!--Articles-->
+<div class="row">
+   <div class="col-md-12">
+      <img src="{% static 'dist/images/new-images/ARTICLE-BLOG.png' %}" alt="" class="img-responsive">
+   </div>
+</div>
 
+<div class="padd-block-article">
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+             <a href="{% url 'articlePage' %}" class="view-all-link pull-right"><b>View All</b></a>
+        </div>
+        {% for article in articles|slice:"0:3" %}
+        <div class="col-md-4">
+            <a target="_blank" href="{% url 'content:view_articles' article.id %}" class="article-link">
+             <article class="card-article shadow">
+            <!-- <h1 class="card__title">Simple Card</h1> -->
+            <img src="{{ article.image.url }}" alt="image" class="artcle_img">
+            <p class="card__paragraph">{{ article.title }}</p>
+            </article>
+           </a>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+</div>
 
-
+<!--End of Articles-->
 
 <!--Ebooks-->
-
-<div class="container ebook-respnsive">
-        <h2 class="section_heading" id="linkebooks"><strong>E-books</strong></h2>
-        <div class="container">
-        <section class="customer-logos slider">
-          {% for e in ebook %}
-        <a href="{% url 'content:viewebook' e.id %} "><div class="slide"><img src="{{ e.image.url }} "></div></a>
-        <div class="slide"><img src="static/dist/images/ebooks/e-books.jpg"></div>
-        <div class="slide"><img src="static/dist/images/ebooks/e-books.jpg"></div>
-        <div class="slide"><img src="static/dist/images/ebooks/e-books.jpg"></div>
-        <div class="slide"><img src="static/dist/images/ebooks/e-books.jpg"></div>
-        <div class="slide"><img src="static/dist/images/ebooks/e-books.jpg"></div>
-        <div class="slide"><img src="static/dist/images/ebooks/e-books.jpg"></div>
-        <div class="slide"><img src="static/dist/images/ebooks/e-books.jpg"></div>
-        {% endfor %}
-        </section>
+<div class="row">
+   <div class="col-md-12">
+      <img src="{% static 'dist/images/new-images/E-BOOKS.png' %}" alt="" class="img-responsive">
+   </div>
+</div>
+<div class="container">
+  <div class="row">
+        <div class="col-md-12">
+            <a href="{% url 'ebooksview' %}" class="view-all-link pull-right" style="padding:5px;"><b>View All</b></a>
         </div>
-     </div>
+    </div>
+<div class="container">
+ <div class="padd-block-article">
+    <section class="customer-logos slider">
+    {% for e in ebook %}
+    <a href="{% url 'content:viewebook' e.id %} "><div class="slide"><img src="{{ e.image.url }} "></div></a>
+        <!--<div class="slide"><img src="static/dist/images/ebooks/e-books.jpg"></div>-->
+        <!--<div class="slide"><img src="static/dist/images/ebooks/e-books.jpg"></div>-->
+        <!--<div class="slide"><img src="static/dist/images/ebooks/e-books.jpg"></div>-->
+        <!--<div class="slide"><img src="static/dist/images/ebooks/e-books.jpg"></div>-->
+        <!--<div class="slide"><img src="static/dist/images/ebooks/e-books.jpg"></div>-->
+        <!--<div class="slide"><img src="static/dist/images/ebooks/e-books.jpg"></div>-->
+        <!--<div class="slide"><img src="static/dist/images/ebooks/e-books.jpg"></div>-->
+    {% endfor %}
+    </section>
+  </div>
+</div>
+</div>
 
 <br>
 <!--Ebooks ends here-->
-
-
- <section class="app-dwnld">
-  <div class="container">
-    <div class="row">
-      <div class="col-md-6 col-xs-12">
-        <img src="static/dist/images/new-images/mob.png" alt="Alt" style="height:500px;width:939px;">
-      </div>
-      <div class="col-md-6">
-        <h2 class="app-heading">Download the feederfox app now!</h2><br>
-        <p style="font-size:18px;line-height:2.2;">Feederfox Media App offers a broad spectrum of news portal services on as single platform to its readers/viewers across Asia.</p>
-        <div class="row">
-          <div class="col-md-4">
-            <a href="https://play.google.com/store/apps/details?id=feeder.fox.labs.media" target="_blank">
-            <img src="static/dist/images/new-images/play-store.png" alt="Alt" class="img-responsive" style="margin-top:10px;">
-            </a>
-          </div>
-          <div class="col-md-4">
-            <img src="static/dist/images/new-images/app-store.png" alt="Alt" class="img-responsive" style="margin-top:10px;">
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-
-
- <section style="background: url(static/dist/images/new-images/govinst_careeropp_websitebanner_mar_2018.jpg) center top no-repeat; background-size: cover;" class="bar no-mb color-white text-center bg-fixed relative-positioned career_img">
-        <div class="dark-mask"></div>
-        <div class="container" style="margin-top:170px;">
-          <h3 class="text-uppercase">Careers At Feederfox</h3>
-          <p class="lead" style="font-size:18px;">Want to work with us? Explore new oppurtunities, be a part of FeederFox family.</p>
-          <p class="text-center"><a href="#" class="btn btn-template-outlined-white btn-lg">Explore Oppurtunities</a></p>
-        </div>
-</section>
 <br>
-<!--Articles-->
-<div class="container">
-  <h2 class="article_heading"><strong>Articles / Blogs</strong></h2>
-  <div class="articles_bg box-artcl effect5">
-   <div class="row">
-    <div id="content">
-      {% for article in articles|slice:":3" %}
-     <div class="col-md-3">
-       <div class="container1">
-         <div class="flipper">
-          
-           <div class="front">
-             <img src="{{ article.image.url }} " alt="image" class="artcle_img">
-             <p class="caption">{{ article.title }} </p>
-           </div>
-           <div class="back">
-             <a href="{% url 'content:view_articles' article.id %} " target="_blank">
-               <h1 class="article-header">{{ article.title }} </h1>
-             </a>
-             <!-- <p class="date">23/07/1997</p> -->
-             <br/>
-             <br>
-             <p class="description">{{ article.description|truncatechars:200 }} </div>
-             </div>
-           </div>
-         </div>
-         {% endfor %}
-         
-                 
+<!--Careers starts here-->
+ <section style="background: url(static/dist/images/new-images/career-2b.jpg) center top no-repeat; background-size: cover;" class="bar no-mb color-white text-center bg-fixed relative-positioned career_img">
+        <div class="dark-mask"></div>
+        <div class="container" style="margin-top:77px;">
+          <h3 class="text-uppercase">Careers At Feederfox</h3>
+          <p class="lead" style="font-size:18px;">Want to work with us? Explore new opportunities, be a part of FeederFox family.</p>
+          <p class="text-center"><a href="{% url 'careers1' %}" class="btn btn-template-outlined-white btn-lg">Explore Opportunities</a></p>
+        </div>
+</section>
+<!--Careers ends here-->
+
+<!--Download App starts here-->
+<section class="app-dwnld">
+   <div class="padd-block">
+   <div class="container">
+      <h2 style="text-align: center;padding-top:10px;text-transform: uppercase;color:#72050a;"><strong>Download</strong></h2>
+      <h3 style="text-align: center;text-transform: uppercase;font-weight: bold;">The Feederfox app now!</h3>
+      <div class="row">
+         <div class="col-md-6" style="margin-top:150px;">
+            <br>
+            <p style="font-size:18px;line-height:2.2;">Feederfox Media App offers a broad spectrum of news portal services on as single platform to its readers/viewers across Asia.</p>
+            <div class="row">
+               <div class="col-md-4">
+                  <a href="https://play.google.com/store/apps/details?id=feeder.fox.labs.media" target="_blank">
+                     <img src="static/dist/images/new-images/play-store.png" alt="Alt" class="img-responsive" style="margin-top:10px;">
+                  </a>
                </div>
-             </div>
-           </div>
+               <div class="col-md-4">
+                 <a href="https://itunes.apple.com/us/app/feederfox/id1435142403?ls=1&mt=8" target="_blank">
+                  <img src="static/dist/images/new-images/app-store.png" alt="Alt" class="img-responsive" style="margin-top:10px;">
+                  </a>
+               </div>
+            </div>
          </div>
-         <!--End of Articles-->
+         <div class="col-md-6 col-xs-12">
+            <img src="static/dist/images/new-images/mobile_finger.jpg" alt="Alt" class="img-responsive">
+         </div>
+      </div>
+   </div>
+</div>
+</section>
+
+<!--Download App ends here-->
+<br>
+
 <!--
          <div class="container">
     <h2 class="client_heading"><strong>Our Publishers</strong></h2>
@@ -1209,13 +340,12 @@ geography, cautions countries against China&#39;s aid. </a>
 </div> -->
 <br><br><br><br>
 
-         <div class="bg-footer">
           <!-- footer -->
           <div class="footer">
             <div class="container">
               <div class="row ">
                 <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" style="margin-top:-47px;">
-                  <div class="ft-logo"><img src="dist/images/only_logo.png" alt="" style="width:136px;height:87px;"></div>
+                  <div class="ft-logo"><img src="{% static 'dist/images/only_logo.png' %}" alt="" style="width:136px;height:87px;"></div>
                 </div>
               </div>
               <hr class="footer-line">
@@ -1225,9 +355,9 @@ geography, cautions countries against China&#39;s aid. </a>
                   <div class="footer-widget">
                     <div class="footer-title">Company</div>
                     <ul class="list-unstyled">
-                      <li><a href="about.html" class="footer_links" target="_blank">About</a></li>
-                      <li><a href="#" class="footer_links">Careers</a></li>
-                      <li><a href="privacy.html" class="footer_links" target="_blank">Legal & Privacy</a></li>
+                      <li><a href="{% url 'about' %}" class="footer_links" target="_blank">About</a></li>
+                      <li><a href="{% url 'careers1' %}" class="footer_links">Careers</a></li>
+                      <li><a href="{% url 'privacy' %}" class="footer_links" target="_blank">Legal & Privacy</a></li>
                     </ul>
                   </div>
                 </div>
@@ -1237,9 +367,9 @@ geography, cautions countries against China&#39;s aid. </a>
                   <div class="footer-widget ">
                     <div class="footer-title">Quick Links</div>
                     <ul class="list-unstyled">
-                      <li><a href="#" class="footer_links">News</a></li>
-                      <li><a href="contact.html" class="footer_links" target="_blank">Contact us</a></li>
-                      <li><a href="faq.html" class="footer_links" target="_blank">FAQ</a></li>
+                      <li><a href="{% url 'comingSoon' %}" class="footer_links">News</a></li>
+                      <li><a href="{% url 'contact' %}" class="footer_links" target="_blank">Contact us</a></li>
+                      <li><a href="{% url 'faq' %}" class="footer_links" target="_blank">FAQ</a></li>
                     </ul>
                   </div>
                 </div>
@@ -1264,7 +394,7 @@ geography, cautions countries against China&#39;s aid. </a>
                     <form>
                       <div class="newsletter-form">
                         <input class="form-control" placeholder="Enter Your Email address" type="text">
-                        <button class="btn btn-sm btn-footer" type="submit">Go</button>
+                        <button class="btn btn-sm btn-footer" type="submit" style="margin-top:12px;">Go</button>
                       </div>
                     </form>
                   </div>
@@ -1283,9 +413,7 @@ geography, cautions countries against China&#39;s aid. </a>
             </div>
           </div>
           <!-- /.footer -->
-        </div>
-
-
+</div>
         <!-- ebooks js -->
         <script type="text/javascript">
           (function ($) {
@@ -1570,31 +698,73 @@ geography, cautions countries against China&#39;s aid. </a>
           </script>
           <script type="text/javascript">
             $(document).ready(function(){
-    $('.customer-logos').slick({
-        slidesToShow: 6,
-        slidesToScroll: 1,
-        autoplay: true,
-        autoplaySpeed: 1500,
-        arrows: false,
-        dots: false,
-        pauseOnHover: false,
-        responsive: [{
-            breakpoint: 768,
-            settings: {
-                slidesToShow: 4
-            }
-        }, {
-            breakpoint: 520,
-            settings: {
-                slidesToShow: 3
-            }
-        }]
-    });
+$('.customer-logos').slick({
+         slidesToShow: 6,
+         slidesToScroll: 1,
+         autoplay: true,
+         autoplaySpeed: 1500,
+         arrows: false,
+         dots: false,
+         pauseOnHover: false,
+         responsive: [{
+         breakpoint: 768,
+         settings: {
+             slidesToShow: 4
+         }
+         }, {
+         breakpoint: 520,
+         settings: {
+             slidesToShow: 3
+         }
+         }]
+         });
 });
           </script>
 
-          <script src="{% static 'dist/js/morris.js' %}"></script>
- {% endblock %}
+          <script type="text/javascript">
+            // JS Nuggets: Notifications API
 
-        </body>
-        </html>
+//Notification.requestPermission();
+
+//new Notification("Subscribe to JS Nuggets!");
+
+function notifyMe() {
+  if (!("Notification" in window)) {
+    alert("This browser does not support system notifications");
+  }
+  else if (Notification.permission === "granted") {
+    notify();
+  }
+  else if (Notification.permission !== 'denied') {
+    Notification.requestPermission(function (permission) {
+      if (permission === "granted") {
+        notify();
+      }
+    });
+  }
+
+  function notify() {
+    var notification = new Notification('FeederFox', {
+      icon: "{% static 'dist/images/logos/logo.png' %}",
+      body: "Subscribe to FeederFoxMedia!! Read Any Newspapers for absolutely free of cost!!",
+    });
+
+    notification.onclick = function () {
+      window.open("https://www.feederfox.com/customerpage/");
+    };
+    setTimeout(notification.close.bind(notification), 9000);
+  }
+
+}
+window.onload = function () {
+    if (localStorage.getItem("hasCodeRunBefore") === null) {
+      notifyMe();
+        /** Your code here. **/
+        localStorage.setItem("hasCodeRunBefore", true);
+    }
+}
+
+          </script>
+
+  {% endblock %}
+</html>

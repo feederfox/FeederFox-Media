@@ -1,0 +1,49 @@
+{% extends 'base.html' %} <!-- Add this for inheritance -->
+{% load static %}
+<!doctype html>
+<html>
+<head>
+  <head>
+</head>
+</head>
+
+  {% block pagecontent %}
+
+  <div class="pubpage" style="background-image: url({% static 'dist/images/new-images/customer.jpg' %} );height:900px;">
+    <br><br>
+
+<div class="conatiner">
+  <div class="row">
+    <div
+<div id="box1" class="box blurred-bg tinted" style="height:500px;width:900px;margin-left:-204px;">
+  <div class="content">
+    <h1 style="text-align: center;color:#561704;">FeederFox Customer Registration</h1>
+    <br>
+    <h1>SignUp to access free and premium contents in FeederFox</h1>
+      <!-- <h2>By <a href="http://ariona.net" rel="follow" target="_blank">Ariona, Rian</a></h2> -->
+      <p>Wide Variety of Magazines,E-books,Newspapers,Newschannels and Socialchannels</p>
+      <p>All under one platform</p>
+      <p>Just Provide the basic details like username,email and password..Thats's it! you are ready to go..</p>
+    <!-- <p class="related">See also: <a href="https://codepen.io/ariona/details/LVZLGP/" target="_blank">Staged Dropdown Animation</a></p>  -->
+    <br><br>
+    <a href="{% url 'accounts:cussignup' %}" class="action-button shadow animate red" style="margin-left:270px;">Sign Up
+    </a>
+    <a href="{% url 'accounts:login' %}" class="action-button shadow animate red">Login</a>
+  </div>
+</div>
+</div>
+
+
+
+    <!-- Bootstrap core JavaScript -->
+    <script src="vendor/jquery/jquery.min.js"></script>
+    <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script type="text/javascript">
+      $(function() {
+  $( ".box" ).draggable();
+});
+    </script>
+ {% endblock %}
+  </div>
+
+</html>

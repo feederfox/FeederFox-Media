@@ -1,0 +1,46 @@
+<!-- feederfoxnew/home/templates/publishersignup.html-->
+{% extends 'base.html' %} <!-- Add this for inheritance -->
+{%  load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}About Us {% endblock %}</title>
+</head>
+<body>
+{% block pagecontent %}
+ <!--header starts here -->
+ {% include 'header2.html' %}
+<br><br>
+<!-- article section starts  here -->
+
+
+<p>{{ request.build_absolute_uri }} </p>
+
+<div class="container">
+  <div class="row">
+    {% for article in articles %}
+      <div class="col-md-4">
+               <a target="_blank" href="{% url 'content:view_articles' article.id %}" class="article-link">
+              <article class="card-article shadow">
+                <!-- <h1 class="card__title">Simple Card</h1> -->
+                <img src="{{ article.image.url }} " alt="image" class="artcle_img">
+                <p class="card__paragraph">{{ article.title }} </p>
+             </article>
+          </a>
+            </div>
+            {% endfor %}
+
+
+<p>{{ request.build_absolute_uri }} </p>
+
+  </div>
+</div>
+<!-- article section  ends here -->
+
+
+
+{% include 'footer.html' %}
+{% endblock %}
+</body>
+</html>
