@@ -1,0 +1,17 @@
+Applying for Position:
+{{ Position }}
+
+Contact Name:
+{{ contact_name }}
+
+Total Experience:
+{{ Experience }}
+
+Email:
+{{ contact_email }}
+
+Mobile:
+{{ contact_mobile }}
+
+Feedback:
+{{ contact_feedback }}

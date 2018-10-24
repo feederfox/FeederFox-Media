@@ -353,7 +353,6 @@ class NewsPaperEditionSerializer(serializers.ModelSerializer):
 
 class ForgotPasswordSerializer(serializers.Serializer):
 	email = serializers.EmailField()
-	print(email)
 	password_reset_form_class = PasswordResetForm
     
 	def validate_email(self, value):

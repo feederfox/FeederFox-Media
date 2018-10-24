@@ -188,6 +188,9 @@ class PublisherDetail(models.Model):
 	def __str__(self):
 		return str(self.Name)
 
+class PublisherDetailEdition(Edition,models.Model):	
+	Name1 = models.CharField(max_length=100)	
+
 class PoliticalPosition(models.Model):
 	Position = models.CharField(max_length=100)
 

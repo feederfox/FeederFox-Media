@@ -1,0 +1,56 @@
+
+{% extends 'base.html' %} <!-- Add this for inheritance -->
+{%  load static %}
+{% load crispy_forms_tags %}
+{% block pagecontent %}
+{% include 'header1.html' %}
+ <!--header starts here -->
+
+<div class="col-md-9" style="background-color: white;">
+  <h3  style="text-align: center;">My Banners</h3>
+
+                  {% if messages %}
+                                    <ul class="messages">
+                                        {% for message in messages %}
+                                        <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+                                        {% endfor %}
+                                    </ul>
+                                    {% endif %}
+
+                    <table class="table table-bordered" style="width:779px;padding-left: 302px;margin-left: 250px;">
+                        <tr>
+                            <th>Sl no </th>
+                            <th>Name</th>
+                            <th>Banner Link </th>
+                            <th>Banner Image  </th>
+                            <th> Status </th>
+                            <th>Actions</th>
+                            
+                            
+                        </tr>
+                        {% for banner in banners %}
+                        <tr>
+
+                            <td>{{ forloop.counter }}</td>
+                            <td> {{ banner.Name }} </td>
+                            <td>{{ banner.Banner_Link }}</td>
+                            <td> <img src=" {{ banner.Banner_Image.url }} " style="height: 50px;width: 100px"> </td>
+                            <td> {% if banner.status == 0 %} In Review {% elif banner.status == 1 %} Approved {% endif %}  </td>
+                            <td><a href=" " title="view/edit" data-rel="tooltip"> <span class="fa fa-pencil"></span></a>
+                              <a href="" title="delete" data-rel="tooltip"><span class="fa fa-trash-o"></span></a>
+                            </td>                     
+                            
+                        </tr>
+
+                        {% endfor %}
+                    </table>
+
+
+
+</div>
+
+<!-- footer -->
+{% include 'footer.html' %}
+{% endblock %}
+</body>
+</html>

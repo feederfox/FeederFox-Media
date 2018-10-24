@@ -65,6 +65,9 @@ INSTALLED_APPS = [
     'paypal.standard.ipn',
     'payments',
     'star_ratings',
+    'careers',
+    'advertisement',
+    'stripe',
 ]
 
 
@@ -220,6 +223,8 @@ SOCIAL_AUTH_LOGIN_ERROR_URL = '/settings/'
 SOCIAL_AUTH_LOGIN_REDIRECT_URL = '/dashboard/'
 SOCIAL_AUTH_RAISE_EXCEPTIONS = False
 
+STRIPE_SECRET_KEY = 'sk_test_naXr0MXNzhHrtMHaJlLmdShy'
+STRIPE_PUBLISHABLE_KEY = 'pk_test_GHTiTTmRBwJ5c9ooU2TLvBmA'
 
 
 PAYPAL_RECEIVER_EMAIL = 'sameerbasha170794@gmail.com'

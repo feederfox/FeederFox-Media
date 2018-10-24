@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+{% block pagecontent %}
+{% include 'header1.html' %}
+<br><br>
+<div class="container">
+	<div class="col-sm-6">
+		{% if messages %}
+  <ul class="messages">
+ {% for message in messages %}
+<li>{{ message }}</li>
+ {% endfor %}
+ </ul>
+ {% endif %}
+		<form action="" method="POST" class="form" enctype="multipart/form-data">
+			{% csrf_token %}
+			{{ form|crispy}}
+			<br>
+			<button type="submit" class="btn btn-danger"> Submit </button>
+		</form>
+ 	</div>
+</div>
+<br><br><br>
+{% include 'footer.html' %}
+
+{% endblock %}
+

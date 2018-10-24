@@ -19,6 +19,7 @@ from django.contrib.auth.decorators import login_required
 from rest_framework.renderers import TemplateHTMLRenderer
 from pylovepdf.ilovepdf import ILovePdf
 from .fusioncharts import FusionCharts
+from django.views.generic.base import TemplateView
 import matplotlib.pyplot as plt
 from matplotlib.backends.backend_agg import FigureCanvasAgg
 import zlib,os,sys,PyPDF2
@@ -393,6 +394,7 @@ def pubdetails(request):
     return Response(response)
 
 
+
 def edition(request,pk):
     content = PublisherDetail.objects.get(pk=pk)
     name = content.Name
@@ -411,6 +413,10 @@ def edition(request,pk):
         sub1.append(n.subedition)
     print(sub1)
     context = {'name':name,'image':image,'mainedition':mainedition,'sub':sub,'newspaper':newspaper,'language':language}
+    def get_context_data(self, **kwargs): # new
+        context = super().get_context_data(**kwargs)
+        context['key'] = settings.STRIPE_PUBLISHABLE_KEY
+        return context
     return render(request,'edition.html',context)    
 
 
@@ -511,17 +517,11 @@ def article_list(request):
     context = {
             "request":request
             }
-    paginator = PostLimitOffsetPagination()
-    paginator.page_size = 10        
     article = Article.objects.all()
-    print(request.user)
-    print(request.user.profile)
-    print(request.user.profile.Profile_Picture)
-    result_page = paginator.paginate_queryset(article, request)
-    serializer = ArticleSerializer(result_page, many=True)
+    serializer = ArticleSerializer(article, many=True)
     resp3 = serializer.data
     a = {'Articles':resp3}
-    return paginator.get_paginated_response(a)
+    return Response(a)
     
     #return Response(a)
 
@@ -536,8 +536,6 @@ def contents_list(request):
         l = []   
         for i in pub_details:
             news = NewsPaper.objects.filter(name=i.Name)
-            print(news)
-            print(len(news))
             newsserializer = NewsPaperEditionSerializer(news,many=True,context=context)
             if news:
                 pub = PublisherDetail.objects.get(Name = i.Name)
@@ -629,7 +627,6 @@ def news(request):
     response1 = RegionalSerializer.data
     national = {'NationalNewsChannels':response}
     regional = {'RegionalNewsChannels':response1}
-    print(national.items())
     a = national.copy()
     a.update(regional)
     return Response(a)
@@ -657,13 +654,10 @@ class signup(APIView):
     def post(self,request, *args, **kwargs):
         data = request.data
         email = data['email']
-        print(email)
         username = data['username']
-        print(username)
         serializer = SignupSerializer(data=data)
         if serializer.is_valid():
             serializer.save()
-            print(serializer)
             return Response({"detail": "True" })
 
         return Response({'detail':'Email already in use'},status=status.HTTP_200_OK)
@@ -674,7 +668,6 @@ class signupapi(APIView):
     def post(self,request, *args, **kwargs):
         data = request.data
         email = data['email']
-        print(email)
         serializer = SignupAPISerializer(data=data)
         if serializer.is_valid():
             serializer.save()
@@ -688,7 +681,6 @@ class signupapi(APIView):
             Social_login = 0
             d = {'email':email,'username':username,'Mobile':Mobile,'Profile_Picture':Profile_Picture.url,
             'Social_login':Social_login}
-            print(d)
             s = SignupAPISerializer(data=d)
             if s.is_valid():
                 s.save()
@@ -712,11 +704,8 @@ class newspaperedition(APIView):
         data = request.data
         name = data.get('name',None)
         subedition = data.get('subedition')
-        print(name)
-        print(subedition)
         try:
             newspaper = NewsPaper.objects.get(name=name,subedition=subedition)
-            print(newspaper)
         except Exception as e:
             return Response({'detail':"NewsPaper not found" },status=status.HTTP_200_OK)
 
@@ -736,17 +725,12 @@ class login(APIView):
 
         email = data.get('email', None)
         password = data.get('password', None)
-        print(email)
         try:
             username = User.objects.get(email=email).username
-            print(username)
         except Exception as e:
             return Response({'detail':"User not found" },status=status.HTTP_200_OK)
-        print(username)
         if username:
             user = authenticate(username=username, password=password)
-            print(user)
-
             if user is not None:
                 if user.is_active:
                     #login(request, user)
@@ -774,7 +758,6 @@ class loginapi(APIView):
         username = a.username
         Mobile = a.Mobile
         Social_login = 0
-        print(Mobile)
         d = {'email':email,'username':username,'Mobile':"",'Profile_Picture':"",'Social_login':Social_login}       
         if a.Mobile:
             d = {'email':email,'username':username,'Mobile':str(Mobile),'Profile_Picture':"",'Social_login':Social_login} 
@@ -790,13 +773,10 @@ class loginapi(APIView):
             resp = serializer.data
         try:
             username = User.objects.get(email=email).username
-            print(username)
         except Exception as e:
             return Response({'status_code':0,'detail':{"message":"User Not Found"} },status=status.HTTP_200_OK)
-        print(username)
         if username:
             user = authenticate(username=username, password=password)
-            print(user)
 
             if user is not None:
                 if user.is_active:
@@ -813,7 +793,6 @@ class loginapi(APIView):
 
 def android(request):
     andr_users = Profile.objects.filter(Application_type=1)
-    print(andr_users)
     context = {'android':andr_users}
     return render(request,'android_users.html',context)
 
@@ -823,7 +802,6 @@ def pub_details(request):
         if form.is_valid():
             a = form.save(commit=False)
             a.user=request.user
-            print(a.user)
             a.save()
             form.save_m2m()
             messages.success(request,'Successfully Added')      
@@ -867,13 +845,11 @@ def view_pub_details(request):
 
 def my_papers(request):
     papers = PublisherDetail.objects.filter(Type=1,user=request.user)
-    print(request.user)
     context = {'papers':papers}
     return render(request,'mypapers.html',context)
 
 def my_magazines(request):
     magazine = PublisherDetail.objects.filter(Type=2,user=request.user)
-    print(request.user)
     context = {'magazines':magazine}
     return render(request,'mymagazines.html',context)    
 
@@ -893,28 +869,17 @@ def upload(request,pk):
     d = [i for i in a.Sub_Edition.all() ]
     length = len(a.Sub_Edition.all())
     n = a.Name
-    # s = Sub_Edition.objects.all()
-    # print(s)
-    # s.delete()
-    # print(s)
     for x in range(0,length):
-        #e.delete()
         e = Sub_Edition.objects.create(Edition=d[x],Name=n)
         t = Sub_Edition.objects.filter(Name=n,Edition=d[x])
-        print(t)
         for u in Sub_Edition.objects.filter(Name=n,Edition=d[x]).values_list("id", flat=True).distinct():
             pass
         Sub_Edition.objects.filter(pk__in=Sub_Edition.objects.filter(Name=n,Edition=d[x]).values_list('id',flat=True)[1:]).delete()
-        print(n)
-    print(n)
     y = Sub_Edition.objects.filter(Name=n).distinct()
-    print(y)
 
     if request.method=='POST':
         form = UploadContentForm(request.POST,request.FILES)
-        print('HI')
         if form.is_valid():
-            print('IS')
             b=form.save(commit=False)
             b.Publishing_House = a.Name
             b.Publishing_Name = a.Name
@@ -924,10 +889,7 @@ def upload(request,pk):
             b.user = request.user
             b.Main_Edition = a.Main_Edition
             b.Sub_Edition = form.cleaned_data.get('Sub_Editions')
-            print(form.cleaned_data.get('Sub_Editions'))
-            print(b.Add_PDF)
             pdf1 = b.Add_PDF
-            print(pdf1)
             b.save()
             name = b.Publishing_Name
             image = b.Add_Logo
@@ -940,7 +902,6 @@ def upload(request,pk):
             newspap.delete()
             newspaper = NewsPaperAdmin.objects.create(name=name,image=image,url=url,mainedition=mainedition,
                                     subedition=subedition,user=user,Uploaded_at=uploaded_at)
-            print(newspaper)
 
             messages.success(request,'Successfully Uploaded')
             form = UploadContentForm()
@@ -959,15 +920,10 @@ def edition(request,pk):
     mainedition = content.Main_Edition
     sub = content.Sub_Edition.all()
     language = content.Language
-    print(language)
-    print(sub)
-    print(mainedition)
     newspaper = NewsPaper.objects.filter(name=name)
-    print(newspaper)
     sub1=[]
     for n in newspaper:
         sub1.append(n.subedition)
-    print(sub1)
     context = {'name':name,'image':image,'mainedition':mainedition,'sub':sub,'newspaper':newspaper,'language':language}
     return render(request,'edition.html',context)    
 
@@ -1005,15 +961,12 @@ def addstate(request):
 
 def publisherdetailedit(request,pk):
     pub = PublisherDetail.objects.get(pk=pk)  
-    print(pub)
-    print(pub.Type)
     pub_form = PublisherDetailEditForm(instance=pub)
     if request.method=='POST':
         form = PublisherDetailEditForm(request.POST,request.FILES, instance=pub)
         if form.is_valid():
             pub = form.save()
             pub.save()
-            print(pub.Type)
             if pub.Type=='1':
                 return redirect('content:my_papers')
             else:
@@ -1024,7 +977,6 @@ def publisherdetailedit(request,pk):
 
 def deletepapers(request,pk):
     paper = PublisherDetail.objects.filter(Type=1,user=request.user).get(pk=pk)
-    print(paper)
     paper.delete()
     return redirect('content:my_papers')
 
@@ -1581,13 +1533,8 @@ def politicalapi(request):
             resp1['Politician_Survey'] = polsurveyserializer.data
             resp1['Politician_Comments'] = polcommentserializer.data
             resp1['Politician_Rating'] = avg_rating
-            for i in polcomment:
-                
-                if i.image == '':
-                    print(i.id)
-                    c = i.id
-                    print(c)
-                    resp1['Politician_Comments'][c-1]['image'] = ""
+            resp1['video'] = resp1['video_link'][-11:]
+            print(resp1['video_link'])
             # for i in polcomment:
             #     c = [c for c in polcomment if  i.image == ""]
             #     print(c)

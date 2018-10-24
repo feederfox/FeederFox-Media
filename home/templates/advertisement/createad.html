@@ -1,0 +1,48 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+{% block pagecontent %}
+{% include 'header1.html' %}
+<br><br>
+<div class="container">
+	<div class="col-sm-6">
+		{% if messages %}
+  <ul class="messages">
+ {% for message in messages %}
+<li>{{ message }}</li>
+ {% endfor %}
+ </ul>
+ {% endif %}
+		<form action="" method="POST" id ="createadForm" data-cities-url="{% url 'advertisement:ajax-load_edition' %}" novalidate class="form" enctype="multipart/form-data">
+			{% csrf_token %}
+			{{ form|crispy}}
+			<br>
+			{% if c %}
+			<p>Total Amount in Rupees : <input type="" value="{{ c }}" name=""></p>
+			{% endif %}
+			<button type="submit" class="btn btn-danger"> Submit </button>
+		</form>
+ <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+  <script>
+    $("#id_Name").change(function () {
+      var url = $("#createadForm").attr("data-cities-url");  // get the url of the `load_cities` view
+      var Nameid = $(this).val();  // get the selected country ID from the HTML input
+
+      $.ajax({                       // initialize an AJAX request
+        url: url,                    // set the url of the request (= localhost:8000/hr/ajax/load-cities/)
+        data: {
+          'Name': Nameid       // add the country id to the GET parameters
+        },
+        success: function (data) {   // `data` is the return of the `load_cities` view function
+          $("#id_edition").html(data);  // replace the contents of the city input with the data that came from the server
+        }
+      });
+
+    });
+  </script>
+	</div>
+</div>
+<br><br><br>
+{% include 'footer.html' %}
+
+{% endblock %}
+

@@ -27,6 +27,8 @@ urlpatterns = [
     url(r'^paypal/',include('paypal.standard.ipn.urls')),
     url(r'^payment/',include('payments.urls',namespace='payment')),
     url(r'^ratings/', include('star_ratings.urls', namespace='ratings', app_name='ratings')),
+    url(r'^careers/',include('careers.urls',namespace='careers')),
+    url(r'^advertisement/',include('advertisement.urls',namespace='advertisement')),
 ]
 
 

@@ -296,6 +296,18 @@
 <a href="https://www.facebook.com/sharer/sharer.php?u={{ request.build_absolute_uri }}">
 Share on Facebook
 </a>
+<br><br>
+<h2>Buy for $5.00</h2>
+<script type="text/javascript">
+  Stripe.setPublishableKey('{{ publish_key }}')
+</script>
+<p>{{ publish_key }} </p>
+<script src="https://checkout.stripe.com/checkout.js" class="stripe-button"
+    data-key=""
+    data-description="A Django Charge"
+    data-amount="500"
+    data-locale="auto">
+</script>
 
 <script type="text/javascript">
 // If absolute URL from the remote server is provided, configure the CORS

@@ -13,6 +13,8 @@ from django.contrib.auth.models import User
 from contents.models import NewsPaper,Magazine,Article_upload,Article
 from allauth.socialaccount.providers.facebook.views import FacebookOAuth2Adapter
 from rest_auth.registration.views import SocialLoginView
+from django.views.generic.base import TemplateView
+
 
 class FacebookLogin(SocialLoginView):
     adapter_class = FacebookOAuth2Adapter
@@ -315,6 +317,16 @@ def post(request):
     form = PostForm()
     return render(request,'post.html',{'form':form})
 
+
+
+# class pdf(TemplateView):
+#     template_name = 'pdf.html'
+
+#     def get_context_data(self, **kwargs): # new
+#         context = super().get_context_data(**kwargs)
+#         context['key'] = 'pk_test_GHTiTTmRBwJ5c9ooU2TLvBmA'
+#         return context
+
 def newspapers(request):
     newspapers = NewsPaper.objects.all()
     print(newspapers)
@@ -328,7 +340,9 @@ def pdf(request,pk):
     edition = newspapers.subedition
     print(name)
     print(url)
-    context = {'name':name,'url':url,'edition':edition}
+    publish_key = settings.STRIPE_PUBLISHABLE_KEY
+    print(publish_key)
+    context = {'name':name,'url':url,'edition':edition,'publish_key':publish_key}
     return render(request,'pdf.html',context)
 
 def view_post(request):

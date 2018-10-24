@@ -80,74 +80,44 @@
 
 </div>
 
-<!-- <div class="job-listings">
-
-  <div class="listing-title">Current Openings</div>
-
-  <div class="single-job">
-    <div class="icon"><i class="fa fa-code-fork"></i></div>
-    <div class="job-title">Mobile Developer</div>
-    <div class="job-description">Do you got the chops to build Android or iOS applications.</div>
-    <a href="#" class="job-cta">
-      Apply Now
-    </a>
-  </div>
-
-  <div class="single-job">
-    <div class="icon"><i class="fa fa-code-fork"></i></div>
-    <div class="job-title">Mobile Developer</div>
-    <div class="job-description">Do you got the chops to build Android or iOS applications.</div>
-    <a href="#" class="job-cta">
-      Apply Now
-    </a>
-  </div>
-
-  <div class="single-job">
-    <div class="icon"><i class="fa fa-code-fork"></i></div>
-    <div class="job-title">Mobile Developer</div>
-    <div class="job-description">Do you got the chops to build Android or iOS applications.</div>
-    <a href="#" class="job-cta">
-      Apply Now
-    </a>
-  </div>
-
-</div>
-
-<div class="job-footer">
-  We're always looking for creative problem solvers
-</div> -->
 
 <div class="container">
   <div class="item-title-new">
     Current openings
   </div>
   <div class="row">
-    <div class="col-md-3">
+  {% for openings in openings %}
+  <div class="col-md-3">
+    
   <div class="wrapper">
     <div class="orange-top orange-border"></div>
     <div class="orange-left orange-border"></div>
     <a class="white-card" href="#">
       <img src="https://s3.amazonaws.com/levelup-assets/temp/design.png" alt="Design"/>
-      <p class="category">HR Recruiter: 0-2yr <br/>Experience</p>
-      <span class="CTA" data-toggle="modal" data-target="#myModal1">Job Description</span>
+      <p class="category">{{ openings.Position }} : {{ openings.Experience }} <br/>Experience</p>
+      <span class="CTA" data-toggle="modal" data-target="#myModal1{{ openings.id }}">Job Description</span>
+      </a>
             <!-- Modal -->
-<div id="myModal1" class="modal fade" role="dialog">
+<div id="myModal1{{ openings.id }}" class="modal fade" role="dialog">
   <div class="modal-dialog">
 
     <!-- Modal content-->
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal">&times;</button>
-        <h4 class="modal-title">HR Recruiter: 0-2yr experience</h4>
+        <h4 class="modal-title">{{ openings.Position }} : {{ openings.Experience }} experience</h4>
       </div>
       <div class="modal-body">
         <p style="font-size:20px;">
 
-Feederfox is looking for an experienced, smart, aggressive, enthusiastic and a self-motivated HR recruiter to join their Recruitment Team. The role will allow you the opportunity to set up and be part of a new HR experience for one of the fastest growing start up by recruiting the best of talent.<br/>
+{{ openings.Job_Description }} .<br/>
 
 <b>Roles and Responsibilities:</b>
 
-You will be responsible for growing Feederfox employee base by recruiting the best across both Non-Tech and Tech positions The role will require you to source, screen, interview, assess and recruit high volumes of candidates You will need to ensure continuous pipeline creation for our various open positions The role requires Creation of Job description Identification of prospective candidates using a variety of channels/sources Assessing candidates to ensure role match, cultural fitment etc Arranging management interviews by coordinating schedules. Following-up references and checking of credits Successful closures of open positions Candidates should Have at least experience in Recruitment.</p>
+{{ openings.Roles_and_Responsibilities }} .</p>
+
+<a href="{% url 'careers:application' openings.id %} " class="btn btn-default">Apply Now</a>
+
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
@@ -159,6 +129,9 @@ You will be responsible for growing Feederfox employee base by recruiting the be
     </a>
   </div>
 </div>
+{% endfor %}
+
+
 
 <div class="col-md-3">
   <div class="wrapper">
@@ -422,8 +395,8 @@ Web App design(UI/ux)  <br/>
     hr@feederfox.com</h4>
           </div>
             <button class="btn btn-default btn-send" type="submit"> <span class="glyphicon glyphicon-send"></span> Send </button>
-          </div>
         </form>
+      </div>
 </div>
 
 </div>
